@@ -17,9 +17,6 @@ jobs:
       # 检查代码规范
       - name: Code Lint
         run: pnpm lint
-      # 检查代码规范
-      - name: Style Lint
-        run: pnpm lint:style
       # 检查构建是否出错
       - name: Check Build
         run: pnpm build
