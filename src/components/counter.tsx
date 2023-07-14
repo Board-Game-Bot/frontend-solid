@@ -1,6 +1,6 @@
 import { createSignal } from 'solid-js';
 
-export function Counter(props: { class: any }) {
+export function Counter(props: { class: string }) {
   const [count, setCount] = createSignal(0);
 
   return (
