@@ -1,0 +1,22 @@
+name: 部署项目
+run-name: "${{ github.actor }} 发起了全流量部署 🏗"
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2.1.5
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: |
+        pnpm i
+        pnpm build
