@@ -3,9 +3,9 @@ run-name: "${{ github.actor }} 发起了全流量部署 🏗"
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
