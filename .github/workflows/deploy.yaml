@@ -24,7 +24,6 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           check-latest: true
-          cache: 'pnpm'
 
       - name: Setup PNPM ✨
         run: npm i -g pnpm
