@@ -25,6 +25,8 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           check-latest: true
+
+      - name: Setup PNPM ✨
         run: npm i -g pnpm
 
       - name: Install Dependencies ⏬
