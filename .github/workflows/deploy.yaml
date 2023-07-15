@@ -27,9 +27,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Setup PNPM ✨
-      - uses: pnpm/action-setup@v2
-        with:
-          version: latest
+        run: npm i -g pnpm
 
       - name: Install Dependencies ⏬
         run: pnpm i
