@@ -12,17 +12,26 @@ jobs:
   Core-Action:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository code
+      - name: Checkout 🛎️
         uses: actions/checkout@v3
 
-      - name: Install Pnpm
-        run: npm i -g pnpm
+      - name: Setup PNPM ✨
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
 
-      - name: Install Package
+      - name: Setup Node Env 🏗
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          check-latest: true
+          cache: 'pnpm'
+
+      - name: Install Dependencies ⏬
         run: pnpm i
 
-      - name: Code Lint
+      - name: Code Lint 🔍
         run: pnpm lint
 
-      - name: Check Build
+      - name: Check Build 📦
         run: pnpm build

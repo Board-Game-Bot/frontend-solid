@@ -19,14 +19,17 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@master
 
+      - name: Setup PNPM ✨
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
       - name: Setup Node Env 🏗
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
           check-latest: true
-
-      - name: Setup PNPM ✨
-        run: npm i -g pnpm
+          cache: 'pnpm'
 
       - name: Install Dependencies ⏬
         run: pnpm i
