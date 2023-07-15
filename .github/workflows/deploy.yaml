@@ -41,6 +41,6 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           SOURCE: /dist/**
-          TARGET: /var/www/app3597.acapp.acwing.com.cn
+          TARGET: /var/www/board-bot.top
 
 # 感谢大佬 Runc 提供帮助
