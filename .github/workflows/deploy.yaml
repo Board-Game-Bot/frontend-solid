@@ -20,10 +20,11 @@ jobs:
         uses: actions/checkout@master
 
       - name: Setup Node Env 🏗
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
           check-latest: true
+          cache: 'pnpm'
 
       - name: Setup PNPM ✨
         run: npm i -g pnpm
