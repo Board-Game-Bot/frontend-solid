@@ -1,11 +1,17 @@
 name: 测试代码
 run-name: "${{ github.actor }} 启动了测试代码 🚀"
-on: [push]
+
+on:
+  push:
+    branches:
+      - '!main'
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
 jobs:
   Core-Action:
     runs-on: ubuntu-latest
     steps:
-
       - name: Check out repository code
         uses: actions/checkout@v3
 
