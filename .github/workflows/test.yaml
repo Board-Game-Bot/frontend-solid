@@ -1,22 +1,22 @@
 name: 测试代码
 run-name: "${{ github.actor }} 启动了测试代码 🚀"
-on: [push, pull_request]
+on: [push]
 jobs:
   Core-Action:
     runs-on: ubuntu-latest
     steps:
-      # 检测仓库代码
+
       - name: Check out repository code
         uses: actions/checkout@v3
-      # 安装 pnpm
+
       - name: Install Pnpm
         run: npm i -g pnpm
-      # 安装依赖
+
       - name: Install Package
         run: pnpm i
-      # 检查代码规范
+
       - name: Code Lint
         run: pnpm lint
-      # 检查构建是否出错
+
       - name: Check Build
         run: pnpm build
