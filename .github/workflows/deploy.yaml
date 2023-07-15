@@ -2,8 +2,6 @@ name: 全流量部署
 run-name: "${{ github.actor }} 发起了全流量部署 🏗"
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
     types: [ closed ]
     branches: [ main ]
