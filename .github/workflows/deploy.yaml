@@ -25,19 +25,20 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           check-latest: true
+        run: npm i -g pnpm
 
       - name: Install Dependencies ⏬
-        run: yarn
+        run: pnpm i
 
       - name: Build Project 📦
-        run: yarn build
+        run: pnpm build
 
       - name: Deploy 🚚
         uses: easingthemes/ssh-deploy@main
         with:
-          SSH_PRIVATE_KEY: ${{ secrets.REMOTE_PRIVATE_KEY }}
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST_PROD }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER_PROD }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
           SOURCE: /dist/**
           TARGET: /var/www/app3597.acapp.acwing.com.cn
 
