@@ -1,9 +1,9 @@
-import { Counter } from '../../components/counter';
+import Counter from '../../components/counter';
 import logo from '../../logo.svg';
 import styles from './index.module.css';
 import { JSX } from 'solid-js';
 
-export function WelcomeView(): JSX.Element {
+export default function WelcomeView(): JSX.Element {
   return (
     <div class={styles.App}>
       <header class={styles.header}>

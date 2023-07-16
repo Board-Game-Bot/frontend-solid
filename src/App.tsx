@@ -1,10 +1,12 @@
-import { Route, Routes } from '@solidjs/router';
-import { WelcomeView } from './pages/welcome';
+import { Router, useRoutes } from '@solidjs/router';
+import routes from './config/routes';
 
 export function App() {
+  const Routes = useRoutes(routes);
+
   return (
-    <Routes>
-      <Route path="/" component={WelcomeView} />
-    </Routes>
+    <Router>
+      <Routes />
+    </Router>
   );
 }
