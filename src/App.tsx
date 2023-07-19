@@ -3,7 +3,7 @@ import routes from './config/routes';
 import NavBar from './components/NavBar';
 import SideBar from './components/SideBar';
 
-export function App() {
+export default function App() {
   const Routes = useRoutes(routes);
 
   return (

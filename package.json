@@ -35,13 +35,13 @@
     "unocss": "^0.53.5",
     "vite": "^4.4.4",
     "vite-plugin-eslint2": "^3.3.0",
-    "vite-plugin-solid": "^2.5.0"
+    "vite-plugin-solid": "^2.7.0"
   },
   "dependencies": {
     "@solidjs/router": "^0.8.2",
     "axios": "^1.4.0",
     "lodash": "^4.17.21",
     "solid-icons": "^1.0.11",
-    "solid-js": "^1.6.10"
+    "solid-js": "^1.7.8"
   }
 }
