@@ -2,6 +2,7 @@
 import { render } from 'solid-js/web';
 
 import './index.css';
+import 'uno.css';
 import { App } from './App';
 import { Router } from '@solidjs/router';
 
