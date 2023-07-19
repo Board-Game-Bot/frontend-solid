@@ -3,3 +3,6 @@ dist
 .idea
 
 .eslintcache
+
+postcss.config.js
+tailwind.config.js

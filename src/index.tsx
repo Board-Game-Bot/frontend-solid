@@ -5,6 +5,7 @@ import './index.css';
 import 'uno.css';
 import { App } from './App';
 import { Router } from '@solidjs/router';
+import 'virtual:uno.css';
 
 const root = document.getElementById('root');
 
