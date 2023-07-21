@@ -2,11 +2,16 @@ import { AiOutlineUser } from 'solid-icons/ai';
 import Modal from '@/components/Modal';
 import { createSignal } from 'solid-js';
 import Input from '@/components/Input';
-import { getFormData } from '@/utils/util';
+import { getFormData, handleResponseError } from '@/utils/util';
 import RadioGroup from '@/components/RadioGroup';
-import { authLoginApi, authRegisterApi, AuthRegisterDto } from '@/api/auth';
-import { ResponseError } from '@/types';
+import {
+  authLoginApi,
+  AuthLoginDto,
+  authRegisterApi,
+  AuthRegisterDto,
+} from '@/api/auth';
 import { setJwt, setUser, User } from '@/store/user';
+import { ResponseError } from '@/api';
 
 export default function AuthButton() {
   const [modalVisible, setModalVisible] = createSignal(false);
@@ -24,44 +29,36 @@ export default function AuthButton() {
     setModalVisible(false);
   }
 
+  async function register(data: AuthRegisterDto) {
+    try {
+      const resp = await authRegisterApi(data);
+      const { user, jwt } = resp.data;
+      succeedAuth(user, jwt);
+    } catch (e) {
+      handleResponseError(e as ResponseError);
+    }
+  }
+
+  async function login(data: AuthLoginDto) {
+    try {
+      const resp = await authLoginApi(data);
+      const { user, jwt } = resp.data;
+      succeedAuth(user, jwt);
+    } catch (e) {
+      handleResponseError(e as ResponseError);
+    }
+  }
+
   const handleFormSubmit = async (e: SubmitEvent) => {
     e.preventDefault();
 
     if (type() === 'register') {
-      try {
-        const resp = await authRegisterApi(getFormData(e) as AuthRegisterDto);
-        if (resp.status === 'succeed') {
-          const { user, jwt } = resp.data;
-          succeedAuth(user, jwt);
-        } else {
-          const { message } = resp.data;
-          window.alert(`${message}`);
-        }
-      } catch (e) {
-        const err: ResponseError = e as ResponseError;
-        if (err.statusCode === 400) {
-          window.alert(err.message.join(';'));
-        } else {
-          window.alert(`错误：${e}`);
-        }
-      }
+      register(getFormData(e) as AuthRegisterDto);
     } else if (type() === 'login') {
-      try {
-        const resp = await authLoginApi(getFormData(e) as AuthRegisterDto);
-
-        if (resp.status === 'succeed') {
-          const { user, jwt } = resp.data;
-          succeedAuth(user, jwt);
-        } else {
-          window.alert(`${resp.data.message}`);
-        }
-      } catch (e) {
-        window.alert(`错误：${e}`);
-      }
+      login(getFormData(e) as AuthLoginDto);
     }
   };
 
-  // eslint-disable-next-line solid/reactivity
   const [type, setType] = createSignal('login');
 
   const handleTypeChange = (v: string) => {

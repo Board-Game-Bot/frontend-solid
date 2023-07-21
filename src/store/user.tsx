@@ -1,6 +1,7 @@
 import { createEffect, createSignal, onMount } from 'solid-js';
 import { userProfileApi } from '@/api/user';
-import { ResponseError } from '@/types';
+import { ResponseError } from '@/api';
+import { handleResponseError } from '@/utils/util';
 
 export interface User {
   loginStatus: 'no' | 'pending' | 'login';
@@ -31,20 +32,14 @@ createEffect(() => {
     setTimeout(async () => {
       try {
         const resp = await userProfileApi();
-        if (resp.status === 'succeed') {
-          setUser({
-            ...resp.data.user,
-            loginStatus: 'login',
-          });
-        }
+        const { user } = resp.data;
+        setUser({
+          ...user,
+          loginStatus: 'login',
+        });
       } catch (e) {
         const err = e as ResponseError;
-        if (err.statusCode === 401) {
-          window.alert('认证信息已过期，请重新登录');
-          localStorage.setItem('jwt', '');
-        } else {
-          window.alert(`错误：${err.message.toString()}`);
-        }
+        handleResponseError(err);
       }
     });
   }
