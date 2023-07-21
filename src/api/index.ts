@@ -13,10 +13,6 @@ export type ResponseError =
       extra?: Record<string, any>;
     }
   | {
-      statusCode: 200;
-      data: Record<string, any>;
-    }
-  | {
       statusCode: 400;
       message: string[];
       error: string;
