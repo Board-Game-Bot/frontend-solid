@@ -1,18 +1,30 @@
 import axios, { InternalAxiosRequestConfig } from 'axios';
 import { jwt } from '@/store/user';
 
-export type Response<T> = Promise<
+export type Response<T> = Promise<{
+  statusCode: 200;
+  data: T;
+}>;
+
+export type ResponseError =
   | {
-      status: 'succeed';
-      data: T;
+      statusCode: 4000;
+      message: string;
+      extra?: Record<string, any>;
     }
   | {
-      status: 'failed';
-      data: {
-        message: any;
-      };
+      statusCode: 200;
+      data: Record<string, any>;
     }
->;
+  | {
+      statusCode: 400;
+      message: string[];
+      error: string;
+    }
+  | {
+      statusCode: 401;
+      error: string;
+    };
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_REQ_URL,
