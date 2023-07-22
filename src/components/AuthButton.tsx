@@ -12,6 +12,9 @@ import {
 } from '@/api/auth';
 import { setJwt, setUser, User } from '@/store/user';
 import { ResponseError } from '@/api';
+import { match, required, length } from '@/utils/validators';
+import { Validator } from '@/types';
+import Button from '@/components/Button';
 
 export default function AuthButton() {
   const [modalVisible, setModalVisible] = createSignal(false);
@@ -69,6 +72,23 @@ export default function AuthButton() {
     setModalVisible(false);
   }
 
+  function accountValidator(): Validator[] {
+    return [
+      required(),
+      type() === 'register' &&
+        match(/^[a-zA-Z0-9._]*$/, '只能使用大小写字母、数字、下划线、小数点'),
+      type() === 'register' && match(/^[a-zA-Z]/, '使用大小写字母开头'),
+      type() === 'register' && length(6, 18, '长度应在6-18之内'),
+    ];
+  }
+
+  function passwdValidator(): Validator[] {
+    return [
+      required(),
+      type() === 'register' && length(6, 18, '长度应在6-18之内'),
+    ];
+  }
+
   return (
     <>
       <div
@@ -98,8 +118,19 @@ export default function AuthButton() {
               { label: '注册', value: 'register' },
             ]}
           />
-          <Input class="w-full" label="账户" field="account" />
-          <Input class="w-full" label="密码" type="password" field="passwd" />
+          <Input
+            class="w-full my-2"
+            label="账户"
+            field="account"
+            validate={accountValidator()}
+          />
+          <Input
+            class="w-full my-2"
+            label="密码"
+            type="password"
+            field="passwd"
+            validate={passwdValidator()}
+          />
           <div>
             <div>
               <input id="remember" type="checkbox" name="remember" />
@@ -107,9 +138,10 @@ export default function AuthButton() {
             </div>
           </div>
           <div class="py-5 flex justify-end">
-            <button class="text-white text-2xl px-2 py-1 cursor-pointer border-0 rounded-md bg-slate-600 hover:bg-slate-700">
-              {type() === 'register' ? '注册' : '登录'}
-            </button>
+            <Button
+              content={type() === 'register' ? '注册' : '登录'}
+              class="text-white text-2xl bg-slate-600 hover:bg-slate-700"
+            />
           </div>
         </form>
       </Modal>

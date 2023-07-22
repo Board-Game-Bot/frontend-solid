@@ -18,29 +18,31 @@ export default function RadioGroup(props: Props) {
   };
 
   return (
-    <div class={`${props.class} box-border bg-gray-300 p-1 w-fit`}>
-      <For each={props.options}>
-        {({ label, value }) => (
-          <>
-            <label
-              class={`inline-block box-border px-2 py-1 cursor-pointer ${
-                currentValue() === value && 'bg-gray-200'
-              }`}
-              for={value}
-            >
-              {label}
-            </label>
-            <input
-              id={value}
-              type="radio"
-              class="hidden"
-              value={value}
-              name={props.field}
-              onChange={handleChange}
-            />
-          </>
-        )}
-      </For>
+    <div class={`${props.class} box-border rounded-md bg-gray-300 p-1`}>
+      <div class="w-full flex">
+        <For each={props.options}>
+          {({ label, value }) => (
+            <>
+              <label
+                class={`rounded-md inline-block box-border text-center px-2 py-1 whitespace-nowrap overflow-ellipsis cursor-pointer flex-1 ${
+                  currentValue() === value && 'bg-gray-200'
+                }`}
+                for={value}
+              >
+                {label}
+              </label>
+              <input
+                id={value}
+                type="radio"
+                class="hidden"
+                value={value}
+                name={props.field}
+                onChange={handleChange}
+              />
+            </>
+          )}
+        </For>
+      </div>
     </div>
   );
 }

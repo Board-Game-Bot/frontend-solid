@@ -3,10 +3,10 @@ import { setJwt, setUser, user } from '@/store/user';
 
 export default function UserInfoButton() {
   const options: DropdownOption[] = [
-    { key: 'space', label: '个人空间' },
-    { key: 'settings', label: '修改信息' },
+    { value: 'space', label: '个人空间' },
+    { value: 'settings', label: '修改信息' },
     {
-      key: 'logout',
+      value: 'logout',
       label: (
         <div class="text-black hover:bg-red-700 hover:text-white m-0 px-2 py-2 rounded-md">
           注销账号

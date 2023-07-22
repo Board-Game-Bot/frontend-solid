@@ -1,5 +1,6 @@
-export interface ResponseError {
-  statusCode: number;
-  message: Record<string, any>;
-  error: string;
-}
+type MaybePromise<T> = T | Promise<T>;
+
+export type Validator =
+  | ((_: string) => MaybePromise<string>)
+  | false
+  | undefined;

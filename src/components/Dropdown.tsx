@@ -2,7 +2,7 @@ import { children, createSignal, For, JSX } from 'solid-js';
 import { debounce, isNumber, isString, isUndefined } from 'lodash';
 
 export interface DropdownOption {
-  key: string | number;
+  value: string | number;
   label: JSX.Element | string | number;
 }
 
@@ -53,7 +53,7 @@ export default function Dropdown(props: Props) {
       {visible() && (
         <div class="cursor-default absolute right-0 top-[110%] bg-slate-100 rounded-lg px-2 py-2">
           <For each={props.options}>
-            {({ key, label }) => (
+            {({ value, label }) => (
               <>
                 {(isNumber(label) || isString(label)) && (
                   <div
@@ -62,7 +62,7 @@ export default function Dropdown(props: Props) {
                       ((isNumber(label) || isString(label)) &&
                         ' hover:bg-slate-200 text-black')
                     }
-                    onClick={() => handleOptionClick(key)}
+                    onClick={() => handleOptionClick(value)}
                   >
                     {label}
                   </div>
@@ -70,7 +70,7 @@ export default function Dropdown(props: Props) {
                 {!isNumber(label) && !isString(label) && (
                   <div
                     class="cursor-pointer"
-                    onClick={() => handleOptionClick(key)}
+                    onClick={() => handleOptionClick(value)}
                   >
                     {label}
                   </div>

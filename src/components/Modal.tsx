@@ -27,7 +27,7 @@ export default function Modal(props: Props & ParentProps<any>) {
             <header class="text-white bg-slate-700 px-2 py-0 border-b-2 border-black">
               <h2 class="m-0 py-1 px-2">{props.title}</h2>
             </header>
-            <main class="w-full">{props.children}</main>
+            <main class="w-full max-h-[80vh]">{props.children}</main>
           </div>
         </div>
       )}
