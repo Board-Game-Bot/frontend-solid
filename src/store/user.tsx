@@ -40,6 +40,9 @@ createEffect(() => {
       } catch (e) {
         const err = e as ResponseError;
         handleResponseError(err);
+        if (err.statusCode === 401) {
+          localStorage.setItem('jwt', '');
+        }
       }
     });
   }
