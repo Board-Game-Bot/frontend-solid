@@ -20,6 +20,7 @@ export default function Dropdown(props: Props) {
     toggleVisible(true);
   };
 
+  // eslint-disable-next-line solid/reactivity
   const toggleVisible = debounce((_visible?: boolean) => {
     if (isUndefined(_visible)) {
       setVisible(!visible());
@@ -42,6 +43,10 @@ export default function Dropdown(props: Props) {
     props.onOptionClick && props.onOptionClick(key);
   };
 
+  const labelClass = (label: string) =>
+    'cursor-pointer m-0 py-2 px-2 rounded-md' +
+    ((isNumber(label) || isString(label)) && ' hover:bg-slate-200 text-black');
+
   return (
     <div
       class={`${props.class} cursor-pointer`}
@@ -55,19 +60,14 @@ export default function Dropdown(props: Props) {
           <For each={props.options}>
             {({ value, label }) => (
               <>
-                {(isNumber(label) || isString(label)) && (
+                {isNumber(label) || isString(label) ? (
                   <div
-                    class={
-                      'cursor-pointer m-0 py-2 px-2 rounded-md' +
-                      ((isNumber(label) || isString(label)) &&
-                        ' hover:bg-slate-200 text-black')
-                    }
+                    class={labelClass(`${label}`)}
                     onClick={() => handleOptionClick(value)}
                   >
                     {label}
                   </div>
-                )}
-                {!isNumber(label) && !isString(label) && (
+                ) : (
                   <div
                     class="cursor-pointer"
                     onClick={() => handleOptionClick(value)}

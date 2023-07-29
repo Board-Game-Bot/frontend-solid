@@ -1,5 +1,6 @@
-import Dropdown, { DropdownOption } from '@/components/Dropdown';
+import { DropdownOption } from '@/components/common/Dropdown';
 import { setJwt, setUser, user } from '@/store/user';
+import { Dropdown } from '@/components/common';
 
 export default function UserInfoButton() {
   const options: DropdownOption[] = [

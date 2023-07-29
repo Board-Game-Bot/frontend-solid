@@ -1,3 +1,6 @@
-export default function SideBar() {
-  return <div class="w-full h-full shadow-xl bg-gray-100" />;
+interface Props {
+  children?: any;
+}
+export default function SideBar(props: Props) {
+  return <div class="full shadow-xl bg-gray-100">{props.children}</div>;
 }

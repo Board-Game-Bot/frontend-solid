@@ -1,5 +1,6 @@
 import { createSignal, JSX, For } from 'solid-js';
 import { faker } from '@faker-js/faker';
+import { ContentBox } from '@/components/common';
 
 function Title(props: { title: string }) {
   return <h2 class="m-0">{props.title}</h2>;
@@ -17,7 +18,7 @@ export default function WelcomeView(): JSX.Element {
   );
 
   return (
-    <div class="max-w-[1000px] m-auto">
+    <ContentBox>
       <h1>Welcome View</h1>
       <For each={instructions()}>
         {([title, content]) => (
@@ -27,6 +28,6 @@ export default function WelcomeView(): JSX.Element {
           </div>
         )}
       </For>
-    </div>
+    </ContentBox>
   );
 }

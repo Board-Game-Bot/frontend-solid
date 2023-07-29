@@ -33,7 +33,6 @@
     "typescript": "^4.9.5",
     "unocss": "^0.53.5",
     "vite": "^4.4.4",
-    "vite-plugin-eslint2": "^3.3.0",
     "vite-plugin-solid": "^2.7.0"
   },
   "dependencies": {
