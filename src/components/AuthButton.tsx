@@ -1,9 +1,6 @@
 import { AiOutlineUser } from 'solid-icons/ai';
-import Modal from '@/components/Modal';
 import { createSignal } from 'solid-js';
-import Input from '@/components/Input';
 import { getFormData, handleResponseError } from '@/utils/util';
-import RadioGroup from '@/components/RadioGroup';
 import {
   authLoginApi,
   AuthLoginDto,
@@ -14,7 +11,8 @@ import { setJwt, setUser, User } from '@/store/user';
 import { ResponseError } from '@/api';
 import { match, required, length } from '@/utils/validators';
 import { Validator } from '@/types';
-import Button from '@/components/Button';
+import Button from '@/components/common/Button';
+import { Input, Modal, RadioGroup } from '@/components/common';
 
 export default function AuthButton() {
   const [modalVisible, setModalVisible] = createSignal(false);
