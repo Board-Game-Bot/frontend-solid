@@ -1,8 +1,11 @@
 import { DropdownOption } from '@/components/common/Dropdown';
 import { setJwt, setUser, user } from '@/store/user';
 import { Dropdown } from '@/components/common';
+import { useNavigate } from '@solidjs/router';
 
 export default function UserInfoButton() {
+  const navigate = useNavigate();
+
   const options: DropdownOption[] = [
     { value: 'space', label: '个人空间' },
     { value: 'settings', label: '修改信息' },
@@ -17,9 +20,13 @@ export default function UserInfoButton() {
   ];
 
   const handleOptionClick = (key: string | number) => {
-    if (key === 'logout') {
+    if (key === 'space') {
+      navigate(`/user/${user().id}`, { replace: true });
+    } else if (key === 'logout') {
       setUser({
-        ...user(),
+        id: '',
+        name: '',
+        avatar: '',
         loginStatus: 'no',
       });
       setJwt('');
