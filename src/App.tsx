@@ -1,9 +1,10 @@
-import { For } from 'solid-js';
+import { For, Suspense } from 'solid-js';
 import { Link, useRoutes } from '@solidjs/router';
 import routes from './config/routes';
 import NavBar from './components/common/NavBar';
 import SideBar from './components/SideBar';
 import { user } from '@/store/user';
+import Loading from '@/template/loading';
 
 export default function App() {
   const Routes = useRoutes(routes);
@@ -61,7 +62,9 @@ export default function App() {
           </SideBar>
         </div>
         <main class="flex-1 h-full overflow-auto">
-          <Routes />
+          <Suspense fallback={<Loading />}>
+            <Routes />
+          </Suspense>
         </main>
       </div>
     </div>
