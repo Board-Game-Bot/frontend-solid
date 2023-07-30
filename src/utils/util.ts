@@ -1,5 +1,5 @@
 import { ResponseError } from '@/api';
-import { Accessor, createEffect, createSignal } from 'solid-js';
+import { Accessor, createSignal } from 'solid-js';
 
 export function getFormData(e: SubmitEvent): Record<string, any> {
   const data = new FormData(e.target as HTMLFormElement);
@@ -25,18 +25,23 @@ export function handleResponseError(error: ResponseError) {
 }
 
 export function useRequest<T>(
-  api: () => Promise<{
+  api: (..._: any[]) => Promise<{
     statusCode: number;
     data: T;
   }>,
-): [Accessor<T>, Accessor<any>, Accessor<boolean>, () => Promise<any>] {
+): [
+  Accessor<T>,
+  Accessor<any>,
+  Accessor<boolean>,
+  (..._: Parameters<typeof api>) => void,
+] {
   const [data, setData] = createSignal<T>();
   const [isLoading, setIsLoading] = createSignal(false);
   const [error, setError] = createSignal<any>();
 
-  const run = () => {
+  const run = (...args: Parameters<typeof api>) => {
     setIsLoading(true);
-    api()
+    api(...args)
       .then(({ statusCode, data: d }) => {
         if (statusCode === 200) {
           // FIXME
@@ -50,10 +55,5 @@ export function useRequest<T>(
         setIsLoading(false);
       });
   };
-  return [data, error, isLoading, run] as [
-    Accessor<T>,
-    Accessor<any>,
-    Accessor<boolean>,
-    () => Promise<any>,
-  ];
+  return [data as Accessor<T>, error, isLoading, run];
 }
