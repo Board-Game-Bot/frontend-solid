@@ -1,4 +1,5 @@
 import { ResponseError } from '@/api';
+import { Accessor, createEffect, createSignal } from 'solid-js';
 
 export function getFormData(e: SubmitEvent): Record<string, any> {
   const data = new FormData(e.target as HTMLFormElement);
@@ -21,4 +22,38 @@ export function handleResponseError(error: ResponseError) {
   } else {
     window.alert(`意外错误：${(error as any).error}`);
   }
+}
+
+export function useRequest<T>(
+  api: () => Promise<{
+    statusCode: number;
+    data: T;
+  }>,
+): [Accessor<T>, Accessor<any>, Accessor<boolean>, () => Promise<any>] {
+  const [data, setData] = createSignal<T>();
+  const [isLoading, setIsLoading] = createSignal(false);
+  const [error, setError] = createSignal<any>();
+
+  const run = () => {
+    setIsLoading(true);
+    api()
+      .then(({ statusCode, data: d }) => {
+        if (statusCode === 200) {
+          // FIXME
+          setData(d as any);
+        }
+      })
+      .catch((error) => {
+        setError(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+  return [data, error, isLoading, run] as [
+    Accessor<T>,
+    Accessor<any>,
+    Accessor<boolean>,
+    () => Promise<any>,
+  ];
 }
