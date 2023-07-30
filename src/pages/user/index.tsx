@@ -1,5 +1,5 @@
 import { For, onMount } from 'solid-js';
-import { Link, Outlet } from '@solidjs/router';
+import { Link, Outlet, useParams } from '@solidjs/router';
 import { ContentBox } from '@/components/common';
 import BigAvatarBackground from '@/pages/user/components/BigAvatarBackground';
 import { userProfileApi } from '@/api/user';
@@ -8,20 +8,20 @@ import { useRequest } from '@/utils/util';
 const options = ['页面一', '页面二', '页面三'];
 
 export default function UserView() {
-  // const { id } = useParams();
+  const { id } = useParams();
   const [data, error, isLoading, run] = useRequest(userProfileApi);
 
   onMount(() => {
-    run();
+    run(id);
   });
 
-  const user = () => data().user;
+  const user = () => data()?.user;
 
   return (
     <ContentBox>
       {!isLoading() && (
         <>
-          {data() && (
+          {user() && (
             <div class="w-full shdow-xl bg-white">
               <div class="w-full -z-10">
                 <BigAvatarBackground url={user().avatar} />
@@ -63,8 +63,10 @@ export default function UserView() {
           )}
           {error() && (
             <div class="center full">
-              <h1 class="text-7xl font-thin">获取用户信息失败</h1>
-              <p>{error()}</p>
+              <div>
+                <h1 class="text-7xl font-thin">获取用户信息失败</h1>
+                <p class="center text-4xl">{error().message}</p>
+              </div>
             </div>
           )}
         </>
