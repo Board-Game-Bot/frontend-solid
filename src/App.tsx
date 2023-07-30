@@ -34,17 +34,17 @@ export default function App() {
 
   return (
     <div class="flex flex-col w-screen h-screen bg-slate-100">
-      <div class="flex-grow-0 w-full h-[70px] bg-slate-700 text-white drop-shadow-lg">
+      <div class="flex-grow-0 w-full h-[70px] bg-slate-700 text-white drop-shadow-lg z-10">
         <NavBar />
       </div>
-      <div class="flex flex-1 w-full overflow-auto">
+      <div class="flex flex-1 w-full overflow-auto z-0">
         <div class="w-[300px] h-full flex-grow-0 bg-gray-100">
           <SideBar>
             <div class="full box-border px-2">
               <For each={optionGroups()}>
                 {(group) => (
                   <>
-                    <h2 class="pl-3">{group.title}</h2>
+                    <h2 class="pl-3 py-3 m-0">{group.title}</h2>
                     {group.children.map((item) => (
                       <Link
                         activeClass="bg-gray-2"
@@ -60,7 +60,7 @@ export default function App() {
             </div>
           </SideBar>
         </div>
-        <main class="flex-1 h-full overflow-auto">
+        <main class="flex-1 full overflow-auto">
           <Routes />
         </main>
       </div>

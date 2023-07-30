@@ -1,5 +1,5 @@
-import { createEffect, createSignal, For, onMount } from 'solid-js';
-import { Link, Outlet, useParams } from '@solidjs/router';
+import { For, onMount } from 'solid-js';
+import { Link, Outlet } from '@solidjs/router';
 import { ContentBox } from '@/components/common';
 import BigAvatarBackground from '@/pages/user/components/BigAvatarBackground';
 import { userProfileApi } from '@/api/user';
@@ -23,7 +23,7 @@ export default function UserView() {
         <>
           {data() && (
             <div class="w-full shdow-xl bg-white">
-              <div class="w-full">
+              <div class="w-full -z-10">
                 <BigAvatarBackground url={user().avatar} />
               </div>
               <div class="w-full -translate-y-50% translate-x-10 flex">
