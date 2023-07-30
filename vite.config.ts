@@ -2,9 +2,21 @@ import { defineConfig } from 'vite';
 import solid from 'vite-plugin-solid';
 import uno from 'unocss/vite';
 import { fileURLToPath } from 'url';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
-  plugins: [solid(), uno()],
+  plugins: [
+    solid(),
+    uno(),
+    viteStaticCopy({
+      targets: [
+        {
+          src: './_redirects',
+          dest: '',
+        },
+      ],
+    }),
+  ],
   resolve: {
     alias: [
       {
