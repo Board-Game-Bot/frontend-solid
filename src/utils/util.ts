@@ -24,8 +24,8 @@ export function handleResponseError(error: ResponseError) {
   }
 }
 
-export function useRequest<T>(
-  api: (..._: any[]) => Promise<{
+export function useRequest<T, P extends unknown[]>(
+  api: (...args: P) => Promise<{
     statusCode: number;
     data: T;
   }>,
@@ -33,27 +33,39 @@ export function useRequest<T>(
   Accessor<T>,
   Accessor<any>,
   Accessor<boolean>,
-  (..._: Parameters<typeof api>) => void,
+  (...args: P) => Promise<[T | undefined, any]>,
 ] {
   const [data, setData] = createSignal<T>();
   const [isLoading, setIsLoading] = createSignal(false);
   const [error, setError] = createSignal<any>();
 
-  const run = (...args: Parameters<typeof api>) => {
+  const run = async (...args: P): Promise<[T | undefined, any]> => {
     setIsLoading(true);
-    api(...args)
-      .then(({ statusCode, data: d }) => {
-        if (statusCode === 200) {
-          // FIXME
+    const p = api(...args).then(({ statusCode, data: d }) => {
+      if (statusCode === 200) {
+        if (d) {
           setData(d as any);
         }
-      })
-      .catch((error) => {
-        setError(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+        return d;
+      }
+      throw new Error(d as any);
+    });
+    p.catch((error) => {
+      setError(error);
+    }).finally(() => {
+      setIsLoading(false);
+    });
+
+    try {
+      return [await p, undefined];
+    } catch (e) {
+      return [undefined, e];
+    }
   };
-  return [data as Accessor<T>, error, isLoading, run];
+  return [
+    data as Accessor<T>,
+    error as Accessor<any>,
+    isLoading as Accessor<boolean>,
+    run,
+  ];
 }
