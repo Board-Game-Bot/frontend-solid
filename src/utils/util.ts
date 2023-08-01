@@ -33,18 +33,19 @@ export function useRequest<T, P extends unknown[]>(
   Accessor<T>,
   Accessor<any>,
   Accessor<boolean>,
-  (...args: P) => Promise<[T | null, any]>,
+  (...args: P) => Promise<[T | undefined, any]>,
 ] {
   const [data, setData] = createSignal<T>();
   const [isLoading, setIsLoading] = createSignal(false);
   const [error, setError] = createSignal<any>();
 
-  const run = async (...args: P): Promise<[T | null, any]> => {
+  const run = async (...args: P): Promise<[T | undefined, any]> => {
     setIsLoading(true);
     const p = api(...args).then(({ statusCode, data: d }) => {
       if (statusCode === 200) {
-        // FIXME
-        setData(d as any);
+        if (d) {
+          setData(d as any);
+        }
         return d;
       }
       throw new Error(d as any);
@@ -56,9 +57,9 @@ export function useRequest<T, P extends unknown[]>(
     });
 
     try {
-      return [await p, null];
+      return [await p, undefined];
     } catch (e) {
-      return [null, e];
+      return [undefined, e];
     }
   };
   return [
