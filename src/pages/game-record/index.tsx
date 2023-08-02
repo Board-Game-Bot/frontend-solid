@@ -1,9 +1,8 @@
-import { ContentBox } from '@/components/common';
+import { ContentBox, Pagination, Table } from '@/components/common';
 import { createSignal, For, onMount } from 'solid-js';
 import { useRequest } from '@/utils/util';
 import { gameGetAllApi } from '@/api/game';
 import { recordGetApi } from '@/api/record';
-import Table from '@/components/common/Table';
 import { User } from '@/store/user';
 
 const columns = [
@@ -55,36 +54,38 @@ export default function GameRecordView() {
   }
 
   const preparedRecords = () =>
-    records().map((record) => ({
-      ...record,
-      id: <span class="font-mono">{record.id.slice(0, 8)}...</span>,
-      users: (
-        <div>
-          <For each={record.users}>
-            {(user) => (
-              <div class="flex items-center">
-                <img
-                  class="w-20px h-20px rounded-full my-1"
-                  src={user.avatar}
-                  alt="user_avatar"
-                />
-                <span>{user.name}</span>
-              </div>
-            )}
-          </For>
-        </div>
-      ),
-      operate: (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            handleWatchRecord(record.id);
-          }}
-        >
-          播放
-        </button>
-      ),
-    }));
+    isLoadingGetRecord()
+      ? []
+      : records().map((record) => ({
+          ...record,
+          id: <span class="font-mono">{record.id.slice(0, 8)}...</span>,
+          users: (
+            <div>
+              <For each={record.users}>
+                {(user) => (
+                  <div class="flex items-center">
+                    <img
+                      class="w-20px h-20px rounded-full my-1"
+                      src={user.avatar}
+                      alt="user_avatar"
+                    />
+                    <span>{user.name}</span>
+                  </div>
+                )}
+              </For>
+            </div>
+          ),
+          operate: (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleWatchRecord(record.id);
+              }}
+            >
+              播放
+            </button>
+          ),
+        }));
 
   return (
     <ContentBox>
@@ -101,16 +102,18 @@ export default function GameRecordView() {
                 <span class="text-5xl">{game.icon}</span>
                 <span class="text-3xl">{game.title}</span>
               </div>
+              {focus() === game.id && (
+                <Pagination
+                  total={100}
+                  size={10}
+                  onChangePage={handleChangePage}
+                />
+              )}
               {focus() === game.id && isLoadingGetRecord() && (
                 <h1 class="text-5xl font-thin">获取数据中...</h1>
               )}
-              {focus() === game.id && preparedRecords() && (
-                <Table
-                  columns={columns}
-                  data={preparedRecords()}
-                  pagination={{ open: true }}
-                  onChangePage={handleChangePage}
-                />
+              {focus() === game.id && !isLoadingGetRecord() && (
+                <Table columns={columns} data={preparedRecords()} />
               )}
             </div>
           )}

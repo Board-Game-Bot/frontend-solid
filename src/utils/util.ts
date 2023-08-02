@@ -41,27 +41,18 @@ export function useRequest<T, P extends unknown[]>(
 
   const run = async (...args: P): Promise<[T | undefined, any]> => {
     setIsLoading(true);
-    const p = api(...args).then(({ statusCode, data: d }) => {
-      if (statusCode === 200) {
-        if (d) {
-          setData(d as any);
-        }
-        return d;
-      }
-      throw new Error(d as any);
-    });
-    p.catch((error) => {
-      setError(error);
-    }).finally(() => {
-      setIsLoading(false);
-    });
-
     try {
-      return [await p, undefined];
+      const result = (await api(...args)).data;
+      setData(() => result);
+      setIsLoading(false);
+      return [result, undefined];
     } catch (e) {
+      setError(() => e);
+      setIsLoading(false);
       return [undefined, e];
     }
   };
+
   return [
     data as Accessor<T>,
     error as Accessor<any>,
