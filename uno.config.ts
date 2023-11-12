@@ -1,6 +1,10 @@
-import { defineConfig } from 'unocss';
+import { defineConfig, presetAttributify, presetMini } from 'unocss';
 
 export default defineConfig({
+  presets: [
+    presetMini(),
+    presetAttributify(),
+  ],
   mergeSelectors: false,
   shortcuts: {
     full: 'w-full h-full',
