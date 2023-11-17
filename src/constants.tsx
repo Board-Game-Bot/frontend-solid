@@ -1,6 +1,6 @@
 import { RouteDefinition } from '@solidjs/router';
+import { lazy } from 'solid-js';
 import { NavItem } from '@/pages/components';
-import { WelcomePage } from '@/pages';
 
 export const NAV_ITEMS: NavItem[] = [
   {
@@ -16,6 +16,10 @@ export const NAV_ITEMS: NavItem[] = [
 export const ROUTES: RouteDefinition[] = [
   {
     path: '/',
-    element: <WelcomePage />,
+    component: lazy(() => import('./pages/index')),
+  },
+  {
+    path: '/auth',
+    component: lazy(() => import('./pages/auth/index')),
   },
 ];

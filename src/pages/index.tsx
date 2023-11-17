@@ -1,6 +1,6 @@
 import styles from './index.module.scss';
 
-export const WelcomePage = () => {
+const WelcomePage = () => {
   return (
     <div class={[styles.page, 'full center'].join(' ')}>
       <div class={'w-full pl-40'}>
@@ -14,3 +14,5 @@ export const WelcomePage = () => {
     </div>
   );
 };
+
+export default WelcomePage;
