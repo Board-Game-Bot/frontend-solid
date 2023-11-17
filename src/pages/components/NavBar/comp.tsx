@@ -29,7 +29,7 @@ export const NavBar = (props: Props) => {
                   current() === id ? 'font-bold underline' : '',
                   'h-full px-4 center cursor-pointer hover:underline',
                 ].join(' ')}
-                onClick={()=>handleClick(id)}
+                onClick={() => handleClick(id)}
               >
                 {title}
               </div>
