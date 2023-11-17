@@ -6,9 +6,8 @@
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
-        "prettier",
-        "plugin:prettier/recommended",
-        "plugin:solid/typescript"
+        "plugin:solid/typescript",
+        "@soku-conf"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -20,12 +19,6 @@
     },
     "plugins": [
         "@typescript-eslint",
-        "prettier",
         "solid"
-    ],
-    "rules": {
-        "prettier/prettier": "error",
-        "@typescript-eslint/no-unused-vars": "warn",
-        "@typescript-eslint/no-explicit-any": "off"
-    }
+    ]
 }

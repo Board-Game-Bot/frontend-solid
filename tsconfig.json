@@ -15,5 +15,6 @@
     },
     "noEmit": true,
     "isolatedModules": true
-  }
+  },
+  "include": ["src/types.d.ts", "src/**/*"]
 }
