@@ -12,23 +12,24 @@
   },
   "lint-staged": {
     "**/*.{js,ts,jsx,tsx}": [
-      "pnpm lint"
+      "pnpm lint",
+      "git add ."
     ]
   },
   "license": "MIT",
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
-    "@soku-conf/eslint-config": "^1.0.3",
     "@types/lodash": "^4.14.195",
-    "@types/lodash-es": "^4.17.11",
     "@types/node": "^20.4.2",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.44.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-solid": "^0.12.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
-    "sass": "^1.69.5",
+    "prettier": "^3.0.0",
     "typescript": "^4.9.5",
     "unocss": "^0.53.5",
     "vite": "^4.4.4",
@@ -39,7 +40,6 @@
     "@solidjs/router": "^0.8.2",
     "axios": "^1.4.0",
     "lodash": "^4.17.21",
-    "lodash-es": "^4.17.21",
     "solid-icons": "^1.0.11",
     "solid-js": "^1.7.8"
   }
