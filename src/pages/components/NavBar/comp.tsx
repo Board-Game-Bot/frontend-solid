@@ -1,19 +1,16 @@
-import { JSX, For, createSignal } from 'solid-js';
+import { JSX, For } from 'solid-js';
 import { NavItem } from './types';
 
 interface Props {
-  default?: string;
   title?: string;
   extra?: JSX.Element;
+  value?: string;
   items?: NavItem[];
   onItemClick?: (id: string) => void;
 }
 
 export const NavBar = (props: Props) => {
-  const [current, setCurrent] = createSignal(props.default);
-
   function handleClick(id: string) {
-    setCurrent(id);
     props.onItemClick?.(id);
   }
 
@@ -26,7 +23,7 @@ export const NavBar = (props: Props) => {
             {<For each={props.items}>{({ id, title }) =>
               <div
                 class={[
-                  current() === id ? 'font-bold underline' : '',
+                  props.value === id ? 'font-bold underline' : '',
                   'h-full px-4 center cursor-pointer hover:underline',
                 ].join(' ')}
                 onClick={() => handleClick(id)}
