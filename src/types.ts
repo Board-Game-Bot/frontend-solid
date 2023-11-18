@@ -4,3 +4,9 @@ export interface Game {
   icon: string;
   playerCount: number;
 }
+
+export interface User {
+  id: string;
+  name: string;
+  avatar: string;
+}
