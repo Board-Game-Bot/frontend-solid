@@ -30,4 +30,8 @@ export const ROUTES: RouteDefinition[] = [
     path: '/game/:id',
     component: lazy(() => import('./pages/game/[id]')),
   },
+  {
+    path: '/game/:id/play',
+    component: lazy(() => import('./pages/game/[id]/play')),
+  },
 ];
