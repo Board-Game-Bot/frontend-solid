@@ -1,4 +1,5 @@
 import { JSX } from 'solid-js';
+import { cx } from '@/utils';
 
 interface Props extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'danger';
@@ -15,11 +16,12 @@ export const Button = (props: Props) => {
   return (
     <button
       {...props}
-      class={[
-        'px2 py1 cursor-pointer rounded-2 text-white hover_black border-0',
-        bgColor(),
+      class={cx(
         props.class,
-      ].join(' ')}
+        'block',
+        'cursor-pointer rounded-2 text-white hover_black border-0',
+        bgColor(),
+      )}
     >
       {props.children}
       {props.loading ? '...' : ''}
