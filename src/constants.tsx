@@ -16,10 +16,18 @@ export const NAV_ITEMS: NavItem[] = [
 export const ROUTES: RouteDefinition[] = [
   {
     path: '/',
-    component: lazy(() => import('./pages/index')),
+    component: lazy(() => import('./pages')),
   },
   {
     path: '/auth',
-    component: lazy(() => import('./pages/auth/index')),
+    component: lazy(() => import('./pages/auth')),
+  },
+  {
+    path: '/game',
+    component: lazy(() => import('./pages/game')),
+  },
+  {
+    path: '/game/:id',
+    component: lazy(() => import('./pages/game/[id]')),
   },
 ];
