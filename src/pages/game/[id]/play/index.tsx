@@ -36,7 +36,7 @@ const GamePlayPage = () => {
   return (
     <Layout>
       <div class={'mt-10'}>
-        <div class={'m-auto'} ref={el => gameRef = el} />
+        <div class={'w-1200px aspect-ratio-video flex items-center justify-center'} ref={el => gameRef = el} />
       </div>
     </Layout>
   );

@@ -27,11 +27,11 @@ dependencies:
     specifier: ^4.7.2
     version: 4.7.2
   soku-game-reversi:
-    specifier: ^1.2.2
-    version: 1.2.2
+    specifier: ^1.2.6
+    version: 1.2.6
   soku-game-snake:
-    specifier: ^1.2.1
-    version: 1.2.1
+    specifier: ^1.2.3
+    version: 1.2.3
   solid-icons:
     specifier: ^1.0.11
     version: 1.0.11(solid-js@1.7.8)
@@ -40,9 +40,6 @@ dependencies:
     version: 1.7.8
 
 devDependencies:
-  '@faker-js/faker':
-    specifier: ^8.0.2
-    version: 8.0.2
   '@soku-conf/eslint-config':
     specifier: ^1.0.3
     version: 1.0.3(typescript@4.9.5)
@@ -713,11 +710,6 @@ packages:
   /@eslint/js@8.53.0:
     resolution: {integrity: sha512-Kn7K8dx/5U6+cT1yEhpX1w4PCSg0M+XyRILPgvwcEBjerFWCwQj5sbr3/VmxqV0JGHCBCzyd6LxypEuehypY1w==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    dev: true
-
-  /@faker-js/faker@8.0.2:
-    resolution: {integrity: sha512-Uo3pGspElQW91PCvKSIAXoEgAUlRnH29sX2/p89kg7sP1m2PzCufHINd0FhTXQf6DYGiUlVncdSPa2F9wxed2A==}
-    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0, npm: '>=6.14.13'}
     dev: true
 
   /@humanwhocodes/config-array@0.11.10:
@@ -3713,16 +3705,16 @@ packages:
       - supports-color
       - utf-8-validate
 
-  /soku-game-reversi@1.2.2:
-    resolution: {integrity: sha512-yk42Cr/3faPKO5owic3ew4nS1zJ2B9wY09Bi0irDCS+a8bOrH9Hbow3q6XlKmjRsD7dLnyGbP/yf040RzK9uog==}
+  /soku-game-reversi@1.2.6:
+    resolution: {integrity: sha512-RM/ULkOJOSUaeYwcbAAnm5/v3XpiRe14MFxBua+c5T8CDloi4HrwFFEvXrVm4llIcNn+aEhLJUsBgQ2KXWSg4Q==}
     dependencies:
       '@soku-games/core': 0.1.2
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /soku-game-snake@1.2.1:
-    resolution: {integrity: sha512-CB0XE8T7gCjoTzeHbxGdjsB2BsLZiym3SPh25zc/X/tx8z66v1i+d4+tvhTemX0WhVxlPQ8tSTetXJ5OlM3iVg==}
+  /soku-game-snake@1.2.3:
+    resolution: {integrity: sha512-n1KXB+RKLeXRL6u5lBN6z3zB8GUGb486G97FJzMvbzoyHkwBx4j7z0dNBIQjYDo1GJFBVw/elRZsDTZk2nQdtQ==}
     dependencies:
       '@soku-games/core': 0.1.2
       react: 18.2.0

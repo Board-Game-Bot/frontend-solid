@@ -18,12 +18,7 @@ export const MatchMode = () => {
 
   // GAME
   const gameRef: {v?: HTMLElement} = {};
-  const [game] = createGame(
-    socket,
-    room,
-    gameRef,
-    gameId,
-  );
+  const [game] = createGame(socket, room, gameRef, gameId);
 
   return (
     <Show
@@ -60,7 +55,7 @@ export const MatchMode = () => {
           </Show>
         </Show>
       </Show>
-      <div ref={el => gameRef.v = el} />
+      <div class={'w-1200px aspect-ratio-video flex justify-center items-center'} ref={el => gameRef.v = el} />
     </Show>
   );
 };

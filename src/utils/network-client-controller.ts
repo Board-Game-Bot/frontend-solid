@@ -8,10 +8,13 @@ export class NetworkClientController extends GamePlugin {
 
     s?.on('game-prepare', (initDataMask: string) => {
       game.prepare(initDataMask);
+      s?.emit('game-start');
     });
 
     s?.on('game-start', () => {
-      game.start();
+      setTimeout(() => {
+        game.start();
+      });
     });
 
     s?.on('game-step', (stepStr: string) => {
