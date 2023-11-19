@@ -17,7 +17,6 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@faker-js/faker": "^8.0.2",
     "@soku-conf/eslint-config": "^1.0.3",
     "@types/lodash": "^4.14.195",
     "@types/lodash-es": "^4.17.11",
@@ -44,8 +43,8 @@
     "lodash-es": "^4.17.21",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
-    "soku-game-reversi": "^1.2.2",
-    "soku-game-snake": "^1.2.1",
+    "soku-game-reversi": "^1.2.6",
+    "soku-game-snake": "^1.2.3",
     "solid-icons": "^1.0.11",
     "solid-js": "^1.7.8"
   }
