@@ -1,107 +1,66 @@
-import { createEffect, createSignal, onCleanup, Show } from 'solid-js';
-import { io, Socket } from 'socket.io-client';
+import { Show } from 'solid-js';
 import { useParams } from '@solidjs/router';
-import { Room } from './types';
 import { RoomComp } from './components';
+import { createGame, createMatch, createRoom, createSocket } from './utils';
 import { jwt } from '@/store';
 import { Button } from '@/components';
 
 export const MatchMode = () => {
-  const [socket, setSocket] = createSignal<Socket>();
-  const [isConnect, setConnect] = createSignal(false);
+  // CONNECT
+  const [socket, connect, isConnect] = createSocket(import.meta.env.VITE_WS_URL, jwt());
 
-  const handleConnect = () => {
-    setSocket(io('ws://localhost:3000/ws', {
-      extraHeaders: {
-        'x-jwt': jwt(),
-      },
-    }));
-  };
-
-  createEffect(() => {
-    const s = socket();
-    s?.on('connect', () => {
-      setConnect(true);
-    });
-    s?.on('disconnect', () => {
-      setConnect(false);
-    });
-  });
-
-  onCleanup(() => socket()?.disconnect());
-
-  const [isMatching, setMatching] = createSignal(false);
-
-  createEffect(() => {
-    const s = socket();
-    s?.on('join-match', () => {
-      setMatching(true);
-    });
-    s?.on('leave-match', () => {
-      setMatching(false);
-    });
-    s?.on('make-room', (data: Room) => {
-      setRoom(data);
-      setMatching(false);
-    });
-  });
-
+  // MATCH
   const gameId = useParams().id;
-  const handleClickMatch = () => {
-    if (isMatching())
-      socket()?.emit('leave-match');
-    else
-      socket()?.emit('join-match', { gameId });
-  };
+  const [match, isMatching] = createMatch(socket, gameId);
 
-  const [room, setRoom] = createSignal<Room>();
+  // ROOM
+  const [room, leave] = createRoom(socket);
 
-  const handleLeaveRoom = () => {
-    if (!socket()) return ;
-
-    const s = socket()!;
-    s.emit('leave-room');
-  };
-  createEffect(() => {
-    const s = socket();
-    s?.on('leave-room', () => {
-      setRoom(undefined);
-    });
-  });
+  // GAME
+  const gameRef: {v?: HTMLElement} = {};
+  const [game] = createGame(
+    socket,
+    room,
+    gameRef,
+    gameId,
+  );
 
   return (
     <Show
       when={jwt()}
-      fallback={
-        <h1>你还未登陆，请先登陆！</h1>
-      }
+      fallback={<h1>你还未登陆，请先登陆！</h1> }
     >
-      <Show when={!isConnect()}>
-        <Button class={'text-xl px-4 py-1 m-a'} variant={'primary'} onClick={handleConnect}>接入网络</Button>
-      </Show>
-      <Show when={isConnect() && !room()} >
-        <Button
-          class={'text-xl px-4 py-1 m-a'}
-          variant={'primary'}
-          onClick={handleClickMatch}
-          loading={isMatching()}
+      <Show
+        when={isConnect()}
+        fallback={<Button class={'text-xl px-4 py-1 m-a'} variant={'primary'} onClick={connect}>接入网络</Button>}
+      >
+        <Show
+          when={room()}
+          fallback={
+            <Button
+              class={'text-xl px-4 py-1 m-a'}
+              variant={'primary'}
+              onClick={match}
+              loading={isMatching()}
+            >
+              开始匹配
+            </Button>
+          }
         >
-          开始匹配
-        </Button>
+          <Show when={!game()}>
+            <Button
+              class={'text-xl px-4 py-1 m-a'}
+              variant={'danger'}
+              onClick={leave}
+              loading={isMatching()}
+            >
+              退出房间
+            </Button>
+            <RoomComp socket={socket()} room={room()} />
+          </Show>
+        </Show>
       </Show>
-      <Show when={isConnect() && room()}>
-        <Button
-          class={'text-xl px-4 py-1 m-a'}
-          variant={'danger'}
-          onClick={handleLeaveRoom}
-          loading={isMatching()}
-        >
-          退出房间
-        </Button>
-      </Show>
-      <Show when={room()}>
-        <RoomComp socket={socket()} room={room()} />
-      </Show>
+      <div ref={el => gameRef.v = el} />
     </Show>
   );
 };
