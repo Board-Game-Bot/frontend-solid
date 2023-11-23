@@ -18,7 +18,7 @@ export class NetworkClientController extends GamePlugin {
     });
 
     s?.on('game-step', (stepStr: string) => {
-      game.step(stepStr);
+      game.forceStep(stepStr);
     });
 
     s?.on('game-over', (result: string) => {
