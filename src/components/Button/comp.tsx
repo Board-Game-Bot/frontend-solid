@@ -1,24 +1,23 @@
-import { JSX } from 'solid-js';
 import { cx } from '@/utils';
+import { ButtonProps } from '@/components';
 
-interface Props extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'danger';
-  loading?: boolean;
-  size?: 'small' | 'mid' | 'large';
-}
+interface Props extends ButtonProps {}
 
 export const Button = (props: Props) => {
-  const bgColor = () => props.variant === 'primary'
-    ? 'bg-blue-5 shadow-#66f'
-    : props.variant === 'danger'
-      ? 'bg-red-5 shadow-#f66'
-      : '';
+  const bgColor = () => {
+    const { variant = 'primary' } = props;
+    return variant === 'primary'
+      ? 'bg-blue-5 shadow-#66f'
+      : variant === 'danger'
+        ? 'bg-red-5 shadow-#f66'
+        : '';
+  };
 
   const size = () => {
     const { size = 'mid' } = props;
     switch (size) {
     case 'mid':
-      return 'text-md py-2 px-8 rounded-md shadow-sm';
+      return 'text-md py-1 px-3.75 rounded-md shadow-sm';
     }
     return '';
   };

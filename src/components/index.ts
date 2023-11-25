@@ -6,3 +6,4 @@ export * from './Form';
 export * from './Alert';
 export * from './Layout';
 export * from './RadioGroup';
+export * from './Table';
