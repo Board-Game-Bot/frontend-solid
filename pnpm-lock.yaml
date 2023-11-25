@@ -52,6 +52,9 @@ devDependencies:
   '@types/lodash-es':
     specifier: ^4.17.11
     version: 4.17.11
+  '@types/mockjs':
+    specifier: ^1.0.10
+    version: 1.0.10
   '@types/node':
     specifier: ^20.4.2
     version: 20.4.2
@@ -76,6 +79,9 @@ devDependencies:
   lint-staged:
     specifier: ^13.2.3
     version: 13.2.3
+  mockjs:
+    specifier: ^1.1.0
+    version: 1.1.0
   sass:
     specifier: ^1.69.5
     version: 1.69.5
@@ -926,6 +932,10 @@ packages:
 
   /@types/lodash@4.14.195:
     resolution: {integrity: sha512-Hwx9EUgdwf2GLarOjQp5ZH8ZmblzcbTBC2wtQWNKARBSxM9ezRIAUpeDTgoQRAFB0+8CNWXVA9+MaSOzOF3nPg==}
+    dev: true
+
+  /@types/mockjs@1.0.10:
+    resolution: {integrity: sha512-SXgrhajHG7boLv6oU93CcmdDm0HYRiceuz6b+7z+/2lCJPTWDv0V5YiwFHT2ejE4bQqgSXQiVPQYPWv7LGsK1g==}
     dev: true
 
   /@types/node@20.4.2:
@@ -3194,6 +3204,13 @@ packages:
 
   /minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
+    dev: true
+
+  /mockjs@1.1.0:
+    resolution: {integrity: sha512-eQsKcWzIaZzEZ07NuEyO4Nw65g0hdWAyurVol1IPl1gahRwY+svqzfgfey8U8dahLwG44d6/RwEzuK52rSa/JQ==}
+    hasBin: true
+    dependencies:
+      commander: 10.0.1
     dev: true
 
   /mrmime@1.0.1:
