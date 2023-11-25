@@ -10,3 +10,14 @@ export interface User {
   name: string;
   avatar: string;
 }
+
+export interface Tape {
+  id: string;
+  userId: string;
+  gameId: string;
+  uploadTime: string;
+  json: Record<string, any>;
+  // TODO
+  participants: any[];
+}
+

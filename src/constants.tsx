@@ -11,6 +11,10 @@ export const NAV_ITEMS: NavItem[] = [
     title: '游戏',
     id: '/game',
   },
+  {
+    title: '录像',
+    id: '/tape',
+  },
 ];
 
 export const ROUTES: RouteDefinition[] = [
@@ -33,5 +37,9 @@ export const ROUTES: RouteDefinition[] = [
   {
     path: '/game/:id/play',
     component: lazy(() => import('./pages/game/[id]/play')),
+  },
+  {
+    path: '/tape',
+    component: lazy(() => import('./pages/tape')),
   },
 ];
