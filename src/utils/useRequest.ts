@@ -1,4 +1,4 @@
-import { createSignal, onMount } from 'solid-js';
+import { createEffect, createSignal, onMount } from 'solid-js';
 
 type ReqFn<T, P extends any[]> = (...args: P) => Promise<T>;
 
@@ -14,11 +14,14 @@ export const useRequest = <T, P extends any[]>(
   options?: Option<T, string, P>,
 ) => {
   const [loading, setLoading] = createSignal(false);
+  const [data, setData] = createSignal<T>();
 
   const run = async (...args: P) => {
+    if (loading()) return;
     try {
       setLoading(true);
       const data = await fn(...args);
+      setData(() => data);
       options?.onSuccess?.(data);
     }
     catch (e: any) {
@@ -37,5 +40,6 @@ export const useRequest = <T, P extends any[]>(
   return {
     loading,
     run,
+    data,
   };
 };
