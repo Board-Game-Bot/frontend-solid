@@ -27,13 +27,13 @@ export const MatchMode = () => {
     >
       <Show
         when={isConnect()}
-        fallback={<Button class={'text-xl px-4 py-1 m-a'} variant={'primary'} onClick={connect}>接入网络</Button>}
+        fallback={<Button class={'m-a'} variant={'primary'} onClick={connect}>接入网络</Button>}
       >
         <Show
           when={room()}
           fallback={
             <Button
-              class={'text-xl px-4 py-1 m-a'}
+              class={'m-a'}
               variant={'primary'}
               onClick={match}
               loading={isMatching()}
@@ -44,7 +44,7 @@ export const MatchMode = () => {
         >
           <Show when={!game()}>
             <Button
-              class={'text-xl px-4 py-1 m-a'}
+              class={'m-a'}
               variant={'danger'}
               onClick={leave}
               loading={isMatching()}

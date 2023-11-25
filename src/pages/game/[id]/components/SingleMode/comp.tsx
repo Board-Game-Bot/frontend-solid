@@ -8,7 +8,7 @@ export const SingleMode = () => {
   return (
     <Button
       variant={'primary'}
-      class={'mt-8 m-auto text-xl px-8 py-1 shadow-md'}
+      class={'mt-8 m-a'}
       onClick={() => navigate(`/game/${gameId}/play`)}
     >
       开始游戏
