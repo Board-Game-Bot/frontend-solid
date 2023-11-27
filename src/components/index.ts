@@ -7,3 +7,7 @@ export * from './Alert';
 export * from './Layout';
 export * from './RadioGroup';
 export * from './Table';
+export * from './Modal';
+export * from './Select';
+export * from './Label';
+export * from './TextArea';

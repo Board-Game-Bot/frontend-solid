@@ -1,7 +1,7 @@
 import { JSX } from 'solid-js';
 
 export interface Column<T> {
-  index?: string;
+  index?: keyof T;
   title?: string;
   render?: (item: T, index: number) => JSX.Element;
   width?: number;

@@ -41,6 +41,7 @@
     "@soku-games/core": "^0.3.1",
     "@solidjs/router": "^0.8.2",
     "axios": "^1.4.0",
+    "dayjs": "^1.11.10",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "socket.io": "^4.7.2",
