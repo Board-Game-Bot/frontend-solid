@@ -21,3 +21,15 @@ export interface Tape {
   participants: any[];
 }
 
+export interface Bot {
+  id: string;
+  gameId: string;
+  langId: string;
+  userId: string;
+  name: string;
+  description: string;
+  createTime: Date;
+  isPublic: boolean;
+  code?: string;
+}
+
