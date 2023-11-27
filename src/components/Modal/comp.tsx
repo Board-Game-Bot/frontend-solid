@@ -1,8 +1,10 @@
 import { JSX, Show } from 'solid-js';
+import { isNumber, isString } from 'lodash-es';
 import { cx } from '@/utils';
 import { Button } from '@/components';
 
 interface Props {
+  height?: number | string;
   visible?: boolean;
   children?: JSX.Element;
   title?: string;
@@ -22,6 +24,13 @@ export const Modal = (props: Props) => {
             'box-border p5',
             'flex flex-col',
           )}
+          style={{
+            height: isString(props.height)
+              ? props.height
+              : isNumber(props.height)
+                ? `${props.height}px`
+                : undefined,
+          }}
         >
           <div class={'h-40px w-full font-bold text-xl flex-0 flex justify-between'}>
             <div>

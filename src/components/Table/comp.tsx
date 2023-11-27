@@ -1,16 +1,17 @@
-import { For, JSX, Show } from 'solid-js';
+import { For, JSX, Show, splitProps } from 'solid-js';
 import { isUndefined } from 'lodash-es';
 import { Column } from './types';
 import { cx } from '@/utils';
 
-interface Props<T> extends JSX.HTMLAttributes<HTMLDivElement> {
+interface Props<T> extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'title'> {
   columns: Column<T>[];
   data: T[];
   width?: number;
-  title?: string;
+  title?: JSX.Element;
 }
 
-export function Table<T>(props: Props<T>) {
+export function Table<T>(_props: Props<T>) {
+  const [props2, props] = splitProps(_props, ['title']);
   const { columns } = props;
   const sum = columns.reduce((sum, cur) => sum + (cur.width ?? 1), 0);
   const average = 100 / sum;
@@ -31,11 +32,11 @@ export function Table<T>(props: Props<T>) {
         }}
       >
         <thead>
-          <Show when={props.title}>
+          <Show when={props2.title}>
             <tr>
               <th colspan={props.columns.length}>
                 <div class={'block text-center text-xl py-2'}>
-                  {props.title}
+                  {props2.title}
                 </div>
               </th>
             </tr>

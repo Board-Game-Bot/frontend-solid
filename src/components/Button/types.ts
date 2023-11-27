@@ -1,7 +1,7 @@
 import { JSX } from 'solid-js';
 
 export interface ButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'danger';
+  variant?: 'primary' | 'success' | 'danger' | 'blank';
   loading?: boolean;
-  size?: 'small' | 'mid' | 'large';
+  size?: 'sm' | 'md' | 'lg';
 }
