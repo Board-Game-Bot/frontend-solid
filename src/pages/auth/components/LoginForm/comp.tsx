@@ -21,11 +21,20 @@ export const LoginForm = () => {
     loginReq.run(data as LoginDto);
   };
 
+  const form = Form.useForm();
+
   return (
-    <Form onSubmit={handleSubmit}>
-      <Input title={'用户 ID'} name={'id'} />
-      <Input title={'密码'} name={'passwd'} type={'password'}/>
-      <Button class={'w-full'} variant={'primary'}>提交</Button>
+    <Form
+      form={form}
+      onSubmit={handleSubmit}
+    >
+      <Form.Item name={'id'}>
+        <Input title={'用户 ID'} />
+      </Form.Item>
+      <Form.Item name={'passwd'}>
+        <Input title={'密码'} type={'password'}/>
+      </Form.Item>
+      <Button onClick={() => form.submit()} class={'w-full mt8'} variant={'primary'}>提交</Button>
     </Form>
   );
 };
