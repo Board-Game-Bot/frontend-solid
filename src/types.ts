@@ -33,3 +33,9 @@ export interface Bot {
   code?: string;
 }
 
+export interface Rate {
+  userId: string;
+  gameId: string;
+  botId: string;
+  score: number;
+}
