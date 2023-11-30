@@ -6,6 +6,7 @@ import { Bot } from '@/types';
 
 interface Props {
   record: Bot;
+  onOk?: () => void;
 }
 
 export const UpdateButton = (props: Props) => {
@@ -14,10 +15,12 @@ export const UpdateButton = (props: Props) => {
     {
       onSuccess: () => {
         visible(false);
+        props.onOk?.();
       },
     },
   );
   const visible = signal(false);
+  const form = Form.useForm();
 
   return (
     <>
@@ -29,72 +32,96 @@ export const UpdateButton = (props: Props) => {
         height={'70vh'}
         visible={visible()}
         loading={updateBotReq.loading()}
-        onOk={() => updateBotReq.run(props.record)}
+        onOk={() => form.submit()}
         onCancel={() => visible(false)}
       >
         <div class={'p5'}>
-          <Form>
-            <Input
+          <Form
+            form={form}
+            onSubmit={(data: any) => updateBotReq.run(data)}
+          >
+            <Form.Item
               name={'id'}
-              title={'The Bot ID'}
-              width={400}
-              disabled
-              default={props.record.id}
-            />
-            <Input
-              class={'mt-8'}
+            >
+              <Input
+                title={'The Bot ID'}
+                width={400}
+                disabled
+                default={props.record.id}
+              />
+            </Form.Item>
+            <Form.Item
               name={'name'}
-              title={'代码名字'}
-              width={400}
-              default={props.record.name}
-            />
-            <Select
-              class={'mt-8'}
+            >
+              <Input
+                class={'mt-8'}
+                title={'代码名字'}
+                width={400}
+                default={props.record.name}
+              />
+            </Form.Item>
+            <Form.Item
               name={'langId'}
-              title={'使用语言'}
-              width={150}
-              options={{
-                'c++': 'C++',
-                'python': 'Python',
-                'java': 'Java',
-                'go': 'Go',
-              }}
-              default={props.record.langId}
-            />
-            <Select
-              class={'mt-8'}
+            >
+              <Select
+                class={'mt-8'}
+                title={'使用语言'}
+                width={150}
+                options={{
+                  'c++': 'C++',
+                  'python': 'Python',
+                  'java': 'Java',
+                  'go': 'Go',
+                }}
+                default={props.record.langId}
+              />
+            </Form.Item>
+            <Form.Item
               name={'gameId'}
-              title={'所属游戏'}
-              width={150}
-              options={{
-                snake: 'Snake',
-                reversi: 'Reversi',
-                backgammon: 'Backgammon',
-              }}
-              default={props.record.gameId}
-            />
-            <TextArea
-              class={'mt-8'}
+            >
+              <Select
+                class={'mt-8'}
+                title={'所属游戏'}
+                width={150}
+                options={{
+                  snake: 'Snake',
+                  reversi: 'Reversi',
+                  backgammon: 'Backgammon',
+                }}
+                default={props.record.gameId}
+              />
+            </Form.Item>
+            <Form.Item
               name={'description'}
-              title={'描述'}
-              width={400}
-              default={props.record.description}
-            />
-            <Input
-              class={'mt-8'}
+            >
+              <TextArea
+                class={'mt-8'}
+                title={'描述'}
+                width={400}
+                default={props.record.description}
+              />
+            </Form.Item>
+            <Form.Item
               name={'createTime'}
-              title={'创建时间'}
-              disabled
-              width={400}
-              default={dayjs(props.record.createTime).format('YYYY-MM-DD HH:mm')}
-            />
-            <TextArea
-              class={'mt-8'}
+            >
+              <Input
+                class={'mt-8'}
+                title={'创建时间'}
+                disabled
+                width={400}
+                default={dayjs(props.record.createTime).format('YYYY-MM-DD HH:mm')}
+              />
+            </Form.Item>
+            <Form.Item
               name={'code'}
-              title={'代码'}
-              width={400}
-              default={props.record.code}
-            />
+            >
+              <TextArea
+                class={'mt-8'}
+                title={'代码'}
+                width={400}
+                default={props.record.code}
+              />
+            </Form.Item>
           </Form>
         </div>
       </Modal>

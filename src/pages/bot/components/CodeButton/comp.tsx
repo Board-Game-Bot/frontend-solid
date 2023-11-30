@@ -36,9 +36,9 @@ export const CodeButton = (props: Props) => {
           when={!codeBotReq.loading() && codeBotReq.data()}
           fallback={<h1>加载中...</h1>}
         >
-          <div class={'font-mono'}>
-            {codeBotReq.data().code}
-          </div>
+          <pre class={'font-mono'}>
+            {codeBotReq.data()?.code}
+          </pre>
         </Show>
       </Modal>
     </>
