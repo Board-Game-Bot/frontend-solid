@@ -1,13 +1,19 @@
 import { CreateBotReq } from './requests';
 import { Button, Form, Input, Modal, Select, TextArea } from '@/components';
 import { useRequest, signal } from '@/utils';
+import { GAME_OPTIONS, LANG_OPTIONS } from '@/pages/bot/components/CreateButton/constants';
 
-export const CreateButton = () => {
+interface Props {
+  onOk?: () => void;
+}
+
+export const CreateButton = (props: Props) => {
   const createBotReq = useRequest(
     CreateBotReq,
     {
       onSuccess: () => {
         visible(false);
+        props.onOk?.();
       },
     },
   );
@@ -32,7 +38,6 @@ export const CreateButton = () => {
             onChange={data => console.log(data)}
             form={form}
             onSubmit={data => {
-              console.log(data);
               createBotReq.run(data as any);
             }}
           >
@@ -50,12 +55,7 @@ export const CreateButton = () => {
                 name={'langId'}
                 title={'使用语言'}
                 width={150}
-                options={{
-                  'c++': 'C++',
-                  'python': 'Python',
-                  'java': 'Java',
-                  'go': 'Go',
-                }}
+                options={LANG_OPTIONS}
               />
             </Form.Item>
             <Form.Item name={'gameId'}>
@@ -64,11 +64,7 @@ export const CreateButton = () => {
                 name={'gameId'}
                 title={'所属游戏'}
                 width={150}
-                options={{
-                  snake: 'Snake',
-                  reversi: 'Reversi',
-                  backgammon: 'Backgammon',
-                }}
+                options={GAME_OPTIONS}
               />
             </Form.Item>
             <Form.Item name={'description'}>

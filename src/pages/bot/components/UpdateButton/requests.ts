@@ -1,8 +1,8 @@
-import { sleep } from '@/utils';
 import { Bot } from '@/types';
+import { API } from '@/api';
 
 interface UpdateBotDto extends Bot {}
 
 export const UpdateBotReq = async (dto: UpdateBotDto) => {
-  await sleep(1000);
+  return await API.post('/bot/update', dto);
 };

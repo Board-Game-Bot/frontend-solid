@@ -1,10 +1,13 @@
-import { mock, Random } from 'mockjs';
-import { sleep } from '@/utils';
+import { API } from '@/api';
 
-export const CodeBotReq = async (botId: string) => {
-  await sleep(2000);
+interface CodeVo {
+  code: string;
+}
 
-  return await mock({
-    code: () => Random.cparagraph(),
+export const CodeBotReq = async (botId: string): Promise<CodeVo> => {
+  return await API.get('/bot/code', {
+    params: {
+      botId,
+    },
   });
 };

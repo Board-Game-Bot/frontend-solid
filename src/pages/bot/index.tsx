@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { Show } from 'solid-js';
 import { GetBotsReq } from './requests';
 import { DeleteButton, UpdateButton, CodeButton, CreateButton } from './components';
 import { Button, Column, Layout, Table } from '@/components';
@@ -21,8 +22,8 @@ const BotPage = () => {
       <div class={'flex gap-3'}>
         <Button>设为公开/私密</Button>
         <CodeButton id={record.id} />
-        <UpdateButton record={record} />
-        <DeleteButton id={record.id} />
+        <UpdateButton onOk={handleOk} record={record} />
+        <DeleteButton onOk={handleOk} id={record.id} />
       </div>,
     },
   ];
@@ -34,19 +35,33 @@ const BotPage = () => {
     },
   );
 
+  const handleOk = () => {
+    getBotsReq.run(0, 10);
+  };
+
   return (
     <Layout>
-      <Table
-        title={
-          <div class={'flex items-center gap-4'}>
-            你的代码
-            <CreateButton />
+      <Show
+        when={!getBotsReq.loading() && getBotsReq.data()?.bots.length}
+        fallback={
+          <div>
+            <h1>你目前还没有任何代码。</h1>
+            <CreateButton onOk={handleOk} />
           </div>
         }
-        columns={column}
-        data={getBotsReq.data()?.bots ?? []}
-        width={1300}
-      />
+      >
+        <Table
+          title={
+            <div class={'flex items-center gap-4'}>
+              你的代码
+              <CreateButton onOk={handleOk} />
+            </div>
+          }
+          columns={column}
+          data={getBotsReq.data()?.bots ?? []}
+          width={1300}
+        />
+      </Show>
     </Layout>
   );
 };

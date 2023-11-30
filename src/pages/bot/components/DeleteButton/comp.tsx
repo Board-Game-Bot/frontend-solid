@@ -1,10 +1,10 @@
 import { DeleteBotReq } from './requests';
-import { Button } from '@/components';
+import { Button, Modal } from '@/components';
 import { useRequest, signal } from '@/utils';
-import { Modal } from '@/components/Modal';
 
 interface Props {
   id: string;
+  onOk?: () => void;
 }
 
 export const DeleteButton = (props: Props) => {
@@ -13,6 +13,7 @@ export const DeleteButton = (props: Props) => {
     {
       onSuccess: () => {
         visible(false);
+        props.onOk?.();
       },
     },
   );

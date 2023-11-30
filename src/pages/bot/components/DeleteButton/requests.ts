@@ -1,5 +1,5 @@
-import { sleep } from '@/utils';
+import { API } from '@/api';
 
 export const DeleteBotReq = async (botId: string) => {
-  await sleep(1000);
+  return await API.post('/bot/delete', { botId });
 };
