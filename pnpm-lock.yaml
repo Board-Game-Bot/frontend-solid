@@ -30,14 +30,17 @@ dependencies:
     specifier: ^4.7.2
     version: 4.7.2
   soku-game-backgammon:
-    specifier: ^0.3.4
-    version: 0.3.4(@soku-games/core@0.3.1)
+    specifier: ^0.3.5
+    version: 0.3.5(@soku-games/core@0.3.1)
+  soku-game-recorder:
+    specifier: ^1.0.0
+    version: 1.0.0(@soku-games/core@0.3.1)
   soku-game-reversi:
     specifier: ^1.4.2
     version: 1.4.2
   soku-game-snake:
-    specifier: ^1.4.0
-    version: 1.4.0
+    specifier: ^1.4.3
+    version: 1.4.3
   solid-icons:
     specifier: ^1.0.11
     version: 1.0.11(solid-js@1.7.8)
@@ -103,6 +106,9 @@ devDependencies:
   vite-plugin-static-copy:
     specifier: ^0.17.0
     version: 0.17.0(vite@4.4.4)
+  vite-tsconfig-paths:
+    specifier: ^4.2.1
+    version: 4.2.1(typescript@4.9.5)(vite@4.4.4)
 
 packages:
 
@@ -2653,6 +2659,10 @@ packages:
       slash: 3.0.0
     dev: true
 
+  /globrex@0.1.2:
+    resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
+    dev: true
+
   /gopd@1.0.1:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
     dependencies:
@@ -3737,14 +3747,22 @@ packages:
       - supports-color
       - utf-8-validate
 
-  /soku-game-backgammon@0.3.4(@soku-games/core@0.3.1):
-    resolution: {integrity: sha512-pAaZ8ivVcVpvSG8Pm25cvulCPcJXK0njkx5bS3QaWvv/9bYEJyu7FZod3eJwbGsuORNAUUWBI2q8VTCpDF1cZw==}
+  /soku-game-backgammon@0.3.5(@soku-games/core@0.3.1):
+    resolution: {integrity: sha512-3UjYJSAO48ZHZKyKtCaXZb7RIhER3HWPI+/CCUzZ598wHHydnsrURHZdOuBXiDQjUX5Hv+tazw5KhOa00mG7Qw==}
     peerDependencies:
       '@soku-games/core': ^0.3.1
     dependencies:
       '@soku-games/core': 0.3.1
       lodash-es: 4.17.21
       solid-js: 1.8.6
+    dev: false
+
+  /soku-game-recorder@1.0.0(@soku-games/core@0.3.1):
+    resolution: {integrity: sha512-tkArbqI1X3j9BilypwvMY4pVmSJAgu/bru7BgWG+rvI0R9LIsR/N3Mzy6J0kg/539uemlA/YZ5xUcLLQ4Tt/Ng==}
+    peerDependencies:
+      '@soku-games/core': ^0.3.1
+    dependencies:
+      '@soku-games/core': 0.3.1
     dev: false
 
   /soku-game-reversi@1.4.2:
@@ -3755,8 +3773,8 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /soku-game-snake@1.4.0:
-    resolution: {integrity: sha512-IwH3NvfT/3eEeCnW+P30sd9H/rjo3n4icvIJ9eiojmkBIV+9+eXOUdmkA/iHk9MqDfAuc7eCvBZuTYIyEzoBBg==}
+  /soku-game-snake@1.4.3:
+    resolution: {integrity: sha512-eogoCkO/dum/bMF2J7F6SV2bHbR8CFOh0/2uQ7eoVzxToNqh0ElJAmmD3fHoTsX1znJzT/BeJZTJVahsfWGwyA==}
     dependencies:
       '@soku-games/core': 0.3.1
       react: 18.2.0
@@ -3938,6 +3956,19 @@ packages:
     engines: {node: '>=16.13.0'}
     peerDependencies:
       typescript: '>=4.2.0'
+    dependencies:
+      typescript: 4.9.5
+    dev: true
+
+  /tsconfck@2.1.2(typescript@4.9.5):
+    resolution: {integrity: sha512-ghqN1b0puy3MhhviwO2kGF8SeMDNhEbnKxjK7h6+fvY9JAxqvXi8y5NAHSQv687OVboS2uZIByzGd45/YxrRHg==}
+    engines: {node: ^14.13.1 || ^16 || >=18}
+    hasBin: true
+    peerDependencies:
+      typescript: ^4.3.5 || ^5.0.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     dependencies:
       typescript: 4.9.5
     dev: true
@@ -4147,6 +4178,23 @@ packages:
       fs-extra: 11.1.1
       picocolors: 1.0.0
       vite: 4.4.4(@types/node@20.4.2)(sass@1.69.5)
+    dev: true
+
+  /vite-tsconfig-paths@4.2.1(typescript@4.9.5)(vite@4.4.4):
+    resolution: {integrity: sha512-GNUI6ZgPqT3oervkvzU+qtys83+75N/OuDaQl7HmOqFTb0pjZsuARrRipsyJhJ3enqV8beI1xhGbToR4o78nSQ==}
+    peerDependencies:
+      vite: '*'
+    peerDependenciesMeta:
+      vite:
+        optional: true
+    dependencies:
+      debug: 4.3.4
+      globrex: 0.1.2
+      tsconfck: 2.1.2(typescript@4.9.5)
+      vite: 4.4.4(@types/node@20.4.2)(sass@1.69.5)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
     dev: true
 
   /vite@4.4.4(@types/node@20.4.2)(sass@1.69.5):

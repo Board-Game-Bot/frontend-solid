@@ -1,4 +1,6 @@
 export * from './useRequest';
+export * from './useSaveTape';
+export * from './useLocalTapes';
 export * from './useToggle';
 export * from './cx';
 export * from './createLocalStorageSignal';
