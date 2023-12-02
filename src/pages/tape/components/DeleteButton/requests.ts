@@ -1,9 +1,9 @@
-import { sleep } from '@/utils';
+import { API } from '@/api';
 
 interface DeleteTapeDto {
   tapeId: string;
 }
 
 export const DeleteTapeReq = async (dto: DeleteTapeDto) => {
-  await sleep(1000);
+  return await API.post('/tape/delete', dto);
 };

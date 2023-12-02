@@ -13,6 +13,8 @@ interface Props {
   loading?: boolean;
 }
 
+export type { Props as ModalProps };
+
 export const Modal = (props: Props) => {
   return (
     <Show when={props.visible}>
@@ -43,7 +45,7 @@ export const Modal = (props: Props) => {
               X
             </div>
           </div>
-          <div class={'max-h-60vh overflow-auto flex-1'}>{props.children}</div>
+          <div class={'max-h-60vh overflow-auto flex-1 py-10'}>{props.children}</div>
           <div class={'h-40px flex-0 flex justify-end gap-3 pr-3'}>
             <Button onClick={props.onCancel}>取消</Button>
             <Button loading={props.loading} onClick={props.onOk}>确定</Button>

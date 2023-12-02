@@ -12,7 +12,9 @@
     "types": ["vite/client"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@business/*": ["src/business/components", "src/business/components/*"],
+      "@business": ["src/business/components"]
     },
     "noEmit": true,
     "isolatedModules": true

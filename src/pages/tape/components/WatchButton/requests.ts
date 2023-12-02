@@ -1,5 +1,4 @@
-import { mock } from 'mockjs';
-import { sleep } from '@/utils';
+import { API } from '@/api';
 
 interface JsonTapeDto {
   tapeId: string;
@@ -11,14 +10,7 @@ interface JsonTapeVo {
 }
 
 export const JsonTapeReq = async (dto: JsonTapeDto): Promise<JsonTapeVo> => {
-  await sleep(2000);
-  // TODO
-  return await mock({
-    json: {
-
-    },
-    participants: {
-
-    },
+  return API.get('/tape/json', {
+    params: dto,
   });
 };

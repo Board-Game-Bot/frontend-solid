@@ -1,11 +1,10 @@
 import { capitalize } from 'lodash-es';
-import { createEffect } from 'solid-js';
-import { DeleteButton, UploadButton, WatchButton } from './components';
+import { Show } from 'solid-js';
+import { DeleteButton, LocalDeleteButton, LocalWatchButton, UploadButton, WatchButton } from './components';
 import { GetTapesReq } from './requests';
 import { Column, Layout, Table } from '@/components';
-import { createLocalStorageSignal, useRequest } from '@/utils';
+import { useLocalTapes, useRequest } from '@/utils';
 import { Tape } from '@/types';
-import { signal } from '@/utils/signal';
 
 const TapePage = () => {
   const commonColumns: Column<Tape>[] =
@@ -32,8 +31,8 @@ const TapePage = () => {
     width: 1,
     render: (record) =>
       <div class={'flex gap-2'}>
-        <DeleteButton id={record.id} />
-        <WatchButton id={record.id} />
+        <DeleteButton onOk={() => getTapesReq.run()} id={record.id} />
+        <WatchButton tape={record} />
       </div>
     ,
   }];
@@ -43,44 +42,45 @@ const TapePage = () => {
     width: 1,
     render: (record) =>
       <div class={'flex gap-2'}>
-        <DeleteButton id={record.id} />
-        <WatchButton id={record.id} />
-        <UploadButton record={record} />
+        <LocalDeleteButton tape={record} />
+        <LocalWatchButton tape={record} />
+        <UploadButton record={record} onOk={() => getTapesReq.run()} />
       </div>
     ,
   }];
 
-  const [rawLocalTapes, setRawLocalTapes] = createLocalStorageSignal('localTapes');
-  
-  const localTapes = signal<Tape[]>(
-    (() => {
-      try {
-        return JSON.parse(rawLocalTapes());
-      }
-      catch {
-        return [];
-      }
-    })(),
-  );
-
-  createEffect(() => setRawLocalTapes(JSON.stringify(localTapes())));
+  const [tapes, setTapes] = useLocalTapes();
 
   const getTapesReq = useRequest(GetTapesReq, { auto: true });
 
   return (
     <Layout>
-      <Table
-        class={'w-full'}
-        title={'你的录像带'}
-        columns={columns}
-        data={getTapesReq.data()?.tapes ?? []}
-      />
-      <Table
-        class={'w-full'}
-        title={'留存本地的录像带'}
-        columns={columns2}
-        data={localTapes()}
-      />
+      <Show
+        when={getTapesReq.data()?.tapes.length}
+        fallback={
+          <h2>你没有云端上的录像</h2>
+        }
+      >
+        <Table
+          class={'w-full'}
+          title={'你的录像带'}
+          columns={columns}
+          data={getTapesReq.data()?.tapes ?? []}
+        />
+      </Show>
+      <Show
+        when={tapes().length}
+        fallback={
+          <h2>你没有留存本地的录像</h2>
+        }
+      >
+        <Table
+          class={'w-full'}
+          title={'留存本地的录像带'}
+          columns={columns2}
+          data={tapes()}
+        />
+      </Show>
     </Layout>
   );
 };

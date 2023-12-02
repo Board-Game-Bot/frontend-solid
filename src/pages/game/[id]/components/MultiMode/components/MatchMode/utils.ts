@@ -2,7 +2,7 @@ import { Accessor, createSignal, onCleanup } from 'solid-js';
 import { io, Socket } from 'socket.io-client';
 import { buildGame, Game } from '@soku-games/core';
 import { Room } from './types';
-import { createEvent } from '@/utils';
+import { createEvent, signal } from '@/utils';
 import { user } from '@/store';
 
 export const createSocket = (url: string, jwt: string): [Accessor<Socket | undefined>, () => void, Accessor<boolean>] => {
@@ -56,8 +56,9 @@ export const createGame = (
   room: Accessor<Room | undefined>,
   ref: { v?: HTMLElement },
   gameId: string,
-): [Accessor<Game | undefined>] => {
+) => {
   const [game, setGame] = createSignal<Game>();
+  const tape = signal<any>();
   createEvent(socket, 'start-game', () => {
     const game = buildGame({
       name: gameId,
@@ -73,10 +74,15 @@ export const createGame = (
       }, {
         name: 'network-client-controller',
         extra: { socket: socket() },
+      }, {
+        name: 'the-recorder',
+        extra: {
+          tapeResolved: (_tape: any) => tape(_tape),
+        },
       }],
     });
     setGame(game);
   });
   
-  return [game];
+  return [game, tape];
 };

@@ -2,7 +2,7 @@ import { createLocalStorageSignal, useRequest } from '@/utils';
 import { LoadProfileReq } from '@/requests';
 import { setUser } from '@/store/user';
 
-const [jwt, setJwt] = createLocalStorageSignal('jwt');
+const [jwt, setJwt] = createLocalStorageSignal<string>('jwt', '');
 
 useRequest(
   LoadProfileReq,
