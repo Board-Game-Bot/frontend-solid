@@ -1,25 +1,30 @@
+import { WatchGameModal } from '@business';
 import { JsonTapeReq } from './requests';
 import { Button, ButtonProps } from '@/components';
-import { useRequest } from '@/utils';
-import { Modal } from '@/components/Modal';
-import { signal } from '@/utils/signal';
+import { useRequest, signal } from '@/utils';
+import { Tape } from '@/types';
 
 interface Props extends ButtonProps {
-  // TODO
-  id: string;
+  tape: Tape;
 }
 
 export const WatchButton = (props: Props) => {
   const watchVisible = signal(false);
-
-  const jsonTapeReq = useRequest(JsonTapeReq, {
-    onSuccess: () => {
-      watchVisible(true);
-    },
-  });
+  const tape = signal<Tape>();
+  const jsonTapeReq = useRequest(
+    JsonTapeReq,
+    {
+      onSuccess: (data) => {
+        watchVisible(true);
+        tape({
+          ...props.tape,
+          ...data,
+        });
+      },
+    });
   const handleClick = () => {
     jsonTapeReq.run({
-      tapeId: props.id,
+      tapeId: props.tape.id,
     });
   };
 
@@ -31,13 +36,12 @@ export const WatchButton = (props: Props) => {
       >
         观看
       </Button>
-      <Modal
+      <WatchGameModal
+        tape={tape()}
         visible={watchVisible()}
         onOk={() => watchVisible(false)}
         onCancel={() => watchVisible(false)}
-      >
-        观看{props.id}
-      </Modal>
+      />
     </>
   );
 };

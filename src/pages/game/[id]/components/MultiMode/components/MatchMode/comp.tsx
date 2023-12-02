@@ -4,6 +4,7 @@ import { RoomComp } from './components';
 import { createGame, createMatch, createRoom, createSocket } from './utils';
 import { jwt } from '@/store';
 import { Button } from '@/components';
+import { useSaveTape } from '@/utils';
 
 export const MatchMode = () => {
   // CONNECT
@@ -18,12 +19,13 @@ export const MatchMode = () => {
 
   // GAME
   const gameRef: {v?: HTMLElement} = {};
-  const [game] = createGame(socket, room, gameRef, gameId);
+  const [game, tape] = createGame(socket, room, gameRef, gameId);
+  const handleSave = useSaveTape(tape, gameId);
 
   return (
     <Show
       when={jwt()}
-      fallback={<h1>你还未登陆，请先登陆！</h1> }
+      fallback={<h1>你还未登陆，请先登陆</h1> }
     >
       <Show
         when={isConnect()}
@@ -53,9 +55,13 @@ export const MatchMode = () => {
             </Button>
             <RoomComp socket={socket()} room={room()} />
           </Show>
+          <div class={'w-1200px aspect-ratio-video flex justify-center items-center'} ref={el => gameRef.v = el} />
         </Show>
       </Show>
-      <div class={'w-1200px aspect-ratio-video flex justify-center items-center'} ref={el => gameRef.v = el} />
+      <Show when={tape()}>
+        <h3>对局记录已生成，是否保存？</h3>
+        <Button onClick={handleSave} variant={'success'}>保存</Button>
+      </Show>
     </Show>
   );
 };

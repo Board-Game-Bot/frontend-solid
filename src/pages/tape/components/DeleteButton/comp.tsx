@@ -1,25 +1,23 @@
 import { DeleteTapeReq } from './requests';
-import { Button, ButtonProps } from '@/components';
-import { useRequest } from '@/utils';
-import { Modal } from '@/components/Modal';
-import { signal } from '@/utils/signal';
+import { Button, ButtonProps, Modal } from '@/components';
+import { useRequest, signal } from '@/utils';
 
 interface Props extends ButtonProps {
   id: string;
+  onOk?: () => void;
 }
 
 export const DeleteButton = (props: Props) => {
   const deleteTapeReq = useRequest(DeleteTapeReq, {
     onSuccess: () => {
       visible(false);
+      props.onOk?.();
     },
   });
 
   const visible = signal(false);
   const handleOk = () => {
-    deleteTapeReq.run({
-      tapeId: props.id,
-    });
+    deleteTapeReq.run({ tapeId: props.id });
   };
 
   return (
