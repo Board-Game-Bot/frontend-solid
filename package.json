@@ -38,7 +38,7 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "dependencies": {
-    "@soku-games/core": "^0.3.1",
+    "@soku-games/core": "^0.4.1",
     "@solidjs/router": "^0.8.2",
     "axios": "^1.4.0",
     "dayjs": "^1.11.10",
@@ -46,10 +46,10 @@
     "lodash-es": "^4.17.21",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
-    "soku-game-backgammon": "^0.3.5",
+    "soku-game-backgammon": "^0.4.0",
     "soku-game-recorder": "^1.0.0",
-    "soku-game-reversi": "^1.4.2",
-    "soku-game-snake": "^1.4.3",
+    "soku-game-reversi": "^1.5.2",
+    "soku-game-snake": "^1.6.1",
     "solid-icons": "^1.0.11",
     "solid-js": "^1.7.8"
   }

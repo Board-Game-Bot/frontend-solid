@@ -39,3 +39,14 @@ export interface Rate {
   botId: string;
   score: number;
 }
+
+export interface Player {
+  id: string;
+  score: number;
+  botId: string;
+}
+
+export interface Room {
+  roomId: string;
+  players: Player[]
+}

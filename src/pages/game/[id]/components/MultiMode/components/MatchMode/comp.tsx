@@ -1,10 +1,11 @@
 import { Show } from 'solid-js';
 import { useParams } from '@solidjs/router';
+import { BotSelect } from '@business';
 import { RoomComp } from './components';
 import { createGame, createMatch, createRoom, createSocket } from './utils';
 import { jwt } from '@/store';
 import { Button } from '@/components';
-import { useSaveTape } from '@/utils';
+import { signal, useSaveTape } from '@/utils';
 
 export const MatchMode = () => {
   // CONNECT
@@ -12,7 +13,8 @@ export const MatchMode = () => {
 
   // MATCH
   const gameId = useParams().id;
-  const [match, isMatching] = createMatch(socket, gameId);
+  const botId = signal('');
+  const [match, isMatching] = createMatch(socket, gameId, botId);
 
   // ROOM
   const [room, leave] = createRoom(socket);
@@ -34,14 +36,17 @@ export const MatchMode = () => {
         <Show
           when={room()}
           fallback={
-            <Button
-              class={'m-a'}
-              variant={'primary'}
-              onClick={match}
-              loading={isMatching()}
-            >
-              开始匹配
-            </Button>
+            <>
+              <Button
+                class={'m-a'}
+                variant={'primary'}
+                onClick={match}
+                loading={isMatching()}
+              >
+                开始匹配
+              </Button>
+              <BotSelect onChange={botId} width={150} gameId={gameId} />
+            </>
           }
         >
           <Show when={!game()}>

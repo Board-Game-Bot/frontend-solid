@@ -15,6 +15,8 @@ interface Props {
   size?: 'sm' | 'md' | 'lg';
 }
 
+export type { Props as SelectProps };
+
 export const Select = (props: Props) => {
   const options = () => {
     if (Array.isArray(props.options))
@@ -69,7 +71,7 @@ export const Select = (props: Props) => {
           }}
           onClick={() => visible(true)}
         >
-          {options()[currentValue()]}
+          {options()[currentValue()!]}
           <Show when={visible()}>
             <div
               class={cx(

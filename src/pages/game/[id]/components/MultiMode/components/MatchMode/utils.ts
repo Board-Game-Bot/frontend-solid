@@ -1,9 +1,9 @@
 import { Accessor, createSignal, onCleanup } from 'solid-js';
 import { io, Socket } from 'socket.io-client';
 import { buildGame, Game } from '@soku-games/core';
-import { Room } from './types';
-import { createEvent, signal } from '@/utils';
+import { createEvent, Signal, signal } from '@/utils';
 import { user } from '@/store';
+import { Room } from '@/types';
 
 export const createSocket = (url: string, jwt: string): [Accessor<Socket | undefined>, () => void, Accessor<boolean>] => {
   const [socket, setSocket] = createSignal<Socket>();
@@ -23,7 +23,7 @@ export const createSocket = (url: string, jwt: string): [Accessor<Socket | undef
   return [socket, connect, isConnect];
 };
 
-export const createMatch = (socket: Accessor<Socket | undefined>, gameId: string): [() => void, Accessor<boolean>] => {
+export const createMatch = (socket: Accessor<Socket | undefined>, gameId: string, botId: Signal<string>): [() => void, Accessor<boolean>] => {
   const [isMatching, setMatching] = createSignal(false);
   createEvent(socket, 'join-match', () => setMatching(true));
   createEvent(socket, 'leave-match', () => setMatching(false));
@@ -33,7 +33,7 @@ export const createMatch = (socket: Accessor<Socket | undefined>, gameId: string
     if (isMatching())
       socket()?.emit('leave-match');
     else {
-      socket()?.emit('join-match', { gameId });
+      socket()?.emit('join-match', { gameId, botId: botId() });
     }
   };
 
@@ -66,7 +66,7 @@ export const createGame = (
         name: `${gameId}-screen`,
         extra: {
           el: ref.v,
-          couldControl: room()?.players.map(p => p.id === user()?.id),
+          couldControl: room()?.players.map(p => p.id === user()?.id && !p.botId),
           emit: (stepStr: string) => {
             socket()?.emit('game-step', stepStr);
           },

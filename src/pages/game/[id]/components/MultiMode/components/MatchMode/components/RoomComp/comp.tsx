@@ -1,10 +1,10 @@
 import { createEffect, createSignal, For } from 'solid-js';
 import { Socket } from 'socket.io-client';
 import { useParams } from '@solidjs/router';
-import { Room } from './types';
+import { PrepareRes } from './types';
 import { cx } from '@/utils';
 import { getGame, user } from '@/store';
-import { PrepareRes } from '@/pages/game/[id]/components/MultiMode/components/MatchMode/types';
+import { Room } from '@/types';
 
 interface Props {
   room?: Room;
@@ -51,7 +51,7 @@ export const RoomComp = (props: Props) => {
               )}
               onClick={isMe(player.id) ? () => handlePrepare(index()) : undefined}
             >
-              <div>{isMe(player.id) ? '->' : ''} ID：{player.id}</div>
+              <div>{isMe(player.id) ? '->' : ''}{player.botId ? '[BOT]' : ''}ID：{player.id}</div>
               <div>分数：{player.score}</div>
             </div>
           }
