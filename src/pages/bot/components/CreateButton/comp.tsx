@@ -35,7 +35,6 @@ export const CreateButton = (props: Props) => {
       >
         <div class={'p5 text-start'}>
           <Form
-            onChange={data => console.log(data)}
             form={form}
             onSubmit={data => {
               createBotReq.run(data as any);

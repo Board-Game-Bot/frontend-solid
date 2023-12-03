@@ -1,4 +1,4 @@
-import { createEffect, createSignal, onMount } from 'solid-js';
+import { createSignal, onMount } from 'solid-js';
 
 type ReqFn<T, P extends any[]> = (...args: P) => Promise<T>;
 
