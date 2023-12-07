@@ -3,11 +3,13 @@ import { cx } from '@/utils';
 interface Props {
   icon: string;
   name: string;
+  loading: boolean;
   onClick?: (name: string) => void;
 }
 
 export const GameCard = (props: Props) => {
   const handleClick = () => {
+    if (props.loading) return;
     props.onClick?.(props.name);
   };
 
@@ -16,9 +18,10 @@ export const GameCard = (props: Props) => {
       <div
         class={cx(
           'bg-white text-black wfull h75px rounded-2 shadow-xl box-border p3',
-          'transition duration-200 cursor-pointer',
+          'transition duration-200',
           'hover:bg-blue hover:text-white',
           'flex items-center gap-2',
+          props.loading ? 'cursor-not-allowed' : 'cursor-pointer',
         )}
         onClick={handleClick}
       >

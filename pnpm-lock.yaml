@@ -29,18 +29,9 @@ dependencies:
   socket.io-client:
     specifier: ^4.7.2
     version: 4.7.2
-  soku-game-backgammon:
-    specifier: ^0.4.0
-    version: 0.4.0(@soku-games/core@0.4.1)
   soku-game-recorder:
     specifier: ^1.0.0
     version: 1.0.0(@soku-games/core@0.4.1)
-  soku-game-reversi:
-    specifier: ^1.5.2
-    version: 1.5.2
-  soku-game-snake:
-    specifier: ^1.6.1
-    version: 1.6.1
   solid-icons:
     specifier: ^1.0.11
     version: 1.0.11(solid-js@1.7.8)
@@ -2984,6 +2975,7 @@ packages:
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
+    dev: true
 
   /js-yaml@4.1.0:
     resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
@@ -3137,13 +3129,6 @@ packages:
       slice-ansi: 4.0.0
       wrap-ansi: 6.2.0
     dev: true
-
-  /loose-envify@1.4.0:
-    resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
-    hasBin: true
-    dependencies:
-      js-tokens: 4.0.0
-    dev: false
 
   /lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
@@ -3489,23 +3474,6 @@ packages:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: true
 
-  /react-dom@18.2.0(react@18.2.0):
-    resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
-    peerDependencies:
-      react: ^18.2.0
-    dependencies:
-      loose-envify: 1.4.0
-      react: 18.2.0
-      scheduler: 0.23.0
-    dev: false
-
-  /react@18.2.0:
-    resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
-    engines: {node: '>=0.10.0'}
-    dependencies:
-      loose-envify: 1.4.0
-    dev: false
-
   /readdirp@3.6.0:
     resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
     engines: {node: '>=8.10.0'}
@@ -3608,12 +3576,6 @@ packages:
       source-map-js: 1.0.2
     dev: true
 
-  /scheduler@0.23.0:
-    resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
-    dependencies:
-      loose-envify: 1.4.0
-    dev: false
-
   /semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
     hasBin: true
@@ -3626,11 +3588,6 @@ packages:
     dependencies:
       lru-cache: 6.0.0
     dev: true
-
-  /seroval@0.14.1:
-    resolution: {integrity: sha512-ZlC9y1KVDhZFdEHLYZup1RjKDutyX1tt3ffOauqRbRURa2vRr2NU/bHuVEuNEqR3zE2uCU3WM6LqH6Oinc3tWg==}
-    engines: {node: '>=10'}
-    dev: false
 
   /seroval@0.5.1:
     resolution: {integrity: sha512-ZfhQVB59hmIauJG5Ydynupy8KHyr5imGNtdDhbZG68Ufh1Ynkv9KOYOAABf71oVbQxJ8VkWnMHAjEHE7fWkH5g==}
@@ -3747,38 +3704,12 @@ packages:
       - supports-color
       - utf-8-validate
 
-  /soku-game-backgammon@0.4.0(@soku-games/core@0.4.1):
-    resolution: {integrity: sha512-3o54Lt2i9XjX23J41pNoKtPmAzqzHKq+BC2VOV4BgiIT61T9SkOwnAzqgGhEYJZHBYpRoYbhW8aT2CAS3vtWjQ==}
-    peerDependencies:
-      '@soku-games/core': ^0.3.1
-    dependencies:
-      '@soku-games/core': 0.4.1
-      lodash-es: 4.17.21
-      solid-js: 1.8.6
-    dev: false
-
   /soku-game-recorder@1.0.0(@soku-games/core@0.4.1):
     resolution: {integrity: sha512-tkArbqI1X3j9BilypwvMY4pVmSJAgu/bru7BgWG+rvI0R9LIsR/N3Mzy6J0kg/539uemlA/YZ5xUcLLQ4Tt/Ng==}
     peerDependencies:
       '@soku-games/core': ^0.3.1
     dependencies:
       '@soku-games/core': 0.4.1
-    dev: false
-
-  /soku-game-reversi@1.5.2:
-    resolution: {integrity: sha512-Ut1vFbKE0N+P1wIg3Zv3LN9IANTFisxBfJXiFYlSTRcTMc/1ravjqCrCWVKCh0DONME332ITx2FrUpbKt9ZBBw==}
-    dependencies:
-      '@soku-games/core': 0.4.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
-  /soku-game-snake@1.6.1:
-    resolution: {integrity: sha512-B5pSuW0op0HtUYRzrzEk2i8Fkc/Bi8sKcYG9511lnkmQOYNJrTaQl0Q9UPiLej7ecqrBcB1WWlAoa9fUpTaVJg==}
-    dependencies:
-      '@soku-games/core': 0.4.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /solid-icons@1.0.11(solid-js@1.7.8):
@@ -3795,13 +3726,6 @@ packages:
     dependencies:
       csstype: 3.1.2
       seroval: 0.5.1
-
-  /solid-js@1.8.6:
-    resolution: {integrity: sha512-yiH6ZfBBZ3xj/aU/PBpVKB+8r8WWp100NGF7k/Z0IrK9Y8Lv0jwvFiJY1cHdc6Tj7GqXArKnMBabM0m1k+LzkA==}
-    dependencies:
-      csstype: 3.1.2
-      seroval: 0.14.1
-    dev: false
 
   /solid-refresh@0.5.3(solid-js@1.7.8):
     resolution: {integrity: sha512-Otg5it5sjOdZbQZJnvo99TEBAr6J7PQ5AubZLNU6szZzg3RQQ5MX04oteBIIGDs0y2Qv8aXKm9e44V8z+UnFdw==}
