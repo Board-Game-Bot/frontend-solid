@@ -4,7 +4,7 @@ import { useNavigate } from '@solidjs/router';
 import { GetGamesReq } from './requests';
 import { GameCard } from './components';
 import { Layout } from '@/components';
-import { useRequest } from '@/utils';
+import { useRequest, loadingMap } from '@/utils';
 import { Game } from '@/types';
 import { games, setGames } from '@/store';
 
@@ -31,6 +31,7 @@ const GamePage = () => {
         <For each={games()}>
           {(game) =>
             <GameCard
+              loading={loadingMap()[`${game.npmPackage}-${game.version}`] !== 2}
               icon={game.icon}
               name={capitalize(game.id)}
               onClick={() => handleClick(game)}

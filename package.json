@@ -46,10 +46,7 @@
     "lodash-es": "^4.17.21",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
-    "soku-game-backgammon": "^0.4.0",
     "soku-game-recorder": "^1.0.0",
-    "soku-game-reversi": "^1.5.2",
-    "soku-game-snake": "^1.6.1",
     "solid-icons": "^1.0.11",
     "solid-js": "^1.7.8"
   }

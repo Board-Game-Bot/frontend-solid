@@ -1,7 +1,13 @@
 import { useLocation, useNavigate, useRoutes } from '@solidjs/router';
+import * as core from '@soku-games/core';
 import { NAV_ITEMS, ROUTES } from './constants';
 import { Auth } from './components';
 import { NavBar } from '@/pages/components';
+
+
+Object.assign(window, {
+  core,
+});
 
 export const App = () => {
   const Routes = useRoutes(ROUTES);

@@ -3,6 +3,9 @@ export interface Game {
   description: string;
   icon: string;
   playerCount: number;
+  npmPackage: string;
+  version: string;
+  url: string;
 }
 
 export interface User {
