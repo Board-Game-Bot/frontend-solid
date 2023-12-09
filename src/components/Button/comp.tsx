@@ -37,7 +37,7 @@ export const Button = (props: Props) => {
       {...props}
       class={cx(
         props.class,
-        'inline-block cursor-pointer rounded-2  hover_black hover:after:rounded-1 border-0',
+        'inline-block h-fit cursor-pointer rounded-2  hover_black hover:after:rounded-1 border-0',
         size(),
         color(),
         'font-bold',

@@ -1,4 +1,4 @@
-import { createEffect, For, JSX, Show } from 'solid-js';
+import { createEffect, createMemo, For, JSX, on, Show } from 'solid-js';
 import { isUndefined } from 'lodash-es';
 import { Button, Label } from '@/components';
 import { cx, signal } from '@/utils';
@@ -31,25 +31,26 @@ export const Select = (props: Props) => {
 
   const visible = signal(false);
 
-  const insideValue = signal(props.default ?? props.value ?? optionArr()[0]);
+  const insideValue = signal(props.value ?? props.default ?? optionArr()[0]);
 
-  const currentValue = () => isUndefined(props.value) ? insideValue() : props.value;
+  const currentValue = createMemo(
+    () => isUndefined(props.value) ? insideValue() : props.value,
+  );
 
   let buttonRef: HTMLButtonElement;
 
-  createEffect(() => {
-    const v = currentValue();
-    const {
-      onChange = (record: any) => {
-        buttonRef?.dispatchEvent(new CustomEvent('change', {
-          detail: record,
-          bubbles: true,
-        }));
-      },
-    } = props;
+  const onChange = props.onChange ?? ((record: any) => {
+    buttonRef?.dispatchEvent(new CustomEvent('change', {
+      detail: record,
+      bubbles: true,
+    }));
+  });
+
+  createEffect(on(insideValue, () => {
+    const v = insideValue();
     if (!isUndefined(v))
       onChange(v);
-  });
+  }));
 
   const handleClick = (value: string) => {
     insideValue(value);
