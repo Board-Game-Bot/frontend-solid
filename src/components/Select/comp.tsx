@@ -61,7 +61,7 @@ export const Select = (props: Props) => {
     <div class={props.class}>
       <Label name={props.name}>{props.title}</Label>
       <input class={'hidden'} name={props.name} value={currentValue()} />
-      <div class={'w-fit relative'}>
+      <div class={'relative'}>
         <Button
           ref={el => buttonRef = el}
           class={cx('overflow-visible font-normal')}
