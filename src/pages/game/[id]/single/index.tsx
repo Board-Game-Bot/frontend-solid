@@ -6,7 +6,7 @@ import { signal, useSaveTape } from '@/utils';
 import { Tape } from '@/types';
 
 const SingleMode = () => {
-  const gameId = capitalize(useParams().id);
+  const gameId = useParams().id;
   const isGameOver = signal(true);
   let gameRef: HTMLDivElement;
   const tape = signal<Tape>();
@@ -43,8 +43,8 @@ const SingleMode = () => {
   return (
     <Layout>
       <div class={'flex items-center gap-4'}>
-        <h1 class={'w-full'}>{gameId} 单人模式</h1>
-        {isGameOver() && <Button onClick={handleStart} variant={'primary'}>开始游戏</Button>}
+        <h1 class={'w-fit'}>{capitalize(gameId)} 单人模式</h1>
+        {isGameOver() && <Button onClick={handleStart} variant={'primary'}>启动</Button>}
         {isGameOver() && tape() && 
           <div class={'flex items-center'}>
             点击

@@ -13,7 +13,7 @@ const GameDetailPage = () => {
   const options: Record<string, string> = {
     'single': '单人模式',
     'multi': '多人模式',
-    'custom': '自定义模式',
+    'custom': '自由模式',
   };
 
   const navigate = useNavigate();
@@ -28,16 +28,16 @@ const GameDetailPage = () => {
       >
         <h1 class={'text-center text-6xl'}>{game()!.icon} {capitalize(game()!.id)}</h1>
         <h2 class={'text-center text-3xl text-gray'}>{game()!.description}</h2>
-        <For each={Object.entries(options)}>{([mode, title]) =>
-          <div class={'my-6'}>
+        <div class={'flex gap-4 justify-center items-center'}>
+          <For each={Object.entries(options)}>{([mode, title]) =>
             <Button
               size={'lg'}
               onClick={() => navigate(`/game/${gameId}/${mode}`)}
             >
               {title}
             </Button>
-          </div>
-        }</For>
+          }</For>
+        </div>
       </Show>
     </Layout>
   );

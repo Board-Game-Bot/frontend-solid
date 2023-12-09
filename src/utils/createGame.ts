@@ -14,6 +14,7 @@ export const createGame = (
 ) => {
   const [game, setGame] = createSignal<Game>();
   const tape = signal<any>();
+
   createEvent(socket, 'start-game', () => {
     const game = buildGame({
       name: gameId,

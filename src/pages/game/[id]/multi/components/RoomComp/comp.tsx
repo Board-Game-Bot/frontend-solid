@@ -52,12 +52,11 @@ export const RoomComp = (props: Props) => {
               )}
               onClick={() => handlePrepare(index(), player.playerId)}
             >
-              <div>{isMe(player.playerId) ? '->' : ''}{player.botId ? '[BOT]' : ''}ID：{player.playerId}</div>
-              <div>分数：{player.score}</div>
+              <div>{player.botId ? '[BOT]' : ''}{player.playerId}</div>
+              <div>{isMe(player.playerId) ? '<-' : ''}</div>
             </div>
           }
         </For>
-        <h2 class={'text-gray'}>{'请点击\'->\'对应的卡片准备/取消准备'}</h2>
       </div>
     </div>
   );
