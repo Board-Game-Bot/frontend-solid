@@ -5,6 +5,8 @@ export * from './useToggle';
 export * from './cx';
 export * from './createLocalStorageSignal';
 export * from './createEvent';
+export * from './createGame';
+export * from './createSocket';
 export * from './sleep';
 export * from './monoRender';
 export * from './signal';

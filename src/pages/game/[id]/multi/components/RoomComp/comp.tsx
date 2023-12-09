@@ -14,7 +14,8 @@ interface Props {
 export const RoomComp = (props: Props) => {
   const [isPrepare, setPrepare] = createSignal<boolean[]>([]);
   const gameId = useParams().id;
-  const handlePrepare = (index: number) => {
+  const handlePrepare = (index: number, playerId: string) => {
+    if (!isMe(playerId)) return ;
     props.socket?.emit('prepare', {
       isPrepare: !isPrepare()[index],
     });
@@ -47,11 +48,11 @@ export const RoomComp = (props: Props) => {
                 'w-full flex justify-between items-center rounded-2 px3 py2 shadow-md duration-100',
                 'mt-4',
                 isPrepare()[index()] && 'bg-green/70 text-white',
-                isMe(player.id) && 'cursor-pointer hover:bg-blue hover:text-white',
+                isMe(player.playerId) && 'cursor-pointer hover:bg-blue hover:text-white',
               )}
-              onClick={isMe(player.id) ? () => handlePrepare(index()) : undefined}
+              onClick={() => handlePrepare(index(), player.playerId)}
             >
-              <div>{isMe(player.id) ? '->' : ''}{player.botId ? '[BOT]' : ''}ID：{player.id}</div>
+              <div>{isMe(player.playerId) ? '->' : ''}{player.botId ? '[BOT]' : ''}ID：{player.playerId}</div>
               <div>分数：{player.score}</div>
             </div>
           }

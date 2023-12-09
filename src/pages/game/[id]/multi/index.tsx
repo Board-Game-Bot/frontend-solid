@@ -1,13 +1,13 @@
-import { Show } from 'solid-js';
 import { useParams } from '@solidjs/router';
-import { BotSelect } from '@business';
+import { Show } from 'solid-js';
 import { RoomComp } from './components';
-import { createGame, createMatch, createRoom, createSocket } from './utils';
+import { createMatch, createRoom } from './utils';
+import { createGame, createSocket, signal, useSaveTape } from '@/utils';
 import { jwt } from '@/store';
 import { Button } from '@/components';
-import { signal, useSaveTape } from '@/utils';
+import { BotSelect } from '@/business/components';
 
-export const MatchMode = () => {
+const MultiMode = () => {
   // CONNECT
   const [socket, connect, isConnect] = createSocket(import.meta.env.VITE_WS_URL, jwt());
 
@@ -70,3 +70,5 @@ export const MatchMode = () => {
     </Show>
   );
 };
+
+export default MultiMode;
