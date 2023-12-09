@@ -44,8 +44,8 @@ export interface Rate {
 }
 
 export interface Player {
-  id: string;
-  score: number;
+  playerId: string;
+  score?: number;
   botId: string;
 }
 

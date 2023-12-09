@@ -39,9 +39,11 @@ export const WatchGameModal = (props: Props) => {
       {...props}
     >
       <div ref={el => divRef = el} class={'w-full aspect-ratio-video center'} />
-      <Button onClick={handleStart}>start</Button>
-      <Button onClick={() => controller()?.back?.()}>back</Button>
-      <Button onClick={() => controller()?.next?.()}>next</Button>
+      <div class={'flex justify-center gap-4'}>
+        <Button onClick={handleStart}>start</Button>
+        <Button onClick={() => controller()?.back?.()}>back</Button>
+        <Button onClick={() => controller()?.next?.()}>next</Button>
+      </div>
     </Modal>
   );
 };

@@ -1,8 +1,7 @@
-import { useParams } from '@solidjs/router';
-import { createSignal, Show } from 'solid-js';
+import { useNavigate, useParams } from '@solidjs/router';
+import { Show, For } from 'solid-js';
 import { capitalize } from 'lodash-es';
-import { DebugMode, MultiMode, SingleMode } from './components';
-import { Layout, RadioGroup } from '@/components';
+import { Button, Layout } from '@/components';
 import { getGame } from '@/store';
 
 const GameDetailPage = () => {
@@ -14,10 +13,10 @@ const GameDetailPage = () => {
   const options: Record<string, string> = {
     'single': '单人模式',
     'multi': '多人模式',
-    'debug': '调试模式',
+    'custom': '自由模式',
   };
 
-  const [mode, setMode] = createSignal('single');
+  const navigate = useNavigate();
 
   return (
     <Layout>
@@ -29,16 +28,16 @@ const GameDetailPage = () => {
       >
         <h1 class={'text-center text-6xl'}>{game()!.icon} {capitalize(game()!.id)}</h1>
         <h2 class={'text-center text-3xl text-gray'}>{game()!.description}</h2>
-        <RadioGroup class={'m-auto'} items={options} onChange={setMode} />
-        <Show when={mode() === 'single'}>
-          <SingleMode />
-        </Show>
-        <Show when={mode() === 'multi'}>
-          <MultiMode />
-        </Show>
-        <Show when={mode() === 'debug'}>
-          <DebugMode />
-        </Show>
+        <div class={'flex gap-4 justify-center items-center'}>
+          <For each={Object.entries(options)}>{([mode, title]) =>
+            <Button
+              size={'lg'}
+              onClick={() => navigate(`/game/${gameId}/${mode}`)}
+            >
+              {title}
+            </Button>
+          }</For>
+        </div>
       </Show>
     </Layout>
   );
