@@ -18,6 +18,7 @@ export const ROUTES: RouteDefinition[] = [
   { path: '/game/:id/single', component: lazy(() => import('./pages/game/[id]/single')) },
   { path: '/game/:id/multi', component: lazy(() => import('./pages/game/[id]/multi')) },
   { path: '/game/:id/custom', component: lazy(() => import('./pages/game/[id]/custom')) },
+  { path: '/game/:id/live', component: lazy(() => import('./pages/game/[id]/live')) },
   { path: '/tape', component: lazy(() => import('./pages/tape')) },
   { path: '/bot', component: lazy(() => import('./pages/bot')) },
   { path: '/rate', component: lazy(() => import('./pages/rate')) },

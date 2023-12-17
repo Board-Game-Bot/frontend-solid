@@ -3,7 +3,7 @@ import { Socket } from 'socket.io-client';
 import { buildGame, Game } from '@soku-games/core';
 import { signal } from './signal';
 import { createEvent } from './createEvent';
-import { Room } from '@/types';
+import { Room, Tape } from '@/types';
 import { user } from '@/store';
 
 export const createGame = (
@@ -33,7 +33,7 @@ export const createGame = (
       }, {
         name: 'the-recorder',
         extra: {
-          tapeResolved: (_tape: any) => tape(_tape),
+          tapeResolved: (_tape: Tape) => tape(_tape),
         },
       }],
     });

@@ -47,6 +47,7 @@ const CustomMode = () => {
   });
   const preRoom = signal<PreRoom>({
     roomId: '',
+    gameId,
     clients: [],
     players: [],
     ownerId: '',
@@ -86,7 +87,7 @@ const CustomMode = () => {
       </div>
       <Show when={jwt()} fallback={<h1>你还未登陆，请先登陆！</h1>}>
         <div class={'flex'}>
-          <div class={'flex-1 bg-black w-full aspect-ratio-video flex justify-center items-center'} ref={el => gameRef.v = el}>
+          <div class={'flex-1 bg-black w-full aspect-ratio-video center'} ref={el => gameRef.v = el}>
             <h1 class={'text-white'}>NO SIGNAL</h1>
           </div>
           <div class={'flex-0 p-5 w-300px box-border'}>
@@ -109,7 +110,6 @@ const CustomMode = () => {
                       <Button size={'sm'} variant={'success'} onClick={handleStart}>开始游戏</Button>
                     </Show>
                   </div>
-
                   <div class={'mt-5'}>玩家席</div>
                   <For each={preRoom().players}>
                     {({ playerId, botId }, index) =>
