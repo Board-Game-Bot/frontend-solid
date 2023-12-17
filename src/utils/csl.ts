@@ -1,0 +1,1 @@
+export const csl = console.log;

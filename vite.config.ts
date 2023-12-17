@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite';
 import solid from 'vite-plugin-solid';
 import uno from 'unocss/vite';
-import { fileURLToPath } from 'url';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [
@@ -16,15 +16,8 @@ export default defineConfig({
         },
       ],
     }),
+    tsconfigPaths(),
   ],
-  resolve: {
-    alias: [
-      {
-        find: '@',
-        replacement: fileURLToPath(new URL('./src', import.meta.url)),
-      },
-    ],
-  },
   server: {
     port: 5173,
   },
