@@ -14,6 +14,7 @@ const GameDetailPage = () => {
     'single': '单人模式',
     'multi': '多人模式',
     'custom': '自由模式',
+    'live': '直播模式',
   };
 
   const navigate = useNavigate();

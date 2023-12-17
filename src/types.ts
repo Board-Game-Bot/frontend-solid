@@ -51,5 +51,6 @@ export interface Player {
 
 export interface Room {
   roomId: string;
+  gameId: string;
   players: Player[]
 }
