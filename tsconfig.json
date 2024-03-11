@@ -5,15 +5,19 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
     "esModuleInterop": true,
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "types": ["vite/client"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@business/*": ["src/business/components", "src/business/components/*"],
+      "@business": ["src/business/components"]
     },
     "noEmit": true,
     "isolatedModules": true
-  }
+  },
+  "include": ["src/types.d.ts", "src/**/*"]
 }
