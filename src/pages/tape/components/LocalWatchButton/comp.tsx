@@ -1,5 +1,5 @@
 import { WatchGameModal } from '@business';
-import { Button, ButtonProps } from '@/components';
+import { Button, ButtonProps, IconButton } from '@/components';
 import { signal } from '@/utils';
 import { Tape } from '@/types';
 
@@ -12,10 +12,16 @@ export const LocalWatchButton = (props: Props) => {
 
   return (
     <>
-      <Button onClick={() => watchVisible(true)}>
-        观看
-      </Button>
+      <IconButton
+        icon={
+          <div class="i-mdi:movie-open-play w2em h2em" />
+        }
+        onClick={() => watchVisible(true)}
+      />
       <WatchGameModal
+        title={'观看录像带'}
+        width={500}
+        height={500}
         tape={props.tape}
         visible={watchVisible()}
         onOk={() => watchVisible(false)}

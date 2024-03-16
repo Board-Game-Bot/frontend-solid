@@ -1,6 +1,6 @@
 import { WatchGameModal } from '@business';
 import { JsonTapeReq } from './requests';
-import { Button, ButtonProps } from '@/components';
+import { ButtonProps, IconButton } from '@/components';
 import { useRequest, signal } from '@/utils';
 import { Tape } from '@/types';
 
@@ -30,13 +30,14 @@ export const WatchButton = (props: Props) => {
 
   return (
     <>
-      <Button
-        onClick={handleClick}
+      <IconButton
+        icon={<div class="i-mdi:movie-open-play w2em h2em" />}
         loading={jsonTapeReq.loading()}
-      >
-        观看
-      </Button>
+        onClick={handleClick}
+      />
       <WatchGameModal
+        width={500}
+        height={500}
         tape={tape()}
         visible={watchVisible()}
         onOk={() => watchVisible(false)}

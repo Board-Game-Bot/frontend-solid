@@ -16,6 +16,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@iconify-json/mdi": "^1.1.64",
     "@soku-conf/eslint-config": "^1.0.3",
     "@types/lodash": "^4.14.195",
     "@types/lodash-es": "^4.17.11",
@@ -42,6 +43,7 @@
     "@solidjs/router": "^0.8.2",
     "axios": "^1.4.0",
     "dayjs": "^1.11.10",
+    "highlight.js": "^11.9.0",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "socket.io": "^4.7.2",

@@ -1,5 +1,5 @@
 import { UploadTapeReq } from './requests';
-import { Button, ButtonProps, Modal } from '@/components';
+import { Button, ButtonProps, IconButton, Modal } from '@/components';
 import { signal, useRequest } from '@/utils';
 import { Tape } from '@/types';
 
@@ -23,19 +23,20 @@ export const UploadButton = (props: Props) => {
 
   return (
     <>
-      <Button
+      <IconButton
         onClick={() => visible(true)}
         loading={uploadTapeReq.loading()}
-      >
-        上传
-      </Button>
+        icon={<div class="i-mdi:cloud-upload w-2em h-2em" />}
+      />
       <Modal
-        title={'确定要上传此录像带吗？'}
+        title={'确认上传？'}
         visible={visible()}
         loading={uploadTapeReq.loading()}
         onCancel={() => visible(false)}
         onOk={() => uploadTapeReq.run(props.record)}
-      />
+      >
+        上传后，你的录像带将会在网络上共享。
+      </Modal>
     </>
   );
 };

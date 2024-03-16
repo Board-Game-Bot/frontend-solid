@@ -2,6 +2,7 @@ import { For, JSX, Show, splitProps } from 'solid-js';
 import { isUndefined } from 'lodash-es';
 import { Column } from './types';
 import { cx } from '@/utils';
+import { Empty } from '@/components';
 
 interface Props<T> extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'title'> {
   columns: Column<T>[];
@@ -16,6 +17,8 @@ export function Table<T>(_props: Props<T>) {
   const sum = columns.reduce((sum, cur) => sum + (cur.width ?? 1), 0);
   const average = 100 / sum;
 
+  const cellWidth = (width?: number) => `${isUndefined(width) ? average : width * 100 / sum}%`;
+
   return (
     <div
       {...props}
@@ -29,25 +32,28 @@ export function Table<T>(_props: Props<T>) {
           width: isUndefined(props.width)
             ? '100%'
             : `${props.width}px`,
+          'border-collapse': 'collapse',
         }}
       >
         <thead>
           <Show when={props2.title}>
             <tr>
-              <th colspan={props.columns.length}>
-                <div class={'block text-center text-xl py-2'}>
-                  {props2.title}
-                </div>
+              <th
+                colspan={props.columns.length}
+                class={'text-xl py-2 rounded-t-2 border-solid border-1px border-#eeeeee bg-#dedede font-500'}
+              >
+                {props2.title}
               </th>
             </tr>
           </Show>
           <tr>
             <For each={props.columns}>
               {(column) =>
-                <th style={{ width: `${isUndefined(column.width) ? average : column.width * 100 / sum}%` }} >
-                  <div class={'block text-left'}>
-                    {column.title}
-                  </div>
+                <th
+                  style={{ width: cellWidth(column.width) }}
+                  class={'text-left border-1 border-solid border-#ededed bg-#ededed px3 py3'}
+                >
+                  {column.title}
                 </th>
               }
             </For>
@@ -55,16 +61,26 @@ export function Table<T>(_props: Props<T>) {
         </thead>
         <Show when={props.columns.length}>
           <tbody>
-            <For each={props.data}>
+            <For
+              each={props.data}
+              fallback={
+                <tr>
+                  <td colspan={props.columns.length} class={'w-full h300px bg-#f0f0f0'}>
+                    <Empty />
+                  </td>
+                </tr>
+              }
+            >
               {(record) =>
                 <tr>
                   <For each={props.columns}>
                     {(column, index) =>
                       <td
                         style={{
-                          width: `${isUndefined(column.width) ? average : column.width * 100 / sum}%`,
+                          width: cellWidth(column.width),
                           'text-align': column.align,
                         }}
+                        class={'border-1 border-solid border-#ededed px3 py1'}
                       >
                         {column.render?.(record, index()) ?? (column.index && (record as any)[column.index])}
                       </td>

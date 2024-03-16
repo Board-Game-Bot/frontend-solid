@@ -2,7 +2,7 @@ import { JSX, For } from 'solid-js';
 import { NavItem } from './types';
 
 interface Props {
-  title?: string;
+  title?: JSX.Element;
   extra?: JSX.Element;
   value?: string;
   items?: NavItem[];

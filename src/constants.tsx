@@ -1,5 +1,6 @@
 import { RouteDefinition } from '@solidjs/router';
 import { lazy } from 'solid-js';
+import { capitalize } from 'lodash-es';
 import { NavItem } from '@/pages/components';
 
 export const NAV_ITEMS: NavItem[] = [
@@ -28,4 +29,7 @@ export const GAMES = [
   'snake',
   'reversi',
   'backgammon',
-];
+].reduce((map, gameName) => ({
+  ...map,
+  [gameName]: capitalize(gameName),
+}), {} as Record<string, string>);

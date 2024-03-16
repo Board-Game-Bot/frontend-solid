@@ -1,5 +1,5 @@
 import { buildGame } from '@soku-games/core';
-import { Button, Modal, ModalProps } from '@/components';
+import { IconButton, Modal, ModalProps } from '@/components';
 import { Tape } from '@/types';
 import { signal } from '@/utils';
 
@@ -37,12 +37,13 @@ export const WatchGameModal = (props: Props) => {
   return (
     <Modal
       {...props}
+      height={500}
     >
-      <div ref={el => divRef = el} class={'w-full aspect-ratio-video center'} />
-      <div class={'flex justify-center gap-4'}>
-        <Button onClick={handleStart}>start</Button>
-        <Button onClick={() => controller()?.back?.()}>back</Button>
-        <Button onClick={() => controller()?.next?.()}>next</Button>
+      <div ref={el => divRef = el} class={'w-full h-85% aspect-ratio-video center'} />
+      <div class={'flex justify-center gap-4 mt4'}>
+        <IconButton icon={<div class="i-mdi:step-backward w-2em h-2em" />} onClick={() => controller()?.back?.()} />
+        <IconButton icon={<div class="i-mdi:movie-open-play w-2em h-2em" />} onClick={handleStart} />
+        <IconButton icon={<div class="i-mdi:step-forward w-2em h-2em" />} onClick={() => controller()?.next?.()} />
       </div>
     </Modal>
   );
