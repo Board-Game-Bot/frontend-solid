@@ -45,12 +45,8 @@ const SingleMode = () => {
       <div class={'flex items-center gap-4'}>
         <h1 class={'w-fit'}>{capitalize(gameId)} 单人模式</h1>
         {isGameOver() && <Button onClick={handleStart} variant={'primary'}>启动</Button>}
-        {isGameOver() && tape() && 
-          <div class={'flex items-center'}>
-            点击
-            <Button onClick={handleSave} variant={'primary'}>保存</Button>
-            你的记录。
-          </div>
+        {isGameOver() && tape() &&
+          <Button onClick={handleSave} variant={'primary'}>保存</Button>
         }
       </div>
       <div ref={el => gameRef = el} class={'w-full aspect-ratio-video flex items-center justify-center bg-black'} />

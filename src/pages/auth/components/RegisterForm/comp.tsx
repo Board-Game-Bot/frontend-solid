@@ -5,7 +5,11 @@ import { Alert, Button, Form, Input } from '@/components';
 import { useRequest } from '@/utils';
 import { setJwt, setUser } from '@/store';
 
-export const RegisterForm = () => {
+interface Props {
+  onLogin: () => void;
+}
+
+export const RegisterForm = (props: Props) => {
   const navigate = useNavigate();
   const registerReq = useRequest(
     RegisterReq,
@@ -37,7 +41,10 @@ export const RegisterForm = () => {
       <Form.Item name={'passwd'}>
         <Input title={'密码'} type={'password'}/>
       </Form.Item>
-      <Button onClick={() => form.submit()} class={'w-full mt8'} variant={'primary'}>提交</Button>
+      <div class={'flex gap-2 w-full mt6'}>
+        <Button onClick={props.onLogin} class={'flex-1'} variant={'primary'}>登陆</Button>
+        <Button onClick={() => form.submit()} class={'flex-1'} variant={'primary'}>提交</Button>
+      </div>
     </Form>
   );
 };

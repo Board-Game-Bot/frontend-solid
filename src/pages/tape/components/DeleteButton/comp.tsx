@@ -1,5 +1,5 @@
 import { DeleteTapeReq } from './requests';
-import { Button, ButtonProps, Modal } from '@/components';
+import { Button, ButtonProps, IconButton, Modal } from '@/components';
 import { useRequest, signal } from '@/utils';
 
 interface Props extends ButtonProps {
@@ -22,12 +22,7 @@ export const DeleteButton = (props: Props) => {
 
   return (
     <>
-      <Button
-        variant={'danger'}
-        onClick={() => visible(true)}
-      >
-        删除
-      </Button>
+      <IconButton icon={<div class="i-mdi:delete w-2em h-2em" />} variant={'danger'} onClick={() => visible(true)} />
       <Modal
         title={'确认删除？'}
         visible={visible()}
@@ -35,7 +30,7 @@ export const DeleteButton = (props: Props) => {
         loading={deleteTapeReq.loading()}
         onCancel={() => visible(false)}
       >
-        <h1>请三思而后行</h1>
+        删除后，记录无法找回，请谨慎操作。
       </Modal>
     </>
   );

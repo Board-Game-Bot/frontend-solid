@@ -25,6 +25,11 @@ export const App = () => {
       <div class={'w-screen h-screen flex flex-col'}>
         <div class={'flex-0 z-2'}>
           <NavBar
+            title={
+              <div class={'font-bold'}>
+                Board Game Bot
+              </div>
+            }
             items={NAV_ITEMS}
             value={pathname()}
             onItemClick={handleItemClick}

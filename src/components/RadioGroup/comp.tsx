@@ -1,5 +1,8 @@
 import { createEffect, createSignal, For } from 'solid-js';
+import { toPairs } from 'lodash-es';
+import style from './index.module.scss';
 import { cx } from '@/utils';
+import { Button } from '@/components';
 
 interface Props {
   class?: string;
@@ -10,7 +13,7 @@ interface Props {
 }
 
 export const RadioGroup = (props: Props) => {
-  const items = () => 
+  const items = (): Record<string, string> =>
     Array.isArray(props.items) ? props.items.reduce(
       (p, c) => ({
         ...p,
@@ -18,6 +21,8 @@ export const RadioGroup = (props: Props) => {
       }),
       {} as Record<string, string>,
     ) : props.items;
+
+  const entries = () => toPairs(items());
 
   const [current, setCurrent] = createSignal(props.defaultValue ?? Object.keys(items())[0]);
 
@@ -33,20 +38,15 @@ export const RadioGroup = (props: Props) => {
   };
 
   return (
-    <div class={cx('w-fit p-1 flex items-center gap-1 bg-gray/9 rounded-1', props.class)}>
-      <For each={Object.entries(items())}>
+    <div class={cx('flex', style.btnGroup)}>
+      <For each={entries()}>
         {([key, label]) =>
-          <div
-            class={cx(
-              'px-2 py-1 rounded-1 cursor-pointer',
-              'transition duration-200',
-              'hover:bg-white',
-              key === usedValue() && 'bg-white text-#008',
-            )}
+          <Button
             onClick={() => handleClick(key)}
+            active={usedValue() === key}
           >
             {label}
-          </div>
+          </Button>
         }
       </For>
     </div>

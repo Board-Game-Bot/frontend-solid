@@ -1,9 +1,9 @@
 import { capitalize } from 'lodash-es';
-import { Show } from 'solid-js';
+import { createSignal, Show } from 'solid-js';
 import { DeleteButton, LocalDeleteButton, LocalWatchButton, UploadButton, WatchButton } from './components';
 import { GetTapesReq } from './requests';
-import { Column, Layout, Table } from '@/components';
-import { useLocalTapes, useRequest } from '@/utils';
+import { Column, Layout, RadioGroup, Table } from '@/components';
+import { formatTime, useLocalTapes, useRequest } from '@/utils';
 import { Tape } from '@/types';
 
 const TapePage = () => {
@@ -18,10 +18,10 @@ const TapePage = () => {
       title: '上传时间',
       width: 1,
       render: (record) =>
-        <div class={'font-mono'}>{record.uploadTime}</div>,
+        <div class={'font-mono'}>{formatTime(record.uploadTime)}</div>,
     }];
 
-  const columns: Column<Tape>[] = [{
+  const cloudColumns: Column<Tape>[] = [{
     index: 'id',
     title: '录像 ID',
     width: 1.5,
@@ -29,15 +29,18 @@ const TapePage = () => {
   }, ...commonColumns, {
     title: '操作',
     width: 1,
-    render: (record) =>
-      <div class={'flex gap-2'}>
+    render: (record) => {
+
+      console.log(record);
+      return <div class={'flex gap-2'}>
         <DeleteButton onOk={() => getTapesReq.run()} id={record.id} />
         <WatchButton tape={record} />
-      </div>
+      </div>;
+    }
     ,
   }];
 
-  const columns2: Column<Tape>[] = [...commonColumns, {
+  const localColumns: Column<Tape>[] = [...commonColumns, {
     title: '操作',
     width: 1,
     render: (record) =>
@@ -52,32 +55,32 @@ const TapePage = () => {
   const [tapes, setTapes] = useLocalTapes();
 
   const getTapesReq = useRequest(GetTapesReq, { auto: true });
+  const onlineTapes = () => getTapesReq.data()?.tapes ?? [];
+
+  const RADIO_OPTIONS = {
+    cloud: '云端',
+    local: '本地',
+  };
+
+  const [currentTab, setCurrentTab] = createSignal<keyof typeof RADIO_OPTIONS>('cloud');
 
   return (
     <Layout>
-      <Show
-        when={getTapesReq.data()?.tapes.length}
-        fallback={
-          <h2>你没有云端上的录像</h2>
-        }
-      >
+      <div class={'flex gap-4 items-center'}>
+        <h2>录像带</h2>
+        <RadioGroup items={RADIO_OPTIONS} onChange={setCurrentTab}/>
+      </div>
+      <Show when={currentTab() === 'cloud'}>
         <Table
           class={'w-full'}
-          title={'你的录像带'}
-          columns={columns}
-          data={getTapesReq.data()?.tapes ?? []}
+          columns={cloudColumns}
+          data={onlineTapes()}
         />
       </Show>
-      <Show
-        when={tapes().length}
-        fallback={
-          <h2>你没有留存本地的录像</h2>
-        }
-      >
+      <Show when={currentTab() === 'local'}>
         <Table
           class={'w-full'}
-          title={'留存本地的录像带'}
-          columns={columns2}
+          columns={localColumns}
           data={tapes()}
         />
       </Show>

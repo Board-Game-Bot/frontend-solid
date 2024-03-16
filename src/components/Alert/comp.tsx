@@ -1,6 +1,7 @@
 import { onMount, ParentProps } from 'solid-js';
 import { render } from 'solid-js/web';
 import { useAlert } from '@/components/Alert/utils';
+import { cx } from '@/utils';
 
 interface Props extends ParentProps {
 }
@@ -21,7 +22,15 @@ const AlertComp = (props: Props) => {
   onMount(() => setTimeout(toggle, 16));
 
   return (
-    <div class={['transition-all duration-200 fixed top-100px right-100px bg-blue-7 text-white text-sm max-w-500px rounded-2 p-5', !visible() ? 'opacity-0' : 'opacity-100'].join(' ')}>
+    <div
+      class={cx(
+        'transition-all duration-200',
+        'fixed top-100px right-100px',
+        'bg-#7777 border-#999 border-1 border-solid',
+        ' text-#444 text-sm max-w-500px rounded-2 p-5',
+        { ['opacity-0']: !visible(), ['opacity-100']: visible() },
+      )}
+    >
       {props.children}
     </div>
   );

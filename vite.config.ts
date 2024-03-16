@@ -21,6 +21,11 @@ export default defineConfig({
   server: {
     port: 5173,
   },
+  css: {
+    modules: {
+      localsConvention: 'camelCase',
+    },
+  },
   build: {
     target: 'esnext',
   },
