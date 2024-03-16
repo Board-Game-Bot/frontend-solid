@@ -22,7 +22,7 @@ export const CreateButton = (props: Props) => {
 
   return (
     <>
-      <Button variant={'success'} onClick={() => visible(true)}>
+      <Button icon={<div class="i-mdi:plus-thick w-1em h-1em" />} onClick={() => visible(true)}>
         创建 Bot
       </Button>
       <Modal

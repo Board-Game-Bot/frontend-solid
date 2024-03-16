@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-import { Show } from 'solid-js';
 import { GetBotsReq } from './requests';
 import { CreateButton } from './components';
 import { useColumns } from './hooks';
@@ -22,27 +20,15 @@ const BotPage = () => {
 
   return (
     <Layout>
-      <Show
-        when={!getBotsReq.loading() && getBotsReq.data()?.bots.length}
-        fallback={
-          <div>
-            <h1>你目前还没有任何代码。</h1>
-            <CreateButton onOk={handleOk} />
-          </div>
-        }
-      >
-        <Table
-          title={
-            <div class={'flex items-center gap-4'}>
-              你的代码
-              <CreateButton onOk={handleOk} />
-            </div>
-          }
-          columns={columns}
-          data={getBotsReq.data()?.bots ?? []}
-          width={1300}
-        />
-      </Show>
+      <h2 class={'flex gap4'}>
+        代码集
+        <CreateButton onOk={handleOk}/>
+      </h2>
+      <Table
+        columns={columns}
+        data={getBotsReq.data()?.bots ?? []}
+        width={1300}
+      />
     </Layout>
   );
 };

@@ -1,5 +1,5 @@
 import { DeleteBotReq } from './requests';
-import { Button, Modal } from '@/components';
+import { IconButton, Modal } from '@/components';
 import { useRequest, signal } from '@/utils';
 
 interface Props {
@@ -21,7 +21,7 @@ export const DeleteButton = (props: Props) => {
 
   return (
     <>
-      <Button variant={'danger'} onClick={() => visible(true)}>删除</Button>
+      <IconButton icon={<div class="i-mdi:delete w-2em h-2em" />} onClick={() => visible(true)} />
       <Modal
         title={`确认删除${props.id}?`}
         visible={visible()}
@@ -29,7 +29,7 @@ export const DeleteButton = (props: Props) => {
         onOk={() => deleteBotReq.run(props.id)}
         onCancel={() => visible(false)}
       >
-        <h1>请三思而后行</h1>
+       删除后，记录无法找回，请谨慎操作。
       </Modal>
     </>
   );

@@ -1,9 +1,11 @@
+import { JSX, Show } from 'solid-js';
 import style from './index.module.scss';
 import { cx } from '@/utils';
 import { ButtonProps } from '@/components';
 
 interface Props extends ButtonProps {
   active?: boolean;
+  icon?: JSX.Element;
 }
 
 export const Button = (props: Props) => {
@@ -22,7 +24,12 @@ export const Button = (props: Props) => {
       )}
       type={props.type ?? 'button'}
     >
-      {props.children}
+      <Show when={props.icon}>
+        {props.icon}
+      </Show>
+      <div>
+        {props.children}
+      </div>
     </button>
   );
 };

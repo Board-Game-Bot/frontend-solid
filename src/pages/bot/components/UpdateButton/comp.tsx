@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { UpdateBotReq } from './requests';
-import { Button, Form, Input, Modal, Select, TextArea } from '@/components';
+import { Form, IconButton, Input, Modal, Select, TextArea } from '@/components';
 import { useRequest, signal } from '@/utils';
 import { Bot } from '@/types';
 
@@ -24,9 +24,7 @@ export const UpdateButton = (props: Props) => {
 
   return (
     <>
-      <Button onClick={() => visible(true)}>
-        修改
-      </Button>
+      <IconButton icon={<div class="i-mdi:settings w-2em h-2em" />} onClick={() => visible(true)} />
       <Modal
         title={`修改 ${props.record.id}`}
         height={'70vh'}

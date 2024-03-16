@@ -1,8 +1,9 @@
 import dayjs from 'dayjs';
 import { CodeButton, DeleteButton, UpdateButton } from '../components';
-import { Button, Column } from '@/components';
+import { Column } from '@/components';
 import { Bot } from '@/types';
 import { monoRender } from '@/utils';
+import { RegisteredLang } from '@/components/HighlightCode/types';
 
 interface Props {
   onOk?: () => void;
@@ -20,12 +21,12 @@ export const useColumns = ({ onOk }: Props) => {
         {dayjs(record.createTime).format('YYYY-MM-DD HH:mm')}
       </div>,
     },
-    { width: 2.5, title: '操作', render: (record) =>
+    { width: 2.5, title: '操作', render: (bot) =>
       <div class={'flex gap-3'}>
-        <Button>设为公开/私密</Button>
-        <CodeButton id={record.id} />
-        <UpdateButton onOk={onOk} record={record} />
-        <DeleteButton onOk={onOk} id={record.id} />
+        {/*<Button>设为公开/私密</Button>*/}
+        <CodeButton id={bot.id} lang={bot.langId as RegisteredLang} />
+        <UpdateButton onOk={onOk} record={bot} />
+        <DeleteButton onOk={onOk} id={bot.id} />
       </div>,
     },
   ];

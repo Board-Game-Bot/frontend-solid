@@ -1,10 +1,12 @@
 import { createEffect, Show } from 'solid-js';
 import { CodeBotReq } from './requests';
-import { Button, Modal } from '@/components';
+import { HighlightCode, IconButton, Modal } from '@/components';
 import { signal, useRequest } from '@/utils';
+import { RegisteredLang } from '@/components/HighlightCode/types';
 
 interface Props {
   id: string;
+  lang: RegisteredLang;
 }
 
 export const CodeButton = (props: Props) => {
@@ -22,11 +24,9 @@ export const CodeButton = (props: Props) => {
 
   return (
     <>
-      <Button onClick={() => visible(true)}>
-        查看
-      </Button>
+      <IconButton icon={<div class="i-mdi:code w-2em h-2em" />} onClick={() => visible(true)} />
       <Modal
-        title={`查看 ${props.id}`}
+        title={`${props.id} 的代码`}
         height={'70vh'}
         visible={visible()}
         onOk={() => visible(false)}
@@ -36,9 +36,9 @@ export const CodeButton = (props: Props) => {
           when={!codeBotReq.loading() && codeBotReq.data()}
           fallback={<h1>加载中...</h1>}
         >
-          <pre class={'font-mono'}>
+          <HighlightCode lang={props.lang}>
             {codeBotReq.data()?.code}
-          </pre>
+          </HighlightCode>
         </Show>
       </Modal>
     </>

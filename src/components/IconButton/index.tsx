@@ -7,7 +7,7 @@ interface Props extends ButtonProps {
 
 export const IconButton = (props: Props) => {
   return (
-    <Button {...props} style={{ padding: '5px' }}>
+    <Button {...props} icon={null} style={{ padding: '5px' }}>
       {props.icon}
     </Button>
   );

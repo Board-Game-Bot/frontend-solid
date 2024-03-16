@@ -17,6 +17,9 @@ dependencies:
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
+  highlight.js:
+    specifier: ^11.9.0
+    version: 11.9.0
   lodash:
     specifier: ^4.17.21
     version: 4.17.21
@@ -2738,6 +2741,11 @@ packages:
     dependencies:
       function-bind: 1.1.2
     dev: true
+
+  /highlight.js@11.9.0:
+    resolution: {integrity: sha512-fJ7cW7fQGCYAkgv4CPfwFHrfd/cLS4Hau96JuJ+ZTOWhjnhoeN1ub1tFmALm/+lW5z4WCAuAV9bm05AP0mS6Gw==}
+    engines: {node: '>=12.0.0'}
+    dev: false
 
   /html-entities@2.3.3:
     resolution: {integrity: sha512-DV5Ln36z34NNTDgnz0EWGBLZENelNAtkiFA4kyNOG2tDI6Mz1uSWiq1wAKdyjnJwyDiDO7Fa2SO1CTxPXL8VxA==}
