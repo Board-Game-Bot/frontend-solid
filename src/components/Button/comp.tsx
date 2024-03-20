@@ -27,7 +27,7 @@ export const Button = (props: Props) => {
       <Show when={props.icon}>
         {props.icon}
       </Show>
-      <div>
+      <div class={'w-full'}>
         {props.children}
       </div>
     </button>
