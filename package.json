@@ -4,9 +4,9 @@
   "description": "",
   "scripts": {
     "prepare": "husky install",
-    "dev": "./update.sh && vite",
+    "dev": "vite",
     "build": "vite build",
-    "lint": "eslint --ext .js,.ts,.jsx,.tsx --fix --quiet ./src",
+    "lint": "eslint --ext .js,.ts,.jsx,.tsx --fix --quiet ./packages",
     "serve": "vite preview"
   },
   "lint-staged": {
