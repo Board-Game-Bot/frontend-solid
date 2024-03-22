@@ -1,5 +1,5 @@
 import { useNavigate } from '@solidjs/router';
-import { Alert, Button, Form, Input } from 'soku-ui';
+import { Alert, Button, Input, NewForm } from 'soku-ui';
 import { LoginReq } from './requests';
 import { LoginDto } from './types';
 import { useRequest } from '@/utils';
@@ -11,6 +11,7 @@ interface Props {
 
 export const LoginForm = (props: Props) => {
   const navigate = useNavigate();
+  const [newForm] = NewForm.useForm();
   const loginReq = useRequest(LoginReq, {
     onSuccess: ({ user, jwt }) => {
       Alert({
@@ -21,27 +22,36 @@ export const LoginForm = (props: Props) => {
       navigate('/');
     },
   });
-  const handleSubmit = (data: Record<string, any>) => {
+  const handleSubmit = () => {
+    const data = newForm.gets();
     loginReq.run(data as LoginDto);
   };
 
-  const form = Form.useForm();
-
   return (
-    <Form
-      form={form}
-      onSubmit={handleSubmit}
-    >
-      <Form.Item name={'id'}>
-        <Input title={'用户 ID'} />
-      </Form.Item>
-      <Form.Item name={'passwd'}>
-        <Input title={'密码'} type={'password'}/>
-      </Form.Item>
-      <div class={'flex gap-2 w-full mt6'}>
-        <Button class={'flex-1'} onClick={props.onRegister}>注册</Button>
-        <Button class={'flex-1'} onClick={() => form.submit()} variant={'primary'}>提交</Button>
-      </div>
-    </Form>
+    <>
+      <NewForm form={newForm}>
+        <NewForm.Item
+          field={'id'}
+          label={'用户 ID'}
+          component={Input}
+          props={{
+            placeholder: '请输入 ID',
+          }}
+        />
+        <NewForm.Item
+          field={'passwd'}
+          label={'密码'}
+          component={Input}
+          props={{
+            type: 'password',
+            placeholder: '请输入密码',
+          }}
+        />
+        <div class={'flex gap-2 w-full mt6'}>
+          <Button class={'flex-1'} onClick={props.onRegister}>注册</Button>
+          <Button class={'flex-1'} onClick={handleSubmit} variant={'primary'}>提交</Button>
+        </div>
+      </NewForm>
+    </>
   );
 };

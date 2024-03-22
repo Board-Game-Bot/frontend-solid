@@ -1,5 +1,5 @@
 import { useNavigate } from '@solidjs/router';
-import { Alert, Button, Form, Input } from 'soku-ui';
+import { Alert, Button, Input, NewForm } from 'soku-ui';
 import { RegisterReq } from './requests';
 import { RegisterDto } from './types';
 import { useRequest } from '@/utils';
@@ -24,27 +24,38 @@ export const RegisterForm = (props: Props) => {
       },
     });
 
-  const handleSubmit = (data: any) => {
+  const [form] = NewForm.useForm();
+
+  const handleSubmit = () => {
+    const data = form.gets();
     registerReq.run(data as RegisterDto);
   };
 
-  const form = Form.useForm();
-
   return (
-    <Form
+    <NewForm
       form={form}
-      onSubmit={handleSubmit}
     >
-      <Form.Item name={'id'}>
-        <Input title={'用户 ID'} />
-      </Form.Item>
-      <Form.Item name={'passwd'}>
-        <Input title={'密码'} type={'password'}/>
-      </Form.Item>
+      <NewForm.Item
+        field={'id'}
+        label={'用户 ID'}
+        component={Input}
+        props={{
+          placeholder: '请输入 ID',
+        }}
+      />
+      <NewForm.Item
+        field={'passwd'}
+        label={'密码'}
+        component={Input}
+        props={{
+          type: 'password',
+          placeholder: '请输入密码',
+        }}
+      />
       <div class={'flex gap-2 w-full mt6'}>
         <Button onClick={props.onLogin} class={'flex-1'} variant={'primary'}>登陆</Button>
-        <Button onClick={() => form.submit()} class={'flex-1'} variant={'primary'}>提交</Button>
+        <Button onClick={handleSubmit} class={'flex-1'} variant={'primary'}>提交</Button>
       </div>
-    </Form>
+    </NewForm>
   );
 };

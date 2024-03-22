@@ -2,32 +2,21 @@ import { createEffect, JSX, splitProps } from 'solid-js';
 import { cx, useSignal } from 'soku-utils';
 import { Label } from '../..';
 
-interface Props extends Omit<JSX.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+interface Props extends Omit<JSX.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'>, ChangeValue<string> {
   default?: string;
-  value?: string;
-  onChange?: (value?: string) => void;
 }
 
 export const Input = (_props: Props) => {
   const [props2, props] = splitProps(_props, ['onChange']);
   const currentValue = useSignal(props.default);
 
-  let divRef: HTMLDivElement;
   createEffect(() => {
     const v = currentValue.v();
-    const {
-      onChange = (value?: string) => {
-        divRef?.dispatchEvent(new CustomEvent('change', {
-          bubbles: true,
-          detail: value,
-        }));
-      },
-    } = props2;
-    onChange(v);
+    props2.onChange?.(v ?? '');
   });
 
   return (
-    <div ref={el => divRef = el} class={['relative', props.class].join(' ')}>
+    <div class={['relative', props.class].join(' ')}>
       <Label name={props.name}>{props.title}</Label>
       <input
         {...props}
