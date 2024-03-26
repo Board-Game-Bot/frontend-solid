@@ -13,3 +13,6 @@ export * from './Select';
 export * from './Label';
 export * from './TextArea';
 export * from './HighlightCode';
+export * from './NewForm';
+export * from './Drawer';
+export * from './Message';

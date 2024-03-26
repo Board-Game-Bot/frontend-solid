@@ -122,6 +122,9 @@ importers:
       soku-ui:
         specifier: workspace:^
         version: link:../soku-ui
+      soku-utils:
+        specifier: workspace:^
+        version: link:../soku-utils
 
 packages:
 

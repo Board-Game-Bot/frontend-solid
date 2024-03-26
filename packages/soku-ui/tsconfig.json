@@ -10,12 +10,6 @@
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "types": ["vite/client"],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"],
-      "@business/*": ["./src/business/components", "./src/business/components/*"],
-      "@business": ["./src/business/components"]
-    },
     "noEmit": true,
     "isolatedModules": true
   },

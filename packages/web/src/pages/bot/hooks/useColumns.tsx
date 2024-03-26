@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { Column, RegisteredLang } from 'soku-ui';
+import { Column } from 'soku-ui';
 import { CodeButton, DeleteButton, UpdateButton } from '../components';
 import { Bot } from '@/types';
 import { monoRender } from '@/utils';
@@ -20,11 +20,10 @@ export const useColumns = ({ onOk }: Props) => {
         {dayjs(record.createTime).format('YYYY-MM-DD HH:mm')}
       </div>,
     },
-    { width: 2.5, title: '操作', render: (bot) =>
+    { width: .5, title: '操作', render: (bot) =>
       <div class={'flex gap-3'}>
-        {/*<Button>设为公开/私密</Button>*/}
-        <CodeButton id={bot.id} lang={bot.langId as RegisteredLang} />
-        <UpdateButton onOk={onOk} record={bot} />
+        <CodeButton bot={bot} />
+        <UpdateButton onOk={onOk} bot={bot} />
         <DeleteButton onOk={onOk} id={bot.id} />
       </div>,
     },
