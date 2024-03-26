@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "soku-ui": "workspace:^"
+    "soku-ui": "workspace:^",
+    "soku-utils": "workspace:^"
   }
 }

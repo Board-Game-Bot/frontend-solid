@@ -34,18 +34,14 @@ export const LoginForm = (props: Props) => {
           field={'id'}
           label={'用户 ID'}
           component={Input}
-          props={{
-            placeholder: '请输入 ID',
-          }}
+          placeholder={'请输入 ID'}
         />
         <NewForm.Item
           field={'passwd'}
           label={'密码'}
           component={Input}
-          props={{
-            type: 'password',
-            placeholder: '请输入密码',
-          }}
+          type={'password'}
+          placeholder={'请输入密码'}
         />
         <div class={'flex gap-2 w-full mt6'}>
           <Button class={'flex-1'} onClick={props.onRegister}>注册</Button>
