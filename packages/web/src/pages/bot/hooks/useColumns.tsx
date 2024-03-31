@@ -21,7 +21,7 @@ export const useColumns = ({ onOk }: Props) => {
         {dayjs(record.createTime).format('YYYY-MM-DD HH:mm')}
       </div>,
     },
-    { width: .5, title: '操作', render: (bot) =>
+    { width: .5, title: '操作', index: 'status', render: (bot) =>
       <div class={'flex gap-3'}>
         <OperateButton bot={bot} onOperate={onOk} />
         <CodeButton bot={bot} />

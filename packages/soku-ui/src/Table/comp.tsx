@@ -1,8 +1,10 @@
-import { For, JSX, Show, splitProps } from 'solid-js';
+import { Index, JSX, Show, splitProps } from 'solid-js';
 import { isUndefined } from 'lodash-es';
 import { cx } from 'soku-utils';
 import { Empty } from '../index';
 import { Column } from './types';
+import { ColumnComponent } from './components';
+
 
 interface Props<T> extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'title'> {
   columns: Column<T>[];
@@ -47,21 +49,21 @@ export function Table<T>(_props: Props<T>) {
             </tr>
           </Show>
           <tr>
-            <For each={props.columns}>
+            <Index each={props.columns}>
               {(column) =>
                 <th
-                  style={{ width: cellWidth(column.width) }}
+                  style={{ width: cellWidth(column().width) }}
                   class={'text-left border-1 border-solid border-#ededed bg-#ededed px3 py3'}
                 >
-                  {column.title}
+                  {column().title}
                 </th>
               }
-            </For>
+            </Index>
           </tr>
         </thead>
         <Show when={props.columns.length}>
           <tbody>
-            <For
+            <Index
               each={props.data}
               fallback={
                 <tr>
@@ -73,22 +75,24 @@ export function Table<T>(_props: Props<T>) {
             >
               {(record) =>
                 <tr>
-                  <For each={props.columns}>
+                  <Index each={props.columns}>
                     {(column, index) =>
                       <td
                         style={{
-                          width: cellWidth(column.width),
-                          'text-align': column.align,
+                          width: cellWidth(column().width),
+                          'text-align': column().align,
                         }}
                         class={'border-1 border-solid border-#ededed px3 py1'}
                       >
-                        {column.render?.(record, index()) ?? (column.index && (record as any)[column.index])}
+                        <ColumnComponent record={record()} index={column().index} deps={column().deps}>
+                          {column().render?.(record(), index) ?? (column().index && (record as any)[column().index])}
+                        </ColumnComponent>
                       </td>
                     }
-                  </For>
+                  </Index>
                 </tr>
               }
-            </For>
+            </Index>
           </tbody>
         </Show>
       </table>
