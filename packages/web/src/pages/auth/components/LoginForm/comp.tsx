@@ -44,8 +44,20 @@ export const LoginForm = (props: Props) => {
           placeholder={'请输入密码'}
         />
         <div class={'flex gap-2 w-full mt6'}>
-          <Button class={'flex-1'} onClick={props.onRegister}>注册</Button>
-          <Button class={'flex-1'} onClick={handleSubmit} variant={'primary'}>提交</Button>
+          <Button
+            class={'flex-1'}
+            onClick={props.onRegister}
+          >
+            注册
+          </Button>
+          <Button
+            class={'flex-1'}
+            onClick={handleSubmit}
+            variant={'primary'}
+            loading={loginReq.loading()}
+          >
+            提交
+          </Button>
         </div>
       </NewForm>
     </>

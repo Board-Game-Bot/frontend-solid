@@ -8,6 +8,9 @@ import { createEvent, createGame, createSocket, cx, signal, useSaveTape } from '
 import { getGame, jwt, user } from '@/store';
 import { BotSelect } from '@/business/components';
 
+
+// FIXME: 如果游戏结束后还保持继续游戏，则会出现上一个游戏还没销毁的 bug ，需要修复
+
 const CustomMode = () => {
   const [socket, connect, isConnect] = createSocket(import.meta.env.VITE_WS_URL, jwt());
   const stage = signal(0);

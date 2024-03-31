@@ -34,6 +34,16 @@ export interface Bot {
   createTime: Date;
   isPublic: boolean;
   code?: string;
+  status: BotStatus;
+  statusMessage?: string;
+}
+
+export enum BotStatus {
+  Hibernating = 'Hibernating',
+  Deploying = 'Deploying',
+  Working = 'Working',
+  Terminating = 'Terminating',
+  Failed = 'Failed',
 }
 
 export interface Rate {

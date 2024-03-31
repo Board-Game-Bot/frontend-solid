@@ -17,7 +17,7 @@ export const Button = (props: Props) => {
         style.btn,
         {
           [style.btnLoading]: props.loading,
-          [style.btnAllow]: !props.disabled,
+          [style.btnAllow]: !props.disabled && !props.loading,
           [style.btnActive]: props.active,
           ...props.classList,
         },
