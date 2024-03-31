@@ -1,5 +1,5 @@
 import { Select, SelectProps } from 'soku-ui';
-import { createEffect } from 'solid-js';
+import { onMount } from 'solid-js';
 import { BotGameReq } from './requests';
 import { useRequest } from '@/utils';
 import { BotStatus } from '@/types';
@@ -10,7 +10,7 @@ interface Props extends SelectProps {
 
 export const BotSelect = (props: Props) => {
   const gameBotReq = useRequest(BotGameReq);
-  createEffect(() => {
+  onMount(() => {
     gameBotReq.run(props.gameId);
   });
 
