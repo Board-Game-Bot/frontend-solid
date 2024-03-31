@@ -55,14 +55,13 @@ const MultiMode = () => {
           <div class={'flex-0 w-300px p-6 box-border'}>
             <Show when={isConnect()}>
               <Show when={stage() === 0}>
-                <div class={'flex gap-3'}>
+                <div class={'flex items-center gap-3'}>
                   <div class={'flex-1'}>
-                    <BotSelect width={200} onChange={botId} gameId={gameId} />
+                    <BotSelect width={'200px'} onChange={botId} gameId={gameId} />
                   </div>
                   <Button
-                    class={'flex-0'}
+                    class={'flex-0 h-full'}
                     variant={'primary'}
-                    size={'md'}
                     onClick={match}
                     loading={isMatching()}
                   >

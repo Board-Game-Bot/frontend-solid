@@ -1,4 +1,5 @@
 import { Layout, Table } from 'soku-ui';
+import { onCleanup, onMount } from 'solid-js';
 import { GetBotsReq } from './requests';
 import { CreateButton } from './components';
 import { useColumns } from './hooks';
@@ -12,8 +13,15 @@ const BotPage = () => {
     },
   );
 
+  let timer: number;
+  onMount(() => {
+    timer = window.setInterval(() => getBotsReq.run(0, 100), 10000);
+  });
+  onCleanup(() => clearInterval(timer));
+
+
   const handleOk = () => {
-    getBotsReq.run(0, 10);
+    getBotsReq.run(0, 100);
   };
 
   const columns = useColumns({ onOk: handleOk });
