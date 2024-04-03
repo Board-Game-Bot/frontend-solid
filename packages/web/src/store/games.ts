@@ -1,6 +1,7 @@
 import { createEffect, createSignal } from 'solid-js';
+import { GetGamesReq } from './api';
 import { Game } from '@/types';
-import { downloadGame } from '@/utils';
+import { downloadGame, useRequest } from '@/utils';
 
 const [games, setGames] = createSignal<Game[]>([]);
 
@@ -8,6 +9,16 @@ export {
   games,
   setGames,
 };
+
+useRequest(
+  GetGamesReq,
+  {
+    auto: true,
+    onSuccess: ({ games }) => {
+      setGames(games);
+    },
+  },
+);
 
 export const getGame = (id: string) => games().find(game => game.id === id);
 

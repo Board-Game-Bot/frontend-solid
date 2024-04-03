@@ -2,23 +2,12 @@ import { For } from 'solid-js';
 import { capitalize } from 'lodash-es';
 import { useNavigate } from '@solidjs/router';
 import { Layout } from 'soku-ui';
-import { GetGamesReq } from './requests';
 import { GameCard } from './components';
-import { useRequest, loadingMap } from '@/utils';
+import { loadingMap } from '@/utils';
 import { Game } from '@/types';
-import { games, setGames } from '@/store';
+import { games } from '@/store';
 
 const GamePage = () => {
-  useRequest(
-    GetGamesReq,
-    {
-      auto: true,
-      onSuccess: ({ games }) => {
-        setGames(games);
-      },
-    },
-  );
-
   const navigate = useNavigate();
   const handleClick = (game: Game) => {
     navigate(`/game/${game.id}`);
