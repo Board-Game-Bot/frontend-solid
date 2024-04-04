@@ -30,8 +30,6 @@ const TapePage = () => {
     title: '操作',
     width: 1,
     render: (record) => {
-
-      console.log(record);
       return <div class={'flex gap-2'}>
         <DeleteButton onOk={() => getTapesReq.run()} id={record.id} />
         <WatchButton tape={record} />
