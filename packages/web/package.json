@@ -13,6 +13,7 @@
   "dependencies": {
     "@iconify-json/vscode-icons": "^1.1.33",
     "@soku-solid/ui": "workspace:^",
-    "@soku-solid/utils": "workspace:^"
+    "@soku-solid/utils": "workspace:^",
+    "solid-markdown": "^2.0.1"
   }
 }
