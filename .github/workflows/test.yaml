@@ -22,11 +22,5 @@ jobs:
       - name: Setup PNPM ✨
         run: npm i -g pnpm
 
-      - name: Install Dependencies ⏬
-        run: pnpm i
-
-      - name: Code Lint 🔍
-        run: pnpm lint
-
       - name: Check Build 📦
-        run: pnpm --filter=web build
+        run: sh build.sh
