@@ -1,4 +1,4 @@
-import { Show } from 'solid-js';
+import { createEffect, Show } from 'solid-js';
 import { useNavigate } from '@solidjs/router';
 import { Layout, List } from '@soku-solid/ui';
 import { useSignal } from '@soku-solid/utils';
@@ -24,9 +24,15 @@ const GamePage = () => {
 
   const selectedGame = useSignal<Game>();
   const handleSelectGame = (game: Game) => {
+    console.log('select');
     stage.s(1);
     selectedGame.s(game);
   };
+
+  createEffect(() => {
+    console.log(stage.v());
+  });
+
 
   const handleSelect = (mode: ModeType) => {
     navigate(`/game/${selectedGame.v()!.id}/${mode.key}`);
