@@ -11,14 +11,14 @@ export const createLocalStorageSignal = <T>(key: string, fallbackValue?: T) => {
       return item ?? fallbackValue;
     }
   };
-  const value = useSignal<string>(defaultValue());
+  const value = useSignal<T>(defaultValue());
 
   createEffect(() => {
     try {
       localStorage.setItem(key, JSON.stringify(value.v()));
     }
     catch {
-      localStorage.setItem(key, value.v() ?? '');
+      localStorage.setItem(key, '');
     }
   });
 

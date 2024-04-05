@@ -1,7 +1,6 @@
 import { IconButton, Modal } from '@soku-solid/ui';
-import { signal } from '@/utils';
+import { signal, useLocalTapes } from '@/utils';
 import { Tape } from '@/types';
-import { useLocalTapes } from '@/utils/useLocalTapes';
 
 interface Props {
   tape: Tape;
@@ -11,9 +10,9 @@ interface Props {
 export const LocalDeleteButton = (props: Props) => {
   const visible = signal(false);
 
-  const [tapes, setTapes] = useLocalTapes();
+  const tapes = useLocalTapes();
   const handleDelete = () => {
-    setTapes(tapes().filter(tape => JSON.stringify(tape) !== JSON.stringify(props.tape)));
+    tapes.s(tapes.v()?.filter(tape => JSON.stringify(tape) !== JSON.stringify(props.tape)));
   };
 
   return (
