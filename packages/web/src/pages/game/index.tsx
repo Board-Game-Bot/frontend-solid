@@ -66,7 +66,7 @@ const GamePage = () => {
         <Show when={currentDescription.v()}>
           <div class={'h-70vh bg-#eee p5 w-500px overflow-auto'}>
             <SolidMarkdown>
-              {currentDescription.v()}
+              {console.log('solid-markdownxxxx'), currentDescription.v()}
             </SolidMarkdown>
           </div>
         </Show>
