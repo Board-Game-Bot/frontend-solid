@@ -1,4 +1,4 @@
-import { IconButton } from 'soku-ui';
+import { IconButton } from '@soku-solid/ui';
 import { Show } from 'solid-js';
 import { CompileBotReq, StopBotReq } from './requests';
 import { Bot, BotStatus } from '@/types';

@@ -1,6 +1,5 @@
 import { JSX } from 'solid-js';
-import { cx, useSignal } from 'soku-utils';
-import { Label } from '../index';
+import { cx, useSignal } from '@soku-solid/utils';
 
 interface Props extends Omit<JSX.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'> {
   width?: string;
@@ -13,7 +12,6 @@ export const TextArea = (props: Props) => {
 
   return (
     <div class={props.class}>
-      <Label name={props.name}>{props.title}</Label>
       <textarea
         {...props}
         value={currentValue.v()}

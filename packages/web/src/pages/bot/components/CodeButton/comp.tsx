@@ -1,5 +1,5 @@
 import { createEffect, Show, untrack } from 'solid-js';
-import { HighlightCode, IconButton, Modal, RegisteredLang } from 'soku-ui';
+import { HighlightCode, IconButton, Modal, RegisteredLang } from '@soku-solid/ui';
 import { CodeBotReq } from './requests';
 import { signal, useRequest } from '@/utils';
 import { Bot } from '@/types';

@@ -1,6 +1,6 @@
 import { onMount, ParentProps } from 'solid-js';
 import { render } from 'solid-js/web';
-import { cx } from 'soku-utils';
+import { cx } from '@soku-solid/utils';
 import { useAlert } from './utils';
 
 interface Props extends ParentProps {

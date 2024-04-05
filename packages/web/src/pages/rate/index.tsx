@@ -1,5 +1,5 @@
 import { createEffect, on } from 'solid-js';
-import { Column, Layout, RadioGroup, Table } from 'soku-ui';
+import { Column, Layout, RadioGroup, Table } from '@soku-solid/ui';
 import { ColumnType } from './types';
 import { GetRatesReq } from './requests';
 import { signal, useRequest } from '@/utils';

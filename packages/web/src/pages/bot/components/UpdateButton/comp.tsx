@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
-import { Drawer, IconButton, Input, Message, NewForm, Select, TextArea } from 'soku-ui';
+import { Drawer, IconButton, Input, Message, NewForm, Select, TextArea } from '@soku-solid/ui';
 import { Show } from 'solid-js';
-import { useSignal } from 'soku-utils';
+import { useSignal } from '@soku-solid/utils';
 import { UpdateBotDto, UpdateBotReq } from './requests';
 import { useRequest, signal } from '@/utils';
 import { Bot } from '@/types';

@@ -1,6 +1,6 @@
 import { Show } from 'solid-js';
-import { Drawer, Message } from 'soku-ui';
-import { useSignal } from 'soku-utils';
+import { Drawer, Message } from '@soku-solid/ui';
+import { useSignal } from '@soku-solid/utils';
 import { STATUS_ICON_MAP } from './constants';
 import { BotStatus } from '@/types';
 

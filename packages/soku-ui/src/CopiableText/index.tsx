@@ -1,5 +1,5 @@
 import { ComponentProps, Show, splitProps } from 'solid-js';
-import { cx, useSignal } from 'soku-utils';
+import { cx, useSignal } from '@soku-solid/utils';
 
 interface Props {
     text: string;

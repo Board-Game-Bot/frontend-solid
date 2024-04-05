@@ -1,5 +1,5 @@
 import { useNavigate } from '@solidjs/router';
-import { Img } from '../../../../../soku-ui/src';
+import { Img } from '@soku-solid/ui';
 import { user } from '@/store';
 
 export const Auth = () => {

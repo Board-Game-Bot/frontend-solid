@@ -1,5 +1,5 @@
 import { WatchGameModal } from '@business';
-import { ButtonProps, IconButton } from 'soku-ui';
+import { ButtonProps, IconButton } from '@soku-solid/ui';
 import { signal } from '@/utils';
 import { Tape } from '@/types';
 

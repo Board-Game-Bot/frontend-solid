@@ -1,7 +1,7 @@
 import { useParams } from '@solidjs/router';
 import { capitalize } from 'lodash-es';
 import { buildGame, LifeCycle, NewGenerator } from '@soku-games/core';
-import { Button, Layout } from 'soku-ui';
+import { Button, Layout } from '@soku-solid/ui';
 import { signal, useSaveTape } from '@/utils';
 import { Tape } from '@/types';
 

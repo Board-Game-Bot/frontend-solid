@@ -1,5 +1,6 @@
-import { Select, SelectProps } from 'soku-ui';
+
 import { onMount } from 'solid-js';
+import { Select, SelectProps } from '@soku-solid/ui';
 import { BotGameReq } from './requests';
 import { useRequest } from '@/utils';
 import { BotStatus } from '@/types';

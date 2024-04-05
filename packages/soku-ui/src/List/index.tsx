@@ -1,4 +1,4 @@
-import { cx } from 'soku-utils';
+import { cx } from '@soku-solid/utils';
 import { Index, JSX } from 'solid-js';
 
 interface Props<T> {

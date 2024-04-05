@@ -2,7 +2,7 @@ import { useParams } from '@solidjs/router';
 import { createEffect, Show } from 'solid-js';
 import { capitalize } from 'lodash-es';
 import { LifeCycle } from '@soku-games/core';
-import { Button, Layout } from 'soku-ui';
+import { Button, Layout } from '@soku-solid/ui';
 import { RoomComp } from './components';
 import { createMatch, createRoom } from './utils';
 import { createEvent, createGame, createSocket, signal, useSaveTape } from '@/utils';

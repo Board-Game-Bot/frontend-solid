@@ -1,8 +1,8 @@
 import { JSX, Show } from 'solid-js';
 import { isNumber, isString } from 'lodash-es';
-import { cx } from 'soku-utils';
+import { cx } from '@soku-solid/utils';
 import { Portal } from 'solid-js/web';
-import { Button } from '../..';
+import { Button } from '../Button';
 
 interface Props {
   height?: number | string;

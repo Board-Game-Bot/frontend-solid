@@ -1,4 +1,4 @@
-import { Layout, Table } from 'soku-ui';
+import { Layout, Table } from '@soku-solid/ui';
 import { onCleanup, onMount } from 'solid-js';
 import { GetBotsReq } from './requests';
 import { CreateButton } from './components';

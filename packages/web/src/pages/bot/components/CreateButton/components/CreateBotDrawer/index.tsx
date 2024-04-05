@@ -1,5 +1,5 @@
-import { Drawer, DrawerProps, Input, Message, NewForm, Select, TextArea } from 'soku-ui';
-import { useSignal } from 'soku-utils';
+import { Drawer, DrawerProps, Input, Message, NewForm, Select, TextArea } from '@soku-solid/ui';
+import { useSignal } from '@soku-solid/utils';
 import { Show } from 'solid-js';
 import { GAME_OPTIONS, LANG_OPTIONS } from '../../constants';
 import { CreateBotReq } from '../../requests';

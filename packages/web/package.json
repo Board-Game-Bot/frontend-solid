@@ -12,7 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "@iconify-json/vscode-icons": "^1.1.33",
-    "soku-ui": "workspace:^",
-    "soku-utils": "workspace:^"
+    "@soku-solid/ui": "workspace:^",
+    "@soku-solid/utils": "workspace:^",
+    "solid-markdown": "^2.0.1"
   }
 }

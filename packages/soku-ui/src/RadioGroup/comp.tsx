@@ -1,7 +1,7 @@
 import { createEffect, createSignal, For } from 'solid-js';
 import { toPairs } from 'lodash-es';
-import { cx } from 'soku-utils';
-import { Button } from '../..';
+import { cx } from '@soku-solid/utils';
+import { Button } from '../Button';
 import style from './index.module.scss';
 
 interface Props {

@@ -1,4 +1,4 @@
-import { Column, CopiableText } from 'soku-ui';
+import { Column, CopiableText } from '@soku-solid/ui';
 import { CodeButton, DeleteButton, OperateButton, StatusTag, UpdateButton } from '../components';
 import { Bot } from '@/types';
 import { formatTime } from '@/utils';

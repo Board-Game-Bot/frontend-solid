@@ -1,11 +1,10 @@
 import { defineConfig } from 'vite';
-import solidPlugin from 'vite-plugin-solid';
-import uno from 'unocss/vite';
 import dts from 'vite-plugin-dts';
-import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 
 export default defineConfig({
-  plugins: [solidPlugin(), uno(), dts({ rollupTypes: true }), cssInjectedByJsPlugin()],
+  plugins: [
+    dts({ rollupTypes: true }),
+  ],
   build: {
     lib: {
       entry: './src/index.ts',
@@ -21,10 +20,10 @@ export default defineConfig({
         entryFileNames: 'index.esm.js',
         globals: {
           'solid-js': 'solid-js',
-          'highlight.js': 'highlight.js',
+          'lodash-es': 'lodash-es',
         },
       },
-      external: ['solid-js', 'highlight.js'],
+      external: ['solid-js', 'lodash-es'],
     },
   },
 });
