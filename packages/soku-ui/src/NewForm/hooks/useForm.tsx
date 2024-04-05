@@ -1,5 +1,5 @@
 import { get, set } from 'lodash-es';
-import { useSignal } from 'soku-utils';
+import { useSignal } from '@soku-solid/utils';
 import { FormInstance } from '../types';
 
 export const useForm = () => {

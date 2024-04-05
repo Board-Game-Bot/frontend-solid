@@ -1,6 +1,6 @@
 import { capitalize } from 'lodash-es';
 import { createSignal, Show } from 'solid-js';
-import { Column, CopiableText, Layout, RadioGroup, Table } from 'soku-ui';
+import { Column, CopiableText, Layout, RadioGroup, Table } from '@soku-solid/ui';
 import { DeleteButton, LocalDeleteButton, LocalWatchButton, UploadButton, WatchButton } from './components';
 import { GetTapesReq } from './requests';
 import { formatTime, useLocalTapes, useRequest } from '@/utils';

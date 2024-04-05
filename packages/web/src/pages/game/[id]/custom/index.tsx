@@ -2,7 +2,7 @@ import { useParams } from '@solidjs/router';
 import { createEffect, For, Show } from 'solid-js';
 import { capitalize } from 'lodash-es';
 import { LifeCycle } from '@soku-games/core';
-import { Button, Input, Layout } from 'soku-ui';
+import { Button, Input, Layout } from '@soku-solid/ui';
 import { PreRoom, PreRoomEvent } from './types';
 import { INITIAL_PRE_ROOM } from './constants';
 import { createGame, createSocket, cx, signal, useSaveTape } from '@/utils';
@@ -125,7 +125,7 @@ const CustomMode = () => {
                       when={playerId}
                       fallback={
                         <div class={'my-3'}>
-                          <BotSelect value={selectedBot()[index()]} onChange={(value) => handleChange(value, index())} gameId={gameId} />
+                          <BotSelect value={selectedBot()[index()]} onChange={(value) => handleChange(value ?? '', index())} gameId={gameId} />
                           <Button class={'w-full mt-2'} onClick={() => handleToSeat(index())}>坐下</Button>
                         </div>
                       }

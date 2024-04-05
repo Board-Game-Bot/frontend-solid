@@ -1,5 +1,5 @@
 import { JSX, Show } from 'solid-js';
-import { cx } from 'soku-utils';
+import { cx } from '@soku-solid/utils';
 import style from './index.module.scss';
 import { ButtonProps } from './types';
 

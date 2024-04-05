@@ -1,6 +1,7 @@
 import { JSX, ParentProps, Show } from 'solid-js';
 import { Portal } from 'solid-js/web';
 import { Button } from '../Button';
+import type { MaybePromise } from '../common.types';
 
 import style from './index.module.scss';
 

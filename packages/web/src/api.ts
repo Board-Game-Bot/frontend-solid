@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Alert } from 'soku-ui';
+import { Alert } from '@soku-solid/ui';
 import { jwt } from '@/store';
 
 export const API = axios.create({

@@ -1,5 +1,5 @@
 import { useNavigate } from '@solidjs/router';
-import { Alert, Button, Input, NewForm } from 'soku-ui';
+import { Alert, Button, Input, NewForm } from '@soku-solid/ui';
 import { RegisterReq } from './requests';
 import { RegisterDto } from './types';
 import { useRequest } from '@/utils';

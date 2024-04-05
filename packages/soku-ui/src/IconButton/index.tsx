@@ -1,5 +1,5 @@
 import { JSX } from 'solid-js';
-import { Button, ButtonProps } from '../..';
+import { Button, ButtonProps } from '../Button';
 
 interface Props extends ButtonProps {
   icon: JSX.Element;

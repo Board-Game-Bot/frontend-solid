@@ -1,4 +1,4 @@
-import { ButtonProps, IconButton, Modal } from 'soku-ui';
+import { ButtonProps, IconButton, Modal } from '@soku-solid/ui';
 import { DeleteTapeReq } from './requests';
 import { useRequest, signal } from '@/utils';
 

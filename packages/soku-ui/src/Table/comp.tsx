@@ -1,5 +1,5 @@
 import { createMemo, Index, JSX, Show, splitProps } from 'solid-js';
-import { cx } from 'soku-utils';
+import { cx } from '@soku-solid/utils';
 import { Empty } from '../index';
 import { Column } from './types';
 import { ColumnComponent } from './components';

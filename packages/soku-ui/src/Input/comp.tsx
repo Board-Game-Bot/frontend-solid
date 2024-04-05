@@ -1,7 +1,7 @@
 import { ComponentProps, createEffect, untrack } from 'solid-js';
-import { cx, useSignal } from 'soku-utils';
+import { cx, useSignal } from '@soku-solid/utils';
 import { isNumber } from 'lodash-es';
-import { Label } from '../..';
+import { ChangeValue } from '../common.types';
 
 interface Props extends Omit<ComponentProps<'input'>, 'onChange' | 'value'>, ChangeValue<string> {
   default?: string;
@@ -21,7 +21,6 @@ export const Input = (props: Props) => {
 
   return (
     <div class={['relative', props.class].join(' ')}>
-      <Label name={props.name}>{props.title}</Label>
       <input
         onInput={e => currentValue.s(e.target.value)}
         value={currentValue.v()}

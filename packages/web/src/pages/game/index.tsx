@@ -1,10 +1,8 @@
-import { For, Show } from 'solid-js';
-import { capitalize } from 'lodash-es';
+import { Show } from 'solid-js';
 import { useNavigate } from '@solidjs/router';
-import { Layout, List } from 'soku-ui';
-import { useSignal } from 'soku-utils';
+import { Layout, List } from '@soku-solid/ui';
+import { useSignal } from '@soku-solid/utils';
 import { GameCard, ModeCard } from './components';
-import { loadingMap } from '@/utils';
 import { Game } from '@/types';
 import { games } from '@/store';
 import { MODE } from '@/pages/game/constants';

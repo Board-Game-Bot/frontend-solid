@@ -1,12 +1,31 @@
 {
-  "name": "soku-utils",
-  "version": "1.0.0",
+  "name": "@soku-solid/utils",
+  "version": "0.0.3",
   "description": "",
-  "main": "index.ts",
+  "main": "./dist/index.esm.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "vite build"
   },
+  "exports": {
+    "import": "./dist/index.esm.js",
+    "types": "./dist/index.d.ts"
+  },
+  "files": [
+    "dist"
+  ],
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": true,
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.9.5",
+    "vite": "^5.2.8",
+    "vite-plugin-dts": "^3.8.1"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.21",
+    "solid-js": "latest"
+  }
 }

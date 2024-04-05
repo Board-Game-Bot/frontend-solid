@@ -11,7 +11,6 @@
     "jsxImportSource": "solid-js",
     "types": ["vite/client"],
     "noEmit": true,
-    "isolatedModules": true
   },
-  "include": ["src/types.d.ts", "src/**/*", "index.d.ts"]
+  "include": ["src/types.d.ts", "src/**/*"]
 }

@@ -1,5 +1,5 @@
 import { buildGame } from '@soku-games/core';
-import { IconButton, Modal, ModalProps } from 'soku-ui';
+import { IconButton, Modal, ModalProps } from '@soku-solid/ui';
 import { Tape } from '@/types';
 import { signal } from '@/utils';
 

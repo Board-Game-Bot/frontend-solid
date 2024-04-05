@@ -1,4 +1,4 @@
-import { IconButton, Modal } from 'soku-ui';
+import { IconButton, Modal } from '@soku-solid/ui';
 import { DeleteBotReq } from './requests';
 import { useRequest, signal } from '@/utils';
 

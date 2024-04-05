@@ -1,4 +1,4 @@
-import { IconButton, Modal } from 'soku-ui';
+import { IconButton, Modal } from '@soku-solid/ui';
 import { signal } from '@/utils';
 import { Tape } from '@/types';
 import { useLocalTapes } from '@/utils/useLocalTapes';

@@ -1,8 +1,8 @@
 {
-  "name": "soku-ui",
-  "version": "1.0.0",
+  "name": "@soku-solid/ui",
+  "version": "0.0.2",
   "description": "",
-  "main": "src/index.ts",
+  "main": "dist/index.esm.js",
   "scripts": {
     "build": "vite build"
   },
@@ -10,6 +10,24 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "soku-utils": "workspace:^"
+    "@soku-solid/utils": "workspace:^",
+    "highlight.js": "latest",
+    "solid-js": "latest"
+  },
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
+  "module": "dist/index.esm.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "devDependencies": {
+    "unocss": "^0.53.5",
+    "vite-plugin-css-injected-by-js": "^3.5.0",
+    "vite-plugin-dts": "^3.8.1"
   }
 }

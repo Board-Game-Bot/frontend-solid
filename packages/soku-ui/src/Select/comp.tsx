@@ -1,7 +1,8 @@
 import { createEffect, createMemo, For, JSX, on, Show } from 'solid-js';
 import { isUndefined } from 'lodash-es';
-import { cx, useSignal } from 'soku-utils';
-import { Button } from '../..';
+import { cx, useSignal } from '@soku-solid/utils';
+import { Button } from '../Button';
+import { ChangeValue } from '../common.types';
 
 interface Props extends ChangeValue<string> {
   class?: string;

@@ -1,5 +1,5 @@
-import { Button } from 'soku-ui';
-import { useSignal } from 'soku-utils';
+import { Button } from '@soku-solid/ui';
+import { useSignal } from '@soku-solid/utils';
 import { CreateBotDrawer } from './components';
 
 interface Props {
