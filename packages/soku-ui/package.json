@@ -1,6 +1,6 @@
 {
   "name": "@soku-solid/ui",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "dist/index.esm.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@soku-solid/utils": "workspace:^",
+    "@soku-solid/utils": "latest",
     "highlight.js": "latest",
     "solid-js": "latest"
   },
