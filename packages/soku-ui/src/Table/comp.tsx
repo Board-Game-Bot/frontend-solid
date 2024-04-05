@@ -3,7 +3,7 @@ import { cx } from 'soku-utils';
 import { Empty } from '../index';
 import { Column } from './types';
 import { ColumnComponent } from './components';
-
+import { DEFAULT_RENDER } from './constants';
 
 interface Props<T> extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'title'> {
   columns: Column<T>[];
@@ -89,10 +89,10 @@ export function Table<T>(_props: Props<T>) {
                 </tr>
               }
             >
-              {(record) =>
+              {(record, columnIndex) =>
                 <tr>
                   <Index each={props.columns}>
-                    {(column, index) =>
+                    {(column) =>
                       <td
                         style={{
                           width: column().width,
@@ -103,7 +103,7 @@ export function Table<T>(_props: Props<T>) {
                         class={'border-1 border-solid border-#ededed px3 py1'}
                       >
                         <ColumnComponent record={record()} index={column().index} deps={column().deps}>
-                          {column().render?.(record(), index) ?? (column().index && (record as any)[column().index])}
+                          {column().render?.(record(), columnIndex) ?? DEFAULT_RENDER(record(), column().index)}
                         </ColumnComponent>
                       </td>
                     }
