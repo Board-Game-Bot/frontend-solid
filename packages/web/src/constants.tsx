@@ -15,7 +15,6 @@ export const ROUTES: RouteDefinition[] = [
   { path: '/', component: lazy(() => import('./pages')) },
   { path: '/auth', component: lazy(() => import('./pages/auth')) },
   { path: '/game', component: lazy(() => import('./pages/game')) },
-  { path: '/game/:id', component: lazy(() => import('./pages/game/[id]')) },
   { path: '/game/:id/single', component: lazy(() => import('./pages/game/[id]/single')) },
   { path: '/game/:id/multi', component: lazy(() => import('./pages/game/[id]/multi')) },
   { path: '/game/:id/custom', component: lazy(() => import('./pages/game/[id]/custom')) },
