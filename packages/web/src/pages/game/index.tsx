@@ -18,6 +18,7 @@ const GamePage = () => {
   const currentDescription = useSignal('');
 
   const handleHoverGame = (game: Game) => {
+    console.log('desc', game.description);
     currentDescription.s(game.description);
   };
 
