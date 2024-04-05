@@ -14,7 +14,7 @@ export const LocalWatchButton = (props: Props) => {
     <>
       <IconButton
         icon={
-          <div class="i-mdi:movie-open-play w2em h2em" />
+          <div class="i-mdi:movie-open-play w1em h1em" />
         }
         onClick={() => watchVisible(true)}
       />

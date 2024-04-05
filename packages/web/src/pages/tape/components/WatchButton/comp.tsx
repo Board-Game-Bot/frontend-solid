@@ -31,7 +31,7 @@ export const WatchButton = (props: Props) => {
   return (
     <>
       <IconButton
-        icon={<div class="i-mdi:movie-open-play w2em h2em" />}
+        icon={<div class="i-mdi:movie-open-play w1em h1em" />}
         loading={jsonTapeReq.loading()}
         onClick={handleClick}
       />

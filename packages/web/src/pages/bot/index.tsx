@@ -10,6 +10,7 @@ const BotPage = () => {
     (pageIndex: number, pageSize: number) => GetBotsReq(pageIndex, pageSize),
     {
       auto: true,
+      params: [0, 100],
     },
   );
 
@@ -35,7 +36,6 @@ const BotPage = () => {
       <Table
         columns={columns}
         data={getBotsReq.data()?.bots ?? []}
-        width={1300}
       />
     </Layout>
   );

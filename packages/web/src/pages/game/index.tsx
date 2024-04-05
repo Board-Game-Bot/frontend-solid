@@ -1,34 +1,75 @@
-import { For } from 'solid-js';
+import { For, Show } from 'solid-js';
 import { capitalize } from 'lodash-es';
 import { useNavigate } from '@solidjs/router';
-import { Layout } from 'soku-ui';
-import { GameCard } from './components';
+import { Layout, List } from 'soku-ui';
+import { useSignal } from 'soku-utils';
+import { GameCard, ModeCard } from './components';
 import { loadingMap } from '@/utils';
 import { Game } from '@/types';
 import { games } from '@/store';
+import { MODE } from '@/pages/game/constants';
+import { ModeType } from '@/pages/game/types';
 
 const GamePage = () => {
   const navigate = useNavigate();
-  const handleClick = (game: Game) => {
-    navigate(`/game/${game.id}`);
+
+
+  const stage = useSignal(0);
+
+  const currentDescription = useSignal('');
+
+  const handleHoverGame = (game: Game) => {
+    currentDescription.s(game.description);
+  };
+
+  const selectedGame = useSignal<Game>();
+  const handleSelectGame = (game: Game) => {
+    stage.s(1);
+    selectedGame.s(game);
+  };
+
+  const handleSelect = (mode: ModeType) => {
+    navigate(`/game/${selectedGame.v()!.id}/${mode.key}`);
   };
 
   return (
     <Layout>
-      <h1 class={'center text-12'}>选择你的游戏</h1>
-      <div class={'w-full flex flex-wrap'}>
-        <For each={games()}>
-          {(game) =>
-            <GameCard
-              loading={loadingMap()[`${game.npmPackage}-${game.version}`] !== 2}
-              icon={game.icon}
-              name={capitalize(game.id)}
-              onClick={() => handleClick(game)}
-            />
-          }
-        </For>
+      <h1 class={'center text-12'}>选择游戏以及模式</h1>
+      <div class={'flex gap-4'}>
+        <List
+          class={'bg-#eee p5 flex flex-col gap-3'}
+          height={'70vh'}
+          items={games()}
+          renderer={(game) => {
+            return (
+              <GameCard
+                selected={selectedGame.v() === game}
+                game={game}
+                onMouseEnter={() => handleHoverGame(game)}
+                onClick={() => handleSelectGame(game)} />
+            );
+          }}
+        />
+        <Show when={stage.v()! > 0}>
+          <List
+            class={'bg-#eee p5 flex flex-col gap-3'}
+            items={MODE}
+            renderer={(mode) => 
+              <ModeCard
+                onClick={() => handleSelect(mode)}
+                onMouseEnter={() => currentDescription.s(mode.label)}
+                mode={mode}
+              />
+            }
+          />
+        </Show>
+
+        <Show when={currentDescription.v()}>
+          <div class={'h-70vh bg-#eee p5 w-500px'}>
+            {currentDescription.v()}
+          </div>
+        </Show>
       </div>
-      <h1 class={'center text-8 text-gray'}>更多游戏敬请期待！</h1>
     </Layout>
   );
 };

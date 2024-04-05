@@ -7,10 +7,12 @@ import { GAMES } from '@/constants';
 
 const RatePage = () => {
   const columns: Column<ColumnType>[] = [
-    { title: '排名', render: (_, i) => i + 1 },
-    { title: '用户', index: 'userId' },
-    { title: '使用代码', index: 'botId' },
-    { title: '分数', index: 'score' },
+    { width: '75px', title: '排名', render: (_, i) => {
+      return i + 1;
+    } },
+    { width: '120px', title: '用户', index: 'userId' },
+    { width: '240px', title: '使用代码', index: 'botId', render: (bot) => bot.botId || '亲自出马' },
+    { width: '75px', title: '分数', index: 'score' },
   ];
 
   const game = signal('snake');

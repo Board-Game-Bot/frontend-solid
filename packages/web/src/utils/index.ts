@@ -15,6 +15,6 @@ export * from './signal';
 export * from './downloadGame';
 export * from './csl';
 
-export const formatTime = (time: string) => {
+export const formatTime = (time: any) => {
   return dayjs(time).format('YYYY-MM-DD HH:mm:ss');
 };
