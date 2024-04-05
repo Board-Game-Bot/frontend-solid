@@ -26,7 +26,7 @@ export const UploadButton = (props: Props) => {
       <IconButton
         onClick={() => visible(true)}
         loading={uploadTapeReq.loading()}
-        icon={<div class="i-mdi:cloud-upload w-2em h-2em" />}
+        icon={<div class="i-mdi:cloud-upload w1em h1em" />}
       />
       <Modal
         title={'确认上传？'}
