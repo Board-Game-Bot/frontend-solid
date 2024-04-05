@@ -5,6 +5,7 @@ export interface Column<T> {
   title?: string;
   render?: (item: T, index: number) => JSX.Element;
   deps?: (keyof T)[];
-  width?: number;
+  width?: string;
   align?: 'start' | 'center' | 'end';
+  sticky?: 'left' | 'right';
 }

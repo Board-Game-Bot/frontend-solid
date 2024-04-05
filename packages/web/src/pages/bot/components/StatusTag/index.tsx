@@ -15,7 +15,7 @@ export const StatusTag = (props: Props) => {
 
   return (
     <>
-      <div class={'center gap-1'} style={{ color: obj()?.color }}>
+      <div class={'flex items-center gap-1'} style={{ color: obj()?.color }}>
         <div class={'text-xl'}>
           {obj()?.El()}
         </div>
@@ -23,9 +23,7 @@ export const StatusTag = (props: Props) => {
         <Show when={props.status === BotStatus.Failed}>
           <div class="i-mdi:eye-settings-outline w-1em h-1em cursor-pointer" onClick={() => visible.s(true)} />
         </Show>
-
       </div>
-
       <Drawer
         width={'600px'}
         visible={visible.v()}

@@ -1,5 +1,5 @@
 import { RouteDefinition } from '@solidjs/router';
-import { lazy } from 'solid-js';
+import { Accessor, JSX, lazy } from 'solid-js';
 import { capitalize } from 'lodash-es';
 import { NavItem } from '@/pages/components';
 
@@ -33,3 +33,10 @@ export const GAMES = [
   ...map,
   [gameName]: capitalize(gameName),
 }), {} as Record<string, string>);
+
+export const LANG_ICON_MAP: Record<string, Accessor<JSX.Element>> = {
+  'c++': () => <div class="i-vscode-icons:file-type-cpp w-1em h-1em" />,
+  'python': () => <div class="i-vscode-icons:file-type-python w-1em h-1em" />,
+  'java': () => <div class="i-vscode-icons:file-type-java w-1em h-1em" />,
+  'go': () => <div class="i-vscode-icons:file-type-go w-1em h-1em" />,
+};

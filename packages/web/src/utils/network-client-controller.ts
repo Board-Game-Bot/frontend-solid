@@ -25,7 +25,6 @@ export class NetworkClientController extends GamePlugin {
     s?.on('game-step', handleGameStep);
 
     const handleGameOver = (result: string) => {
-      console.log('over');
       game.end(result);
     };
     s?.on('game-over', handleGameOver);

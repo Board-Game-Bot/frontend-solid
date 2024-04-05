@@ -10,6 +10,7 @@ const BotPage = () => {
     (pageIndex: number, pageSize: number) => GetBotsReq(pageIndex, pageSize),
     {
       auto: true,
+      params: [0, 100],
     },
   );
 
@@ -32,11 +33,13 @@ const BotPage = () => {
         代码集
         <CreateButton onOk={handleOk}/>
       </h2>
-      <Table
-        columns={columns}
-        data={getBotsReq.data()?.bots ?? []}
-        width={1300}
-      />
+      <div class={'w-full'}>
+        <Table
+          columns={columns}
+          data={getBotsReq.data()?.bots ?? []}
+          width={'1300px'}
+        />
+      </div>
     </Layout>
   );
 };

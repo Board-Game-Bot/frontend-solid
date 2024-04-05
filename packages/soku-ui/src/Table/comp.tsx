@@ -1,5 +1,4 @@
 import { Index, JSX, Show, splitProps } from 'solid-js';
-import { isUndefined } from 'lodash-es';
 import { cx } from 'soku-utils';
 import { Empty } from '../index';
 import { Column } from './types';
@@ -9,17 +8,30 @@ import { ColumnComponent } from './components';
 interface Props<T> extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'title'> {
   columns: Column<T>[];
   data: T[];
-  width?: number;
+  width?: string;
   title?: JSX.Element;
 }
 
 export function Table<T>(_props: Props<T>) {
   const [props2, props] = splitProps(_props, ['title']);
-  const { columns } = props;
-  const sum = columns.reduce((sum, cur) => sum + (cur.width ?? 1), 0);
-  const average = 100 / sum;
 
-  const cellWidth = (width?: number) => `${isUndefined(width) ? average : width * 100 / sum}%`;
+  const getStickyStyle = (column: Column<T>): JSX.CSSProperties => {
+    if (column.sticky === 'left') {
+      return {
+        position: 'sticky',
+        left: '0',
+        'z-index': '2',
+      };
+    }
+    else if (column.sticky === 'right') {
+      return {
+        position: 'sticky',
+        right: '0',
+        'z-index': '2',
+      };
+    }
+    return {};
+  };
 
   return (
     <div
@@ -31,10 +43,9 @@ export function Table<T>(_props: Props<T>) {
     >
       <table
         style={{
-          width: isUndefined(props.width)
-            ? '100%'
-            : `${props.width}px`,
+          'width': props.width,
           'border-collapse': 'collapse',
+          position: 'relative',
         }}
       >
         <thead>
@@ -52,7 +63,10 @@ export function Table<T>(_props: Props<T>) {
             <Index each={props.columns}>
               {(column) =>
                 <th
-                  style={{ width: cellWidth(column().width) }}
+                  style={{
+                    width: column().width,
+                    ...getStickyStyle(column()),
+                  }}
                   class={'text-left border-1 border-solid border-#ededed bg-#ededed px3 py3'}
                 >
                   {column().title}
@@ -79,8 +93,10 @@ export function Table<T>(_props: Props<T>) {
                     {(column, index) =>
                       <td
                         style={{
-                          width: cellWidth(column().width),
+                          width: column().width,
                           'text-align': column().align,
+                          'background-color': 'white',
+                          ...getStickyStyle(column()),
                         }}
                         class={'border-1 border-solid border-#ededed px3 py1'}
                       >
