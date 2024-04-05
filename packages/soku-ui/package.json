@@ -9,11 +9,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@soku-solid/utils": "latest",
-    "highlight.js": "latest",
-    "solid-js": "latest"
-  },
   "files": [
     "dist"
   ],
@@ -24,6 +19,11 @@
       "import": "./dist/index.esm.js",
       "types": "./dist/index.d.ts"
     }
+  },
+  "peerDependencies": {
+    "@soku-solid/utils": "latest",
+    "solid-js": "latest",
+    "highlight.js": "latest"
   },
   "devDependencies": {
     "unocss": "^0.53.5",

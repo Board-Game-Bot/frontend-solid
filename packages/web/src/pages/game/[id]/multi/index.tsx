@@ -11,7 +11,7 @@ import { BotSelect } from '@/business/components';
 
 const MultiMode = () => {
   // CONNECT
-  const [socket, connect, isConnect] = createSocket(import.meta.env.VITE_WS_URL, jwt());
+  const [socket, connect, isConnect] = createSocket(import.meta.env.VITE_WS_URL, jwt.v() ?? '');
 
   // STAGE
   const stage = signal(0);
@@ -41,7 +41,7 @@ const MultiMode = () => {
   return (
     <Layout>
       <Show
-        when={jwt()}
+        when={jwt.v()}
         fallback={<h1>你还未登陆，请先登陆</h1> }
       >
         <div class={'flex gap-4 items-center'}>

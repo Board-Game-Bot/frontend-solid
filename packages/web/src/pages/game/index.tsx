@@ -12,27 +12,19 @@ import { ModeType } from '@/pages/game/types';
 const GamePage = () => {
   const navigate = useNavigate();
 
-
   const stage = useSignal(0);
 
   const currentDescription = useSignal('');
 
   const handleHoverGame = (game: Game) => {
-    console.log('desc', game.description);
     currentDescription.s(game.description);
   };
 
   const selectedGame = useSignal<Game>();
   const handleSelectGame = (game: Game) => {
-    console.log('select');
     stage.s(1);
     selectedGame.s(game);
   };
-
-  createEffect(() => {
-    console.log(stage.v());
-  });
-
 
   const handleSelect = (mode: ModeType) => {
     navigate(`/game/${selectedGame.v()!.id}/${mode.key}`);
@@ -45,7 +37,7 @@ const GamePage = () => {
         <List
           class={'bg-#eee p5 flex flex-col gap-3'}
           height={'70vh'}
-          items={games()}
+          items={games.v()!}
           renderer={(game) => {
             return (
               <GameCard
@@ -73,7 +65,7 @@ const GamePage = () => {
         <Show when={currentDescription.v()}>
           <div class={'h-70vh bg-#eee p5 w-500px overflow-auto'}>
             <SolidMarkdown>
-              {console.log('solid-markdownxxxx'), currentDescription.v()}
+              {currentDescription.v()}
             </SolidMarkdown>
           </div>
         </Show>

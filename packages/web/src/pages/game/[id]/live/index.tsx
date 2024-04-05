@@ -9,7 +9,7 @@ import { Room, Tape } from '@/types';
 
 const LiveMode = () => {
   const gameId = useParams().id;
-  const [socket, connect, isConnect] = createSocket(import.meta.env.VITE_WS_URL, jwt());
+  const [socket, connect, isConnect] = createSocket(import.meta.env.VITE_WS_URL, jwt.v() ?? '');
   const gameRef: { v?: HTMLElement } = {};
   const stage = signal(0);
   const rooms = signal<Room[]>([]);
@@ -66,7 +66,7 @@ const LiveMode = () => {
         <h1>{capitalize(gameId)} 直播模式</h1>
         <Button size={'lg'} onClick={connect}>接入网络</Button>
       </div>
-      <Show when={jwt()} fallback={<h1>你还未登陆，请先登陆！</h1>}>
+      <Show when={jwt.v()} fallback={<h1>你还未登陆，请先登陆！</h1>}>
         <div class={'flex'}>
           <div class={'flex-1 bg-black w-full aspect-ratio-video center'} ref={el => gameRef.v = el}>
             <h1 class={'text-white'}>NO SIGNAL</h1>

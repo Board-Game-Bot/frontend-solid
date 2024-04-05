@@ -13,7 +13,7 @@ export const Auth = () => {
       class={'p3 hover:bg-coolGray/7 rounded-xl cursor-pointer'}
       onClick={handleClick}
     >
-      <Img shape={'circle'} src={user()?.avatar} />
+      <Img shape={'circle'} src={user.v()?.avatar} />
     </div>
   );
 };

@@ -1,29 +1,29 @@
-import { createEffect, createSignal } from 'solid-js';
+import { createEffect } from 'solid-js';
+import { useSignal } from '@soku-solid/utils';
 import { GetGamesReq } from './api';
 import { Game } from '@/types';
 import { downloadGame, useRequest } from '@/utils';
 
-const [games, setGames] = createSignal<Game[]>([]);
+const games = useSignal<Game[]>([]);
 
 export {
   games,
-  setGames,
 };
 
 useRequest(
   GetGamesReq,
   {
     auto: true,
-    onSuccess: ({ games }) => {
-      setGames(games);
+    onSuccess: ({ games: g }) => {
+      games.s(g);
     },
   },
 );
 
-export const getGame = (id: string) => games().find(game => game.id === id);
+export const getGame = (id: string) => games.v()?.find(game => game.id === id);
 
 createEffect(() => {
-  const _games = games();
+  const _games = games.v()!;
   _games.forEach(game => {
     downloadGame(game.npmPackage, game.version, 'core');
     downloadGame(game.npmPackage, game.version, 'screen');

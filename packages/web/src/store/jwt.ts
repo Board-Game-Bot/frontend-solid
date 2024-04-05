@@ -1,20 +1,19 @@
 import { createLocalStorageSignal, useRequest } from '@/utils';
 import { LoadProfileReq } from '@/requests';
-import { setUser } from '@/store/user';
+import { user } from '@/store';
 
-const [jwt, setJwt] = createLocalStorageSignal<string>('jwt', '');
+const jwt = createLocalStorageSignal<string>('jwt', '');
 
 useRequest(
   LoadProfileReq,
   {
     auto: true,
     onSuccess: (data) => {
-      setUser(data);
+      user.s(data);
     },
   },
 );
 
 export {
   jwt,
-  setJwt,
 };

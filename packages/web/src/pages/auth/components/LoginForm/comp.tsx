@@ -3,7 +3,7 @@ import { Alert, Button, Input, NewForm } from '@soku-solid/ui';
 import { LoginReq } from './requests';
 import { LoginDto } from './types';
 import { useRequest } from '@/utils';
-import { setJwt, setUser } from '@/store';
+import { user, jwt } from '@/store';
 
 interface Props {
   onRegister: () => void
@@ -13,12 +13,12 @@ export const LoginForm = (props: Props) => {
   const navigate = useNavigate();
   const [newForm] = NewForm.useForm();
   const loginReq = useRequest(LoginReq, {
-    onSuccess: ({ user, jwt }) => {
+    onSuccess: ({ user: u, jwt: j }) => {
       Alert({
         children: '登陆成功',
       });
-      setUser(user);
-      setJwt(jwt);
+      user.s(u);
+      jwt.s(j);
       navigate('/');
     },
   });

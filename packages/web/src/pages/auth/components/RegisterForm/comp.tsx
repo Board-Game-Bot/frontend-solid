@@ -3,7 +3,7 @@ import { Alert, Button, Input, NewForm } from '@soku-solid/ui';
 import { RegisterReq } from './requests';
 import { RegisterDto } from './types';
 import { useRequest } from '@/utils';
-import { setJwt, setUser } from '@/store';
+import { jwt, user } from '@/store';
 
 interface Props {
   onLogin: () => void;
@@ -14,12 +14,12 @@ export const RegisterForm = (props: Props) => {
   const registerReq = useRequest(
     RegisterReq,
     {
-      onSuccess: ({ user, jwt }) => {
+      onSuccess: ({ user: u, jwt: j }) => {
         Alert({
           children: '注册成功！',
         });
-        setUser(user);
-        setJwt(jwt);
+        user.s(u);
+        jwt.s(j);
         navigate('/');
       },
     });

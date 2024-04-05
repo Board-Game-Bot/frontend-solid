@@ -1,7 +1,7 @@
-import { Accessor, createEffect, createSignal, Setter } from 'solid-js';
+import { createEffect } from 'solid-js';
+import { useSignal } from '@soku-solid/utils/src';
 
-// FIXME type
-export const createLocalStorageSignal = <T>(key: string, fallbackValue?: T): [Accessor<T>, Setter<any>] => {
+export const createLocalStorageSignal = <T>(key: string, fallbackValue?: T) => {
   const defaultValue = () => {
     const item = localStorage.getItem(key);
     try {
@@ -11,16 +11,16 @@ export const createLocalStorageSignal = <T>(key: string, fallbackValue?: T): [Ac
       return item ?? fallbackValue;
     }
   };
-  const [value, setValue] = createSignal(defaultValue());
+  const value = useSignal<string>(defaultValue());
 
   createEffect(() => {
     try {
-      localStorage.setItem(key, JSON.stringify(value()));
+      localStorage.setItem(key, JSON.stringify(value.v()));
     }
     catch {
-      localStorage.setItem(key, value());
+      localStorage.setItem(key, value.v() ?? '');
     }
   });
 
-  return [value, setValue];
+  return value;
 };

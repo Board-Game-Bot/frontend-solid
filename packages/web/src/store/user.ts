@@ -1,4 +1,5 @@
 import { createSignal } from 'solid-js';
+import { useSignal } from '@soku-solid/utils/src';
 
 interface User {
   id: string;
@@ -6,9 +7,8 @@ interface User {
   avatar: string;
 }
 
-const [user, setUser] = createSignal<User>();
+const user = useSignal<User>();
 
 export {
   user,
-  setUser,
 };
