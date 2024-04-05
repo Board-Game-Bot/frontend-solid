@@ -1,5 +1,4 @@
-import { createSignal } from 'solid-js';
-import { useSignal } from '@soku-solid/utils/src';
+import { useSignal } from '@soku-solid/utils';
 
 interface User {
   id: string;

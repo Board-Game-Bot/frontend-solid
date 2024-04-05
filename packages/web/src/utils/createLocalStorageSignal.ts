@@ -1,5 +1,5 @@
 import { createEffect } from 'solid-js';
-import { useSignal } from '@soku-solid/utils/src';
+import { useSignal } from '@soku-solid/utils';
 
 export const createLocalStorageSignal = <T>(key: string, fallbackValue?: T) => {
   const defaultValue = () => {

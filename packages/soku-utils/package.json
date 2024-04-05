@@ -15,7 +15,6 @@
   ],
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
-  "sideEffects": true,
   "keywords": [],
   "author": "",
   "license": "ISC",
