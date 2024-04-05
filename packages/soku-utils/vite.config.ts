@@ -19,11 +19,10 @@ export default defineConfig({
         format: 'esm',
         entryFileNames: 'index.esm.js',
         globals: {
-          'solid-js': 'solid-js',
           'lodash-es': 'lodash-es',
         },
       },
-      external: ['solid-js', 'lodash-es'],
+      external: ['lodash-es'],
     },
   },
 });

@@ -20,11 +20,10 @@ export default defineConfig({
         format: 'esm',
         entryFileNames: 'index.esm.js',
         globals: {
-          'solid-js': 'solid-js',
           'highlight.js': 'highlight.js',
         },
       },
-      external: ['solid-js', 'highlight.js'],
+      external: ['highlight.js'],
     },
   },
 });

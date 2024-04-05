@@ -11,13 +11,13 @@ export const Input = (props: Props) => {
   const defaultCurrentValue = untrack(() => props.default);
   const currentValue = useSignal(defaultCurrentValue);
 
-  createEffect(() => {
-    handleChange(currentValue.v());
-  });
-
   const handleChange = (value?: string) => {
     props.onChange?.(value ?? '');
   };
+
+  createEffect(() => {
+    handleChange(currentValue.v());
+  });
 
   return (
     <div class={['relative', props.class].join(' ')}>
