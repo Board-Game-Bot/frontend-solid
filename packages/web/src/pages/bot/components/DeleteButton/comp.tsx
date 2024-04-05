@@ -21,7 +21,7 @@ export const DeleteButton = (props: Props) => {
 
   return (
     <>
-      <IconButton icon={<div class="i-mdi:delete w-2em h-2em" />} onClick={() => visible(true)} />
+      <IconButton icon={<div class="i-mdi:delete w-1em h-1em" />} onClick={() => visible(true)} />
       <Modal
         title={`确认删除${props.id}?`}
         visible={visible()}

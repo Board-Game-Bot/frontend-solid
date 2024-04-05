@@ -36,7 +36,7 @@ export const UpdateButton = (props: Props) => {
 
   return (
     <>
-      <IconButton icon={<div class="i-mdi:settings w-2em h-2em" />} onClick={() => visible(true)} />
+      <IconButton icon={<div class="i-mdi:settings w-1em h-1em" />} onClick={() => visible(true)} />
       <Drawer
         title={`修改 ${props.bot.id}`}
         visible={visible()}

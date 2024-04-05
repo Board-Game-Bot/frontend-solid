@@ -33,13 +33,10 @@ const BotPage = () => {
         代码集
         <CreateButton onOk={handleOk}/>
       </h2>
-      <div class={'w-full'}>
-        <Table
-          columns={columns}
-          data={getBotsReq.data()?.bots ?? []}
-          width={'1300px'}
-        />
-      </div>
+      <Table
+        columns={columns}
+        data={getBotsReq.data()?.bots ?? []}
+      />
     </Layout>
   );
 };

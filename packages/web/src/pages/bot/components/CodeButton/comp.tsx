@@ -24,7 +24,7 @@ export const CodeButton = (props: Props) => {
 
   return (
     <>
-      <IconButton icon={<div class="i-mdi:code w-2em h-2em" />} onClick={() => visible(true)} />
+      <IconButton icon={<div class="i-mdi:code w-1em h-1em" />} onClick={() => visible(true)} />
       <Modal
         title={`${bot.name} 的代码`}
         height={'70vh'}

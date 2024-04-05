@@ -24,10 +24,10 @@ export const OperateButton = (props: Props) => {
   return (
     <>
       <Show when={[BotStatus.Hibernating, BotStatus.Failed].includes(botStatus())}>
-        <IconButton onClick={handleStart} icon={<div class="i-mdi:play w-2em h-2em" />} />
+        <IconButton onClick={handleStart} icon={<div class="i-mdi:play w-1em h-1em" />} />
       </Show>
       <Show when={botStatus() === BotStatus.Working}>
-        <IconButton onClick={handleStop} icon={<div class="i-mdi:stop w-2em h-2em" />}/>
+        <IconButton onClick={handleStop} icon={<div class="i-mdi:stop w-1em h-1em" />}/>
       </Show>
     </>
   );

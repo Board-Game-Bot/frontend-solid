@@ -1,4 +1,4 @@
-import { Index, JSX, Show, splitProps } from 'solid-js';
+import { createMemo, Index, JSX, Show, splitProps } from 'solid-js';
 import { cx } from 'soku-utils';
 import { Empty } from '../index';
 import { Column } from './types';
@@ -15,19 +15,21 @@ interface Props<T> extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'title'> {
 export function Table<T>(_props: Props<T>) {
   const [props2, props] = splitProps(_props, ['title']);
 
+  const width = createMemo(() => {
+    return props.columns.map(x => x.width ?? '100px').join(' + ');
+  });
+
   const getStickyStyle = (column: Column<T>): JSX.CSSProperties => {
     if (column.sticky === 'left') {
       return {
         position: 'sticky',
         left: '0',
-        'z-index': '2',
       };
     }
     else if (column.sticky === 'right') {
       return {
         position: 'sticky',
         right: '0',
-        'z-index': '2',
       };
     }
     return {};
@@ -43,7 +45,7 @@ export function Table<T>(_props: Props<T>) {
     >
       <table
         style={{
-          'width': props.width,
+          width: `calc(${width()})`,
           'border-collapse': 'collapse',
           position: 'relative',
         }}
@@ -63,11 +65,11 @@ export function Table<T>(_props: Props<T>) {
             <Index each={props.columns}>
               {(column) =>
                 <th
+                  class={'text-left border-1 border-solid border-#ededed bg-#ededed px3 py3'}
                   style={{
                     width: column().width,
                     ...getStickyStyle(column()),
                   }}
-                  class={'text-left border-1 border-solid border-#ededed bg-#ededed px3 py3'}
                 >
                   {column().title}
                 </th>
