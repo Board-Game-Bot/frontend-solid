@@ -2,6 +2,7 @@ import { Show } from 'solid-js';
 import { useNavigate } from '@solidjs/router';
 import { Layout, List } from '@soku-solid/ui';
 import { useSignal } from '@soku-solid/utils';
+import { SolidMarkdown } from 'solid-markdown';
 import { GameCard, ModeCard } from './components';
 import { Game } from '@/types';
 import { games } from '@/store';
@@ -63,8 +64,10 @@ const GamePage = () => {
         </Show>
 
         <Show when={currentDescription.v()}>
-          <div class={'h-70vh bg-#eee p5 w-500px'}>
-            {currentDescription.v()}
+          <div class={'h-70vh bg-#eee p5 w-500px overflow-auto'}>
+            <SolidMarkdown>
+              {currentDescription.v()}
+            </SolidMarkdown>
           </div>
         </Show>
       </div>
