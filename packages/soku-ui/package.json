@@ -24,7 +24,7 @@
   "peerDependencies": {
     "@soku-solid/utils": "latest",
     "highlight.js": "latest",
-    "solid-js": "latest"
+    "solid-js": "^1.0.0"
   },
   "devDependencies": {
     "vite-plugin-css-injected-by-js": "^3.5.0",

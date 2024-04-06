@@ -1,5 +1,5 @@
 import { ButtonProps, IconButton, Modal } from '@soku-solid/ui';
-import { useSignal } from '@soku-solid/utils';
+import { createSignal } from 'solid-js';
 import { UploadTapeReq } from './requests';
 import { useRequest } from '@/utils';
 import { Tape } from '@/types';
@@ -10,13 +10,13 @@ interface Props extends ButtonProps {
 }
 
 export const UploadButton = (props: Props) => {
-  const visible = useSignal(false);
+  const visible = createSignal(false);
 
   const uploadTapeReq = useRequest(
     UploadTapeReq,
     {
       onSuccess: () => {
-        visible.s(false);
+        visible[1](false);
         props.onOk?.();
       },
     },
@@ -26,15 +26,15 @@ export const UploadButton = (props: Props) => {
   return (
     <>
       <IconButton
-        onClick={() => visible.s(true)}
+        onClick={() => visible[1](true)}
         loading={uploadTapeReq.loading()}
         icon={<div class="i-mdi:cloud-upload w1em h1em" />}
       />
       <Modal
         title={'确认上传？'}
-        visible={visible.s()}
+        visible={visible[0]()}
         loading={uploadTapeReq.loading()}
-        onCancel={() => visible.s(false)}
+        onCancel={() => visible[1](false)}
         onOk={() => uploadTapeReq.run(props.record)}
       >
         上传后，你的录像带将会在网络上共享。

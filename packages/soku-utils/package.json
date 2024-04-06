@@ -27,7 +27,7 @@
     "vite-plugin-dts": "^3.8.1"
   },
   "peerDependencies": {
-    "solid-js": "latest"
+    "solid-js": "^1.0.0"
   },
   "dependencies": {
     "lodash-es": "^4.17.21"

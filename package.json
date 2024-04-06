@@ -49,6 +49,6 @@
     "socket.io-client": "^4.7.2",
     "soku-game-recorder": "^1.0.0",
     "solid-icons": "^1.0.11",
-    "solid-js": "^1.7.8"
+    "solid-js": "^1.8.16"
   }
 }

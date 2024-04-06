@@ -80,7 +80,7 @@ const TapePage = () => {
         <Table
           class={'w-full'}
           columns={localColumns}
-          data={tapes.v() ?? []}
+          data={tapes[0]()}
         />
       </Show>
     </Layout>

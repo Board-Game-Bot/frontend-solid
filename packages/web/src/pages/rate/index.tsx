@@ -1,6 +1,5 @@
-import { createEffect, on } from 'solid-js';
+import { createEffect, createSignal, on } from 'solid-js';
 import { Column, Layout, RadioGroup, Table } from '@soku-solid/ui';
-import { useSignal } from '@soku-solid/utils';
 import { ColumnType } from './types';
 import { GetRatesReq } from './requests';
 import { useRequest } from '@/utils';
@@ -16,14 +15,14 @@ const RatePage = () => {
     { width: '75px', title: '分数', index: 'score' },
   ];
 
-  const game = useSignal('snake');
+  const game = createSignal('snake');
 
   const getRatesReq = useRequest(
     GetRatesReq,
     {
       auto: true,
       params: [{
-        gameId: game.v()!,
+        gameId: game[0]()!,
         pageIndex: 0,
         pageSize: 10,
       }],
@@ -31,7 +30,7 @@ const RatePage = () => {
   );
 
   createEffect(on(
-    game.v,
+    game[0],
     (v) => getRatesReq.run({
       gameId: v!,
       pageIndex: 0,
@@ -45,7 +44,7 @@ const RatePage = () => {
         <RadioGroup
           items={GAMES}
           defaultValue={'snake'}
-          onChange={game.s}
+          onChange={game[1]}
         />
       </div>
       <Table

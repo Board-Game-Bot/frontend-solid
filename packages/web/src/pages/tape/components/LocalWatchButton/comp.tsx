@@ -1,6 +1,6 @@
 import { WatchGameModal } from '@business';
 import { ButtonProps, IconButton } from '@soku-solid/ui';
-import { useSignal } from '@soku-solid/utils';
+import { createSignal } from 'solid-js';
 import { Tape } from '@/types';
 
 interface Props extends ButtonProps {
@@ -8,7 +8,7 @@ interface Props extends ButtonProps {
 }
 
 export const LocalWatchButton = (props: Props) => {
-  const watchVisible = useSignal(false);
+  const watchVisible = createSignal(false);
 
   return (
     <>
@@ -16,16 +16,16 @@ export const LocalWatchButton = (props: Props) => {
         icon={
           <div class="i-mdi:movie-open-play w1em h1em" />
         }
-        onClick={() => watchVisible.s(true)}
+        onClick={() => watchVisible[1](true)}
       />
       <WatchGameModal
         title={'观看录像带'}
         width={'500px'}
         height={'500px'}
         tape={props.tape}
-        visible={watchVisible.v()}
-        onOk={() => watchVisible.s(false)}
-        onCancel={() => watchVisible.s(false)}
+        visible={watchVisible[0]()}
+        onOk={() => watchVisible[1](false)}
+        onCancel={() => watchVisible[1](false)}
       />
     </>
   );

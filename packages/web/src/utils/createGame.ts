@@ -1,7 +1,6 @@
-import { Accessor, createEffect, createMemo, on } from 'solid-js';
+import { Accessor, createEffect, createMemo, createSignal, on } from 'solid-js';
 import { Socket } from 'socket.io-client';
 import { buildGame, Game } from '@soku-games/core';
-import { useSignal } from '@soku-solid/utils';
 import { Room, Tape } from '@/types';
 import { user } from '@/store';
 
@@ -11,8 +10,8 @@ export const createGame = (
   ref: { v?: HTMLElement },
   gameId: string,
 ) => {
-  const game = useSignal<Game>();
-  const tape = useSignal<any>();
+  const game = createSignal<Game>();
+  const tape = createSignal<any>();
 
   const roomId = createMemo(() => room()?.roomId);
 
@@ -27,7 +26,7 @@ export const createGame = (
           name: `${gameId}-screen`,
           extra: {
             el: ref.v,
-            couldControl: room()?.players.map(p => p.playerId === user.v()?.id && !p.botId),
+            couldControl: room()?.players.map(p => p.playerId === user[0]()?.id && !p.botId),
             emit: (stepStr: string) => {
               socket()?.emit('game-step', stepStr);
             },
@@ -38,11 +37,11 @@ export const createGame = (
         }, {
           name: 'the-recorder',
           extra: {
-            tapeResolved: (_tape: Tape) => tape.s(_tape),
+            tapeResolved: (_tape: Tape) => tape[1](_tape),
           },
         }],
       });
-      game.s(_game);
+      game[1](_game);
       _socket.removeListener('start-game', listener);
     });
   }));

@@ -7,7 +7,7 @@ export const API = axios.create({
 });
 
 API.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${jwt.v()}`;
+  config.headers.Authorization = `Bearer ${jwt[0]()}`;
   return config;
 });
 

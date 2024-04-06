@@ -1,5 +1,5 @@
 import { Button } from '@soku-solid/ui';
-import { useSignal } from '@soku-solid/utils';
+import { createSignal } from 'solid-js';
 import { CreateBotDrawer } from './components';
 
 interface Props {
@@ -7,10 +7,10 @@ interface Props {
 }
 
 export const CreateButton = (props: Props) => {
-  const visible = useSignal(false);
+  const visible = createSignal(false);
 
   const handleOk = async () => {
-    visible.s(false);
+    visible[1](false);
     props.onOk?.();
   };
 
@@ -18,14 +18,14 @@ export const CreateButton = (props: Props) => {
     <>
       <Button
         icon={<div class="i-mdi:plus-thick w-1em h-1em" />}
-        onClick={() => visible.s(true)}
+        onClick={() => visible[1](true)}
       >
         创建 Bot
       </Button>
       <CreateBotDrawer
-        visible={visible.v()}
+        visible={visible[0]()}
         onOk={handleOk}
-        onCancel={() => visible.s(false)}
+        onCancel={() => visible[1](false)}
       />
     </>
   );

@@ -1,6 +1,6 @@
 import { WatchGameModal } from '@business';
 import { ButtonProps, IconButton } from '@soku-solid/ui';
-import { useSignal } from '@soku-solid/utils';
+import { createSignal } from 'solid-js';
 import { JsonTapeReq } from './requests';
 import { useRequest } from '@/utils';
 import { Tape } from '@/types';
@@ -10,14 +10,14 @@ interface Props extends ButtonProps {
 }
 
 export const WatchButton = (props: Props) => {
-  const watchVisible = useSignal(false);
-  const tape = useSignal<Tape>();
+  const watchVisible = createSignal(false);
+  const tape = createSignal<Tape>();
   const jsonTapeReq = useRequest(
     JsonTapeReq,
     {
       onSuccess: (data) => {
-        watchVisible.s(true);
-        tape.s({
+        watchVisible[1](true);
+        tape[1]({
           ...props.tape,
           ...data,
         });
@@ -39,10 +39,10 @@ export const WatchButton = (props: Props) => {
       <WatchGameModal
         width={'500px'}
         height={'500px'}
-        tape={tape.v()}
-        visible={watchVisible.v()}
-        onOk={() => watchVisible.s(false)}
-        onCancel={() => watchVisible.s(false)}
+        tape={tape[0]()}
+        visible={watchVisible[0]()}
+        onOk={() => watchVisible[1](false)}
+        onCancel={() => watchVisible[1](false)}
       />
     </>
   );

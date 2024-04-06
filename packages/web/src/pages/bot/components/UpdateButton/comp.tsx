@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import { Drawer, IconButton, Input, Message, NewForm, Select, TextArea } from '@soku-solid/ui';
-import { Show } from 'solid-js';
-import { useSignal } from '@soku-solid/utils';
+import { createSignal, Show } from 'solid-js';
 import { UpdateBotDto, UpdateBotReq } from './requests';
 import { useRequest } from '@/utils';
 import { Bot } from '@/types';
@@ -13,18 +12,18 @@ interface Props {
 }
 
 export const UpdateButton = (props: Props) => {
-  const error = useSignal('');
-  const visible = useSignal(false);
+  const error = createSignal('');
+  const visible = createSignal(false);
 
   const updateBotReq = useRequest(
     UpdateBotReq,
     {
       onSuccess: () => {
-        visible.s(false);
+        visible[1](false);
         props.onOk?.();
       },
       onError: (errorMsg) => {
-        error.s(errorMsg);
+        error[1](errorMsg);
       },
     },
   );
@@ -37,13 +36,13 @@ export const UpdateButton = (props: Props) => {
 
   return (
     <>
-      <IconButton icon={<div class="i-mdi:settings w-1em h-1em" />} onClick={() => visible.s(true)} />
+      <IconButton icon={<div class="i-mdi:settings w-1em h-1em" />} onClick={() => visible[1](true)} />
       <Drawer
         title={`修改 ${props.bot.id}`}
-        visible={visible.v()}
+        visible={visible[0]()}
         loading={updateBotReq.loading()}
         onOk={handleSubmit}
-        onCancel={() => visible.s(false)}
+        onCancel={() => visible[1](false)}
       >
         <div class={'p5'}>
           <NewForm form={form}>
@@ -101,11 +100,11 @@ export const UpdateButton = (props: Props) => {
               width={'100%'}
             />
           </NewForm>
-          <Show when={error.v()}>
+          <Show when={error[0]()}>
             <div class={'mt-8 w-full box-border'}>
               <Message title={'编译错误'}>
                 <pre class={'w-full break-all text-12px font-400'} style={{ 'white-space': 'pre-wrap' }}>
-                  {error.v()}
+                  {error[0]()}
                 </pre>
               </Message>
             </div>

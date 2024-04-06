@@ -9,7 +9,7 @@ useRequest(
   {
     auto: true,
     onSuccess: (data) => {
-      user.s(data);
+      user[1](data);
     },
   },
 );

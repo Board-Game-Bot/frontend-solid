@@ -1,5 +1,4 @@
-import { useSignal } from '@soku-solid/utils';
-import { createEffect } from 'solid-js';
+import { createSignal } from 'solid-js';
 
 interface User {
   id: string;
@@ -7,11 +6,7 @@ interface User {
   avatar: string;
 }
 
-const user = useSignal<User>();
-
-createEffect(() => {
-  console.log(user.v());
-});
+const user = createSignal<User>();
 
 export {
   user,

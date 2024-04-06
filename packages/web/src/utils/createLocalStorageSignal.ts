@@ -1,5 +1,4 @@
-import { createEffect } from 'solid-js';
-import { useSignal } from '@soku-solid/utils';
+import { createEffect, createSignal } from 'solid-js';
 
 export const createLocalStorageSignal = <T>(key: string, fallbackValue?: T) => {
   const defaultValue = () => {
@@ -11,11 +10,11 @@ export const createLocalStorageSignal = <T>(key: string, fallbackValue?: T) => {
       return item ?? fallbackValue;
     }
   };
-  const value = useSignal<T>(defaultValue());
+  const value = createSignal<T>(defaultValue());
 
   createEffect(() => {
     try {
-      localStorage.setItem(key, JSON.stringify(value.v()));
+      localStorage.setItem(key, JSON.stringify(value[0]()));
     }
     catch {
       localStorage.setItem(key, '');

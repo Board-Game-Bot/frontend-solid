@@ -21,7 +21,7 @@ export const RoomComp = (props: Props) => {
     });
   };
   const isMe = (id: string) => {
-    return user.v()?.id === id;
+    return user[0]()?.id === id;
   };
 
   createEffect(() => {

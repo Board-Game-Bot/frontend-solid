@@ -1,6 +1,5 @@
-import { Show } from 'solid-js';
+import { createSignal, Show } from 'solid-js';
 import { Drawer, Message } from '@soku-solid/ui';
-import { useSignal } from '@soku-solid/utils';
 import { STATUS_ICON_MAP } from './constants';
 import { BotStatus } from '@/types';
 
@@ -11,7 +10,7 @@ interface Props {
 export const StatusTag = (props: Props) => {
   const obj = () => STATUS_ICON_MAP[props.status];
 
-  const visible = useSignal(false);
+  const visible = createSignal(false);
 
   return (
     <>
@@ -21,14 +20,14 @@ export const StatusTag = (props: Props) => {
         </div>
         {obj()?.text}
         <Show when={props.status === BotStatus.Failed}>
-          <div class="i-mdi:eye-settings-outline w-1em h-1em cursor-pointer" onClick={() => visible.s(true)} />
+          <div class="i-mdi:eye-settings-outline w-1em h-1em cursor-pointer" onClick={() => visible[1](true)} />
         </Show>
       </div>
       <Drawer
         width={'600px'}
-        visible={visible.v()}
-        onOk={() => visible.s(false)}
-        onCancel={() => visible.s(false)}
+        visible={visible[0]()}
+        onOk={() => visible[1](false)}
+        onCancel={() => visible[1](false)}
       >
         <div class={'p5'}>
           <Message width={'100%'} title={'编译错误'}>

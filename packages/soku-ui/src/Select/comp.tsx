@@ -1,6 +1,6 @@
-import { createEffect, createMemo, For, JSX, on, Show } from 'solid-js';
+import { createEffect, createMemo, createSignal, For, JSX, on, Show } from 'solid-js';
 import { isUndefined } from 'lodash-es';
-import { cx, useSignal } from '@soku-solid/utils';
+import { cx } from '@soku-solid/utils';
 import { Button } from '../Button';
 import { ChangeValue } from '../common.types';
 
@@ -26,22 +26,22 @@ export const Select = (props: Props) => {
 
   const optionArr = () => Object.keys(options());
 
-  const visible = useSignal(false);
-  const insideValue = useSignal(props.value ?? props.default ?? optionArr()[0]);
+  const visible = createSignal(false);
+  const insideValue = createSignal(props.value ?? props.default ?? optionArr()[0]);
 
   const currentValue = createMemo(
-    () => isUndefined(props.value) ? insideValue.v() : props.value,
+    () => isUndefined(props.value) ? insideValue[0]() : props.value,
   );
 
-  createEffect(on(insideValue.v, () => {
-    const v = insideValue.v();
+  createEffect(on(insideValue[0], () => {
+    const v = insideValue[0]();
     if (!isUndefined(v))
       props.onChange?.(v);
   }));
 
   const handleClick = (value: string) => {
-    insideValue.s(value);
-    visible.s(false);
+    insideValue[1](value);
+    visible[1](false);
   };
 
   return (
@@ -52,11 +52,11 @@ export const Select = (props: Props) => {
           class={cx('overflow-visible font-normal w-full')}
           variant={'blank'}
           size={props.size ?? 'md'}
-          onClick={() => visible.s(true)}
+          onClick={() => visible[1](true)}
         >
           {options()[currentValue()!]}
         </Button>
-        <Show when={visible.v()}>
+        <Show when={visible[0]()}>
           <div
             class={cx(
               'bg-white',

@@ -1,5 +1,5 @@
 import { Button, Modal } from '@soku-solid/ui';
-import { useSignal } from '@soku-solid/utils';
+import { createSignal } from 'solid-js';
 import { DeleteBotReq } from './requests';
 import { useRequest } from '@/utils';
 
@@ -13,21 +13,21 @@ export const PublicButton = (props: Props) => {
     DeleteBotReq,
     {
       onSuccess: () => {
-        visible.s(false);
+        visible[1](false);
       },
     },
   );
-  const visible = useSignal(false);
+  const visible = createSignal(false);
 
   return (
     <>
-      <Button variant={'danger'} onClick={() => visible.s(true)}>删除</Button>
+      <Button variant={'danger'} onClick={() => visible[1](true)}>删除</Button>
       <Modal
         title={`确认删除${props.id}?`}
-        visible={visible.s()}
+        visible={visible[0]()}
         loading={publicBotReq.loading()}
         onOk={() => publicBotReq.run(props.id)}
-        onCancel={() => visible.s(false)}
+        onCancel={() => visible[1](false)}
       >
         <h1>请三思而后行</h1>
       </Modal>

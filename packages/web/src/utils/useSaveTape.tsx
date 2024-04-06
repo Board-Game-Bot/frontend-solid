@@ -7,11 +7,11 @@ export const useSaveTape = (tape: Accessor<any>, gameId: string) => {
   return () => {
     const tapes = useLocalTapes();
 
-    if (tapes.v()?.find(item => JSON.stringify(item) === JSON.stringify(tape()))) {
+    if (tapes[0]()?.find(item => JSON.stringify(item) === JSON.stringify(tape()))) {
       return ;
     }
 
-    const newTapes = tapes.v()!;
-    tapes.s([...newTapes, { gameId, json: tape(), uploadTime: dayjs().format('YYYY-MM-DD HH:mm') } as Tape]);
+    const newTapes = tapes[0]();
+    tapes[1]([...newTapes, { gameId, json: tape(), uploadTime: dayjs().format('YYYY-MM-DD HH:mm') } as Tape]);
   };
 };

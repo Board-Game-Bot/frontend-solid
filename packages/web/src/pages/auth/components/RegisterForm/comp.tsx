@@ -18,8 +18,8 @@ export const RegisterForm = (props: Props) => {
         Alert({
           children: '注册成功！',
         });
-        user.s(u);
-        jwt.s(j);
+        user[1](u);
+        jwt[1](j);
         navigate('/');
       },
     });
@@ -27,19 +27,19 @@ export const RegisterForm = (props: Props) => {
   const [form] = NewForm.useForm();
 
   const handleSubmit = () => {
+    console.log(123);
     const data = form.gets();
     registerReq.run(data as RegisterDto);
   };
 
   return (
-    <NewForm
-      form={form}
-    >
+    <NewForm form={form}>
       <NewForm.Item
         field={'id'}
         label={'用户 ID'}
         component={Input}
         placeholder={'请输入 ID'}
+        width={'100%'}
       />
       <NewForm.Item
         field={'passwd'}
@@ -47,6 +47,7 @@ export const RegisterForm = (props: Props) => {
         component={Input}
         type={'password'}
         placeholder={'请输入密码'}
+        width={'100%'}
       />
       <div class={'flex gap-2 w-full mt6'}>
         <Button onClick={props.onLogin} class={'flex-1'} variant={'primary'}>登陆</Button>
