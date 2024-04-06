@@ -26,7 +26,6 @@
     "highlight.js": "latest"
   },
   "devDependencies": {
-    "unocss": "^0.53.5",
     "vite-plugin-css-injected-by-js": "^3.5.0",
     "vite-plugin-dts": "^3.8.1"
   }
