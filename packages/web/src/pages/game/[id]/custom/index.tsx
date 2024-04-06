@@ -49,10 +49,10 @@ const CustomMode = () => {
 
   const gameRef: { v?: HTMLElement } = {};
   const [game, tape] = createGame(socket, preRoom[0], gameRef, gameId);
-  createEffect(() => game()?.subscribe(LifeCycle.AFTER_START, () => stage[1](3)));
-  createEffect(() => game()?.subscribe(LifeCycle.AFTER_END, () => stage[1](0)));
+  createEffect(() => game[0]()?.subscribe(LifeCycle.AFTER_START, () => stage[1](3)));
+  createEffect(() => game[0]()?.subscribe(LifeCycle.AFTER_END, () => stage[1](0)));
 
-  const handleToSave = useSaveTape(tape, gameId);
+  const handleToSave = useSaveTape(tape[0], gameId);
 
   const handleToCreate = () => {
     socket()?.emit(PreRoomEvent.CreatePreRoom, {
@@ -110,7 +110,7 @@ const CustomMode = () => {
                 placeholder={'请输入房间号'}
               />
               <Button class={'w-full mt-3'} variant={'primary'} onClick={handleToJoin}>加入房间</Button>
-              {tape() && <Button class={'w-full mt-3'} onClick={handleToSave}>保存录像</Button>}
+              {tape[0]() && <Button class={'w-full mt-3'} onClick={handleToSave}>保存录像</Button>}
             </Show>
             <Show when={stage[0]() === 1}>
               <Button variant={'danger'} onClick={handleToLeave}>离开房间</Button>

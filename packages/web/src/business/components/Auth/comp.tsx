@@ -9,8 +9,6 @@ export const Auth = () => {
     nav('/auth');
   };
 
-  createEffect(() => console.log(user[0]()?.avatar));
-
   return (
     <div
       class={'p3 hover:bg-coolGray/7 rounded-xl cursor-pointer flex gap3 items-center font-600 text-2xl'}

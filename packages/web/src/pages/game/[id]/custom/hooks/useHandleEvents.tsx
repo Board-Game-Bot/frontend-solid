@@ -1,9 +1,8 @@
-import { Accessor, createEffect } from 'solid-js';
+import { Accessor, createEffect, Signal } from 'solid-js';
 import { Socket } from 'socket.io-client';
 import { PreRoom, PreRoomEvent } from '../types';
 import { makeRoomWrapper } from '../utils';
 import { INITIAL_PRE_ROOM } from '../constants';
-import { Signal } from '@/utils';
 
 interface Props {
     socket: Accessor<Socket | undefined>;
@@ -21,12 +20,12 @@ export const useHandleEvents = (props: Props) => {
    * 销毁：创建后
    */
   const handleCreatePreRoom = (room: PreRoom) => {
-    preRoomId(room.roomId);
-    preRoom(room);
-    stage(1);
+    preRoomId[1](room.roomId);
+    preRoom[1](room);
+    stage[1](1);
   };
   createEffect(() => {
-    const roomId = preRoomId(), _socket = socket();
+    const roomId = preRoomId[0](), _socket = socket();
     if (roomId || !_socket) return ;
     _socket.on(PreRoomEvent.CreatePreRoom, function listener({ room }: Record<string, PreRoom>) {
       handleCreatePreRoom(room);
@@ -39,12 +38,12 @@ export const useHandleEvents = (props: Props) => {
    * 销毁：加入后
    */
   const handleJoinPreRoom = (room: PreRoom) => {
-    preRoomId(room.roomId);
-    preRoom(room);
-    stage(1);
+    preRoomId[1](room.roomId);
+    preRoom[1](room);
+    stage[1](1);
   };
   createEffect(() => {
-    const roomId = preRoomId(), _socket = socket();
+    const roomId = preRoomId[0](), _socket = socket();
     if (roomId || !_socket) return ;
     _socket.on(PreRoomEvent.JoinPreRoom, function listener({ room }: Record<string, PreRoom>) {
       handleJoinPreRoom(room);
@@ -58,12 +57,12 @@ export const useHandleEvents = (props: Props) => {
    * 销毁：解散
    */
   const handleDisband = () => {
-    preRoomId('');
-    preRoom(INITIAL_PRE_ROOM);
-    stage(0);
+    preRoomId[1]('');
+    preRoom[1](INITIAL_PRE_ROOM);
+    stage[1](0);
   };
   createEffect(() => {
-    const roomId = preRoomId(), _socket = socket();
+    const roomId = preRoomId[0](), _socket = socket();
     if (!roomId || !_socket) return ;
     const wrap = makeRoomWrapper(roomId);
     _socket.on(wrap(PreRoomEvent.DisbandPreRoom), function listener () {
@@ -78,10 +77,10 @@ export const useHandleEvents = (props: Props) => {
    * 销毁：解散/离开
    */
   const handleSync = (pr: PreRoom) => {
-    preRoom(pr);
+    preRoom[1](pr);
   };
   createEffect(() => {
-    const roomId = preRoomId(), _socket = socket();
+    const roomId = preRoomId[0](), _socket = socket();
     if (!roomId || !_socket) return ;
     const wrap = makeRoomWrapper(roomId);
     _socket.on(wrap(PreRoomEvent.SyncPreRoom), handleSync);
@@ -101,10 +100,10 @@ export const useHandleEvents = (props: Props) => {
    * 销毁：解散/离开/游戏开始
    */
   const handleStartGame = () => {
-    stage(2);
+    stage[1](2);
   };
   createEffect(() => {
-    const roomId = preRoomId(), _socket = socket();
+    const roomId = preRoomId[0](), _socket = socket();
     if (!roomId || !_socket) return ;
 
     const wrap = makeRoomWrapper(roomId);

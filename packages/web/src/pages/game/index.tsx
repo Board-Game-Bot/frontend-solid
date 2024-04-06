@@ -21,8 +21,14 @@ const GamePage = () => {
 
   const selectedGame = createSignal<Game>();
   const handleSelectGame = (game: Game) => {
-    stage[1](1);
-    selectedGame[1](game);
+    if (game === selectedGame[0]()) {
+      stage[1](0);
+      selectedGame[1]();
+    }
+    else {
+      stage[1](1);
+      selectedGame[1](game);
+    }
   };
 
   const handleSelect = (mode: ModeType) => {
@@ -43,7 +49,8 @@ const GamePage = () => {
                 selected={selectedGame[0]() === game}
                 game={game}
                 onMouseEnter={() => handleHoverGame(game)}
-                onClick={() => handleSelectGame(game)} />
+                onClick={() => handleSelectGame(game)}
+              />
             );
           }}
         />

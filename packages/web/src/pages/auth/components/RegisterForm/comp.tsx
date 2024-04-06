@@ -27,7 +27,6 @@ export const RegisterForm = (props: Props) => {
   const [form] = NewForm.useForm();
 
   const handleSubmit = () => {
-    console.log(123);
     const data = form.gets();
     registerReq.run(data as RegisterDto);
   };
