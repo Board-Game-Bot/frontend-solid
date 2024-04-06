@@ -12,6 +12,7 @@
   "files": [
     "dist"
   ],
+  "type": "module",
   "types": "dist/index.d.ts",
   "module": "dist/index.esm.js",
   "exports": {

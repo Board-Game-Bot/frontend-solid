@@ -5,7 +5,12 @@ import dts from 'vite-plugin-dts';
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 
 export default defineConfig({
-  plugins: [solidPlugin(), uno(), dts({ rollupTypes: true }), cssInjectedByJsPlugin()],
+  plugins: [
+    solidPlugin(),
+    uno(),
+    dts({ rollupTypes: true }),
+    cssInjectedByJsPlugin(),
+  ],
   build: {
     lib: {
       entry: './src/index.ts',
