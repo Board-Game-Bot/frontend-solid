@@ -10,10 +10,11 @@ export const Auth = () => {
 
   return (
     <div
-      class={'p3 hover:bg-coolGray/7 rounded-xl cursor-pointer'}
+      class={'p3 hover:bg-coolGray/7 rounded-xl cursor-pointer flex gap3 items-center font-600 text-2xl'}
       onClick={handleClick}
     >
       <Img shape={'circle'} src={user.v()?.avatar} />
+      <div>{user.v()?.id}</div>
     </div>
   );
 };
