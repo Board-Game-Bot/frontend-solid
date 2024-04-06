@@ -1,7 +1,6 @@
-import { Accessor, createEffect, createSignal, Setter } from 'solid-js';
+import { createEffect, createSignal } from 'solid-js';
 
-// FIXME type
-export const createLocalStorageSignal = <T>(key: string, fallbackValue?: T): [Accessor<T>, Setter<any>] => {
+export const createLocalStorageSignal = <T>(key: string, fallbackValue?: T) => {
   const defaultValue = () => {
     const item = localStorage.getItem(key);
     try {
@@ -11,16 +10,16 @@ export const createLocalStorageSignal = <T>(key: string, fallbackValue?: T): [Ac
       return item ?? fallbackValue;
     }
   };
-  const [value, setValue] = createSignal(defaultValue());
+  const value = createSignal<T>(defaultValue());
 
   createEffect(() => {
     try {
-      localStorage.setItem(key, JSON.stringify(value()));
+      localStorage.setItem(key, JSON.stringify(value[0]()));
     }
     catch {
-      localStorage.setItem(key, value());
+      localStorage.setItem(key, '');
     }
   });
 
-  return [value, setValue];
+  return value;
 };

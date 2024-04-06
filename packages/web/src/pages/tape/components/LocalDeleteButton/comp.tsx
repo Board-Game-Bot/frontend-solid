@@ -1,7 +1,7 @@
 import { IconButton, Modal } from '@soku-solid/ui';
-import { signal } from '@/utils';
+import { createSignal } from 'solid-js';
+import { useLocalTapes } from '@/utils';
 import { Tape } from '@/types';
-import { useLocalTapes } from '@/utils/useLocalTapes';
 
 interface Props {
   tape: Tape;
@@ -9,21 +9,21 @@ interface Props {
 }
 
 export const LocalDeleteButton = (props: Props) => {
-  const visible = signal(false);
+  const visible = createSignal(false);
 
-  const [tapes, setTapes] = useLocalTapes();
+  const tapes = useLocalTapes();
   const handleDelete = () => {
-    setTapes(tapes().filter(tape => JSON.stringify(tape) !== JSON.stringify(props.tape)));
+    tapes[1](tapes[0]().filter(tape => JSON.stringify(tape) !== JSON.stringify(props.tape)));
   };
 
   return (
     <>
-      <IconButton icon={<div class="i-mdi:delete w1em h1em" />} onClick={() => visible(true)} />
+      <IconButton icon={<div class="i-mdi:delete w1em h1em" />} onClick={() => visible[1](true)} />
       <Modal
         title={'确认删除?'}
-        visible={visible()}
+        visible={visible[0]()}
         onOk={handleDelete}
-        onCancel={() => visible(false)}
+        onCancel={() => visible[1](false)}
       >
         删除后，记录无法找回，请谨慎操作。
       </Modal>

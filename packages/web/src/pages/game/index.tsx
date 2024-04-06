@@ -1,7 +1,6 @@
-import { Show } from 'solid-js';
+import { createSignal, Show } from 'solid-js';
 import { useNavigate } from '@solidjs/router';
 import { Layout, List } from '@soku-solid/ui';
-import { useSignal } from '@soku-solid/utils';
 import { SolidMarkdown } from 'solid-markdown';
 import { GameCard, ModeCard } from './components';
 import { Game } from '@/types';
@@ -12,23 +11,28 @@ import { ModeType } from '@/pages/game/types';
 const GamePage = () => {
   const navigate = useNavigate();
 
+  const stage = createSignal(0);
 
-  const stage = useSignal(0);
-
-  const currentDescription = useSignal('');
+  const currentDescription = createSignal('');
 
   const handleHoverGame = (game: Game) => {
-    currentDescription.s(game.description);
+    currentDescription[1](game.description);
   };
 
-  const selectedGame = useSignal<Game>();
+  const selectedGame = createSignal<Game>();
   const handleSelectGame = (game: Game) => {
-    stage.s(1);
-    selectedGame.s(game);
+    if (game === selectedGame[0]()) {
+      stage[1](0);
+      selectedGame[1]();
+    }
+    else {
+      stage[1](1);
+      selectedGame[1](game);
+    }
   };
 
   const handleSelect = (mode: ModeType) => {
-    navigate(`/game/${selectedGame.v()!.id}/${mode.key}`);
+    navigate(`/game/${selectedGame[0]()!.id}/${mode.key}`);
   };
 
   return (
@@ -38,35 +42,36 @@ const GamePage = () => {
         <List
           class={'bg-#eee p5 flex flex-col gap-3'}
           height={'70vh'}
-          items={games()}
+          items={games[0]()!}
           renderer={(game) => {
             return (
               <GameCard
-                selected={selectedGame.v() === game}
+                selected={selectedGame[0]() === game}
                 game={game}
                 onMouseEnter={() => handleHoverGame(game)}
-                onClick={() => handleSelectGame(game)} />
+                onClick={() => handleSelectGame(game)}
+              />
             );
           }}
         />
-        <Show when={stage.v()! > 0}>
+        <Show when={stage[0]()! > 0}>
           <List
             class={'bg-#eee p5 flex flex-col gap-3'}
             items={MODE}
             renderer={(mode) => 
               <ModeCard
                 onClick={() => handleSelect(mode)}
-                onMouseEnter={() => currentDescription.s(mode.label)}
+                onMouseEnter={() => currentDescription[1](mode.label)}
                 mode={mode}
               />
             }
           />
         </Show>
 
-        <Show when={currentDescription.v()}>
+        <Show when={currentDescription[0]()}>
           <div class={'h-70vh bg-#eee p5 w-500px overflow-auto'}>
             <SolidMarkdown>
-              {currentDescription.v()}
+              {currentDescription[0]()}
             </SolidMarkdown>
           </div>
         </Show>

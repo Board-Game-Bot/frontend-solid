@@ -1,14 +1,17 @@
 import { Accessor } from 'solid-js';
 import dayjs from 'dayjs';
-import { useLocalTapes } from '@/utils/useLocalTapes';
+import { useLocalTapes } from '@/utils';
+import { Tape } from '@/types';
 
-// FIXME type
 export const useSaveTape = (tape: Accessor<any>, gameId: string) => {
   return () => {
-    const [tapes, setTapes] = useLocalTapes();
+    const tapes = useLocalTapes();
 
-    if (!tapes().find(item => JSON.stringify(item) === JSON.stringify(tape()))) {
-      setTapes([...tapes(), { gameId, json: tape(), uploadTime: dayjs().format('YYYY-MM-DD HH:mm') }]);
+    if (tapes[0]()?.find(item => JSON.stringify(item) === JSON.stringify(tape()))) {
+      return ;
     }
+
+    const newTapes = tapes[0]();
+    tapes[1]([...newTapes, { gameId, json: tape(), uploadTime: dayjs().format('YYYY-MM-DD HH:mm') } as Tape]);
   };
 };

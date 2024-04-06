@@ -5,7 +5,17 @@ import dts from 'vite-plugin-dts';
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 
 export default defineConfig({
-  plugins: [solidPlugin(), uno(), dts({ rollupTypes: true }), cssInjectedByJsPlugin()],
+  plugins: [
+    solidPlugin(),
+    uno(),
+    dts({ rollupTypes: true }),
+    cssInjectedByJsPlugin(),
+  ],
+  css: {
+    modules: {
+      localsConvention: 'camelCase',
+    },
+  },
   build: {
     lib: {
       entry: './src/index.ts',
@@ -19,11 +29,8 @@ export default defineConfig({
       output: {
         format: 'esm',
         entryFileNames: 'index.esm.js',
-        globals: {
-          'highlight.js': 'highlight.js',
-        },
       },
-      external: ['highlight.js'],
+      external: ['solid-js', 'highlight.js'],
     },
   },
 });

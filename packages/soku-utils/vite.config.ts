@@ -12,17 +12,14 @@ export default defineConfig({
       formats: ['es'],
     },
     outDir: './dist',
-    minify: false,
+    minify: true,
     rollupOptions: {
       input: './src/index.ts',
       output: {
         format: 'esm',
         entryFileNames: 'index.esm.js',
-        globals: {
-          'lodash-es': 'lodash-es',
-        },
       },
-      external: ['lodash-es'],
+      external: ['solid-js'],
     },
   },
 });

@@ -1,8 +1,9 @@
-import HL from 'highlight.js';
+import HL, { LanguageFn } from 'highlight.js';
 import { toPairs } from 'lodash-es';
 import { REGISTER_MAP } from './constants';
 
-toPairs(REGISTER_MAP).forEach(([lang, fn]) => {
+const ENTITIES = toPairs(REGISTER_MAP) as [string, LanguageFn][];
+ENTITIES.forEach(([lang, fn]) => {
   HL.registerLanguage(lang, fn);
 });
 

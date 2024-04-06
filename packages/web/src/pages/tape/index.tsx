@@ -51,7 +51,7 @@ const TapePage = () => {
     ,
   }];
 
-  const [tapes] = useLocalTapes();
+  const tapes = useLocalTapes();
 
   const getTapesReq = useRequest(GetTapesReq, { auto: true });
   const onlineTapes = () => getTapesReq.data()?.tapes ?? [];
@@ -80,7 +80,7 @@ const TapePage = () => {
         <Table
           class={'w-full'}
           columns={localColumns}
-          data={tapes()}
+          data={tapes[0]()}
         />
       </Show>
     </Layout>

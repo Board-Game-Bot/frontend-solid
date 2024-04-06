@@ -1,28 +1,28 @@
 import { get, set } from 'lodash-es';
-import { useSignal } from '@soku-solid/utils';
+import { createSignal } from 'solid-js';
 import { FormInstance } from '../types';
 
 export const useForm = () => {
-  const formValue = useSignal<Record<string, any>>({});
+  const formValue = createSignal<Record<string, any>>({});
   const form: FormInstance = {
     set: (field, value) => {
-      const currentFormValue = formValue.v();
+      const currentFormValue = formValue[0]();
       set(currentFormValue!, field, value);
-      formValue.s({ ...currentFormValue });
+      formValue[1]({ ...currentFormValue });
     },
     get: (field) => {
-      return get(formValue.v(), field);
+      return get(formValue[0](), field);
     },
     gets: () => {
-      return formValue.v()!;
+      return formValue[0]()!;
     },
     delete: (field) => {
-      const currentFormValue = formValue.v()!;
+      const currentFormValue = formValue[0]()!;
       delete currentFormValue[field];
-      formValue.s({ ...currentFormValue });
+      formValue[1]({ ...currentFormValue });
     },
     watch: (field) => {
-      return () => get(formValue.v(), field);
+      return () => get(formValue[0](), field);
     },
   };
 

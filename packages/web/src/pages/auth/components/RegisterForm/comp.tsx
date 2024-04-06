@@ -3,7 +3,7 @@ import { Alert, Button, Input, NewForm } from '@soku-solid/ui';
 import { RegisterReq } from './requests';
 import { RegisterDto } from './types';
 import { useRequest } from '@/utils';
-import { setJwt, setUser } from '@/store';
+import { jwt, user } from '@/store';
 
 interface Props {
   onLogin: () => void;
@@ -14,12 +14,12 @@ export const RegisterForm = (props: Props) => {
   const registerReq = useRequest(
     RegisterReq,
     {
-      onSuccess: ({ user, jwt }) => {
+      onSuccess: ({ user: u, jwt: j }) => {
         Alert({
           children: '注册成功！',
         });
-        setUser(user);
-        setJwt(jwt);
+        user[1](u);
+        jwt[1](j);
         navigate('/');
       },
     });
@@ -32,14 +32,13 @@ export const RegisterForm = (props: Props) => {
   };
 
   return (
-    <NewForm
-      form={form}
-    >
+    <NewForm form={form}>
       <NewForm.Item
         field={'id'}
         label={'用户 ID'}
         component={Input}
         placeholder={'请输入 ID'}
+        width={'100%'}
       />
       <NewForm.Item
         field={'passwd'}
@@ -47,6 +46,7 @@ export const RegisterForm = (props: Props) => {
         component={Input}
         type={'password'}
         placeholder={'请输入密码'}
+        width={'100%'}
       />
       <div class={'flex gap-2 w-full mt6'}>
         <Button onClick={props.onLogin} class={'flex-1'} variant={'primary'}>登陆</Button>

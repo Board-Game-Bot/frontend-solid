@@ -3,27 +3,26 @@ import { GetGamesReq } from './api';
 import { Game } from '@/types';
 import { downloadGame, useRequest } from '@/utils';
 
-const [games, setGames] = createSignal<Game[]>([]);
+const games = createSignal<Game[]>([]);
 
 export {
   games,
-  setGames,
 };
 
 useRequest(
   GetGamesReq,
   {
     auto: true,
-    onSuccess: ({ games }) => {
-      setGames(games);
+    onSuccess: ({ games: g }) => {
+      games[1](g);
     },
   },
 );
 
-export const getGame = (id: string) => games().find(game => game.id === id);
+export const getGame = (id: string) => games[0]()?.find(game => game.id === id);
 
 createEffect(() => {
-  const _games = games();
+  const _games = games[0]()!;
   _games.forEach(game => {
     downloadGame(game.npmPackage, game.version, 'core');
     downloadGame(game.npmPackage, game.version, 'screen');

@@ -11,7 +11,6 @@ export * from './createGame';
 export * from './createSocket';
 export * from './sleep';
 export * from './monoRender';
-export * from './signal';
 export * from './downloadGame';
 export * from './csl';
 

@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "husky install",
     "dev": "vite",
-    "build": "vite build",
+    "build": "sh build.sh",
     "lint": "eslint --ext .js,.ts,.jsx,.tsx --fix --quiet ./packages",
     "serve": "vite preview"
   },
@@ -17,23 +17,23 @@
   "license": "MIT",
   "devDependencies": {
     "@iconify-json/mdi": "^1.1.64",
-    "@soku-conf/eslint-config": "^1.0.3",
+    "@soku-conf/eslint-config": "^1.1.0",
     "@types/lodash": "^4.14.195",
     "@types/lodash-es": "^4.17.11",
     "@types/mockjs": "^1.0.10",
     "@types/node": "^20.4.2",
     "@types/socket.io": "^3.0.2",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "eslint": "^8.44.0",
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@typescript-eslint/parser": "^7.5.0",
+    "eslint": "^8.0.1",
     "eslint-plugin-solid": "^0.12.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "mockjs": "^1.1.0",
     "sass": "^1.69.5",
     "typescript": "^4.9.5",
-    "unocss": "^0.53.5",
-    "vite": "^4.4.4",
+    "unocss": "^0.59.0",
+    "vite": "^5.2.8",
     "vite-plugin-solid": "^2.7.0",
     "vite-plugin-static-copy": "^0.17.0",
     "vite-tsconfig-paths": "^4.2.1"
@@ -44,12 +44,11 @@
     "axios": "^1.4.0",
     "dayjs": "^1.11.10",
     "highlight.js": "^11.9.0",
-    "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
     "soku-game-recorder": "^1.0.0",
     "solid-icons": "^1.0.11",
-    "solid-js": "^1.7.8"
+    "solid-js": "^1.8.16"
   }
 }

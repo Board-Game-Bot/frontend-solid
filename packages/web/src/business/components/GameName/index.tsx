@@ -10,7 +10,7 @@ interface Props {
 
 export const GameName = (props: Props) => {
   const icon = createMemo(() => {
-    return games().find(game => game.id === props.name)?.icon;
+    return games[0]()?.find(game => game.id === props.name)?.icon;
   });
   return (
     <div class={cx(props.class)}>

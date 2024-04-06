@@ -6,9 +6,8 @@ interface User {
   avatar: string;
 }
 
-const [user, setUser] = createSignal<User>();
+const user = createSignal<User>();
 
 export {
   user,
-  setUser,
 };

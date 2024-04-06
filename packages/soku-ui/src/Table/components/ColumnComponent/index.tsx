@@ -14,7 +14,7 @@ export function ColumnComponent<T>(props: Props<T>) {
   }, undefined, {
     equals: (prev, curr) =>
       prev.length === curr.length
-        && range(prev.length).every(index => prev[index] === curr[index]),
+        && range(prev.length).every((index: number) => prev[index] === curr[index]),
   });
   const cell = createMemo(() => props.index ? props.record[props.index] : '');
   const el = createMemo(on(() => [cell(), depsValue()], () => props.children));

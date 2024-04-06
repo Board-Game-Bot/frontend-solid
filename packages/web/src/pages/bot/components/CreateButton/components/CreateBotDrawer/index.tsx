@@ -1,6 +1,5 @@
 import { Drawer, DrawerProps, Input, Message, NewForm, Select, TextArea } from '@soku-solid/ui';
-import { useSignal } from '@soku-solid/utils';
-import { Show } from 'solid-js';
+import { createSignal, Show } from 'solid-js';
 import { GAME_OPTIONS, LANG_OPTIONS } from '../../constants';
 import { CreateBotReq } from '../../requests';
 import { useRequest } from '@/utils';
@@ -10,19 +9,19 @@ interface Props extends DrawerProps {
 
 export const CreateBotDrawer = (props: Props) => {
   const [form] = NewForm.useForm();
-  const visible = useSignal(false);
+  const visible = createSignal(false);
 
-  const error = useSignal('');
+  const error = createSignal('');
 
   const createBotReq = useRequest(
     CreateBotReq,
     {
       onSuccess: () => {
-        visible.s(false);
+        visible[1](false);
         props.onOk?.();
       },
       onError: (err) => {
-        error.s(err);
+        error[1](err);
       },
     },
   );
@@ -45,6 +44,7 @@ export const CreateBotDrawer = (props: Props) => {
             label={'名称'}
             field={'name'}
             component={Input}
+            width={'100%'}
             placeholder={'请输入此代码的名称'}
           />
           <NewForm.Item
@@ -74,11 +74,11 @@ export const CreateBotDrawer = (props: Props) => {
             width={'100%'}
           />
         </NewForm>
-        <Show when={error.v()}>
+        <Show when={error[0]()}>
           <div class={'mt-8 w-full box-border'}>
             <Message title={'编译错误'}>
               <pre class={'w-full break-all text-12px font-400'} style={{ 'white-space': 'pre-wrap' }}>
-                {error.v()}
+                {error[0]()}
               </pre>
             </Message>
           </div>
