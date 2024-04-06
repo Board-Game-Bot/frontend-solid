@@ -2,15 +2,16 @@ import { useParams } from '@solidjs/router';
 import { capitalize } from 'lodash-es';
 import { buildGame, LifeCycle, NewGenerator } from '@soku-games/core';
 import { Button, Layout } from '@soku-solid/ui';
-import { signal, useSaveTape } from '@/utils';
+import { useSignal } from '@soku-solid/utils';
+import { useSaveTape } from '@/utils';
 import { Tape } from '@/types';
 
 const SingleMode = () => {
   const gameId = useParams().id;
-  const isGameOver = signal(true);
+  const isGameOver = useSignal(true);
   let gameRef: HTMLDivElement;
-  const tape = signal<Tape>();
-  const handleSave = useSaveTape(tape, gameId);
+  const tape = useSignal<Tape>();
+  const handleSave = useSaveTape(tape.v, gameId);
 
   const handleStart = () => {
     const game = buildGame({
@@ -27,15 +28,15 @@ const SingleMode = () => {
       }, {
         name: 'the-recorder',
         extra: {
-          tapeResolved: (theTape: any) => tape(theTape),
+          tapeResolved: (theTape: any) => tape.s(theTape),
         },
       }],
     })!;
     const data = NewGenerator(gameId).generate();
     game.prepare(data);
 
-    game.subscribe(LifeCycle.AFTER_END, () => isGameOver(true));
-    game.subscribe(LifeCycle.AFTER_START, () => isGameOver(false));
+    game.subscribe(LifeCycle.AFTER_END, () => isGameOver.s(true));
+    game.subscribe(LifeCycle.AFTER_START, () => isGameOver.s(false));
 
     setTimeout(() => game.start());
   };
@@ -44,8 +45,8 @@ const SingleMode = () => {
     <Layout>
       <div class={'flex items-center gap-4'}>
         <h1 class={'w-fit'}>{capitalize(gameId)} 单人模式</h1>
-        {isGameOver() && <Button onClick={handleStart} variant={'primary'}>启动</Button>}
-        {isGameOver() && tape() &&
+        {isGameOver.v() && <Button onClick={handleStart} variant={'primary'}>启动</Button>}
+        {isGameOver.v() && tape.v() &&
           <Button onClick={handleSave} variant={'primary'}>保存</Button>
         }
       </div>

@@ -1,12 +1,11 @@
 import { JSX, Show } from 'solid-js';
-import { isNumber, isString } from 'lodash-es';
 import { cx } from '@soku-solid/utils';
 import { Portal } from 'solid-js/web';
 import { Button } from '../Button';
 
 interface Props {
-  height?: number | string;
-  width?: number | string;
+  height?: string;
+  width?: string;
   visible?: boolean;
   children?: JSX.Element;
   title?: string;
@@ -30,16 +29,8 @@ export const Modal = (props: Props) => {
               'flex flex-col',
             )}
             style={{
-              height: isString(props.height)
-                ? props.height
-                : isNumber(props.height)
-                  ? `${props.height}px`
-                  : undefined,
-              width: isString(props.width)
-                ? props.width
-                : isNumber(props.width)
-                  ? props.width + 'px'
-                  : undefined,
+              height: props.height,
+              width: props.width,
             }}
           >
             <div class={'w-full font-500 text-xl flex-0 flex justify-between px5 pt3 box-border border-b-#eee border-b-solid border-b-1'}>

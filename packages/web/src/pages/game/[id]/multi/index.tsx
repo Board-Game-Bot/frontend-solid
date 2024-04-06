@@ -3,9 +3,10 @@ import { createEffect, Show } from 'solid-js';
 import { capitalize } from 'lodash-es';
 import { LifeCycle } from '@soku-games/core';
 import { Button, Layout } from '@soku-solid/ui';
+import { useSignal } from '@soku-solid/utils';
 import { RoomComp } from './components';
 import { createMatch, createRoom } from './utils';
-import { createEvent, createGame, createSocket, signal, useSaveTape } from '@/utils';
+import { createEvent, createGame, createSocket, useSaveTape } from '@/utils';
 import { jwt } from '@/store';
 import { BotSelect } from '@/business/components';
 
@@ -14,26 +15,26 @@ const MultiMode = () => {
   const [socket, connect, isConnect] = createSocket(import.meta.env.VITE_WS_URL, jwt.v() ?? '');
 
   // STAGE
-  const stage = signal(0);
+  const stage = useSignal(0);
 
   // MATCH
   const gameId = useParams().id;
-  const botId = signal('');
-  const [match, isMatching] = createMatch(socket, gameId, botId);
+  const botId = useSignal('');
+  const [match, isMatching] = createMatch(socket, gameId, botId.v);
 
   // ROOM
   const [room, leave] = createRoom(socket);
-  createEvent(socket, 'make-room', () => stage(1));
-  createEvent(socket, 'start-game', () => stage(2));
+  createEvent(socket, 'make-room', () => stage.s(1));
+  createEvent(socket, 'start-game', () => stage.s(2));
 
   // GAME
   const gameRef: {v?: HTMLElement} = {};
   const [game, tape] = createGame(socket, room, gameRef, gameId);
   const handleSave = useSaveTape(tape, gameId);
   createEffect(() => {
-    game()?.subscribe(LifeCycle.AFTER_START, () => stage(3));
+    game()?.subscribe(LifeCycle.AFTER_START, () => stage.s(3));
     game()?.subscribe(LifeCycle.AFTER_END, () => {
-      stage(0);
+      stage.s(0);
       connect();
     });
   });
@@ -54,10 +55,10 @@ const MultiMode = () => {
           </div>
           <div class={'flex-0 w-300px p-6 box-border'}>
             <Show when={isConnect()}>
-              <Show when={stage() === 0}>
+              <Show when={stage.v() === 0}>
                 <div class={'flex items-center gap-3'}>
                   <div class={'flex-1'}>
-                    <BotSelect width={'200px'} onChange={botId} gameId={gameId} />
+                    <BotSelect width={'200px'} onChange={botId.s} gameId={gameId} />
                   </div>
                   <Button
                     class={'flex-0 h-full'}
@@ -74,7 +75,7 @@ const MultiMode = () => {
                   </div>
                 }
               </Show>
-              <Show when={stage() === 1}>
+              <Show when={stage.v() === 1}>
                 <Button
                   class={'m-a'}
                   variant={'danger'}
@@ -85,10 +86,10 @@ const MultiMode = () => {
                 </Button>
                 <RoomComp socket={socket()} room={room()} />
               </Show>
-              <Show when={stage() === 2}>
+              <Show when={stage.v() === 2}>
                 Starting Game...
               </Show>
-              <Show when={stage() === 3}>
+              <Show when={stage.v() === 3}>
                 GO!
               </Show>
             </Show>

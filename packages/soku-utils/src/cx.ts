@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { isObject, keysIn } from 'lodash-es';
 
 export const cx = (...className: (string | false | Record<string, boolean | undefined> | undefined)[]) => {

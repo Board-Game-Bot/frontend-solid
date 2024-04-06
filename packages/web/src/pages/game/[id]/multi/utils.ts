@@ -1,10 +1,10 @@
 import { Accessor, createSignal } from 'solid-js';
 import { Socket } from 'socket.io-client';
-import { createEvent, Signal } from '@/utils';
+import { createEvent } from '@/utils';
 import { Room } from '@/types';
 
 
-export const createMatch = (socket: Accessor<Socket | undefined>, gameId: string, botId: Signal<string>): [() => void, Accessor<boolean>] => {
+export const createMatch = (socket: Accessor<Socket | undefined>, gameId: string, botId: Accessor<string | undefined>): [() => void, Accessor<boolean>] => {
   const [isMatching, setMatching] = createSignal(false);
   createEvent(socket, 'join-match', () => setMatching(true));
   createEvent(socket, 'leave-match', () => setMatching(false));

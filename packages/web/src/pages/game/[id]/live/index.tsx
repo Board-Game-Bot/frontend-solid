@@ -3,7 +3,8 @@ import { useParams } from '@solidjs/router';
 import { For, Show } from 'solid-js';
 import { buildGame, Game, LifeCycle } from '@soku-games/core';
 import { Button, Layout } from '@soku-solid/ui';
-import { createEvent, createSocket, signal, useSaveTape } from '@/utils';
+import { useSignal } from '@soku-solid/utils';
+import { createEvent, createSocket, useSaveTape } from '@/utils';
 import { jwt } from '@/store';
 import { Room, Tape } from '@/types';
 
@@ -11,25 +12,25 @@ const LiveMode = () => {
   const gameId = useParams().id;
   const [socket, connect, isConnect] = createSocket(import.meta.env.VITE_WS_URL, jwt.v() ?? '');
   const gameRef: { v?: HTMLElement } = {};
-  const stage = signal(0);
-  const rooms = signal<Room[]>([]);
-  const room = signal<Room>();
+  const stage = useSignal(0);
+  const rooms = useSignal<Room[]>([]);
+  const room = useSignal<Room>();
 
   const handleJoin = (roomId: string) => {
     socket()?.emit('join-live', { roomId });
   };
 
-  const tape = signal<Tape>();
-  const game = signal<Game>();
+  const tape = useSignal<Tape>();
+  const game = useSignal<Game>();
   createEvent(socket, 'load-sync', (payload: {room: Room, initData: string, steps: string[]}) => {
-    stage(1);
+    stage.s(1);
     const _game = buildGame({
       name: gameId,
       plugins: [{
         name: `${gameId}-screen`,
         extra: {
           el: gameRef.v,
-          couldControl: room()?.players.map(() => false),
+          couldControl: room.v()?.players.map(() => false),
           emit: (stepStr: string) => console.log(stepStr),
         },
       }, {
@@ -40,13 +41,13 @@ const LiveMode = () => {
       }, {
         name: 'the-recorder',
         extra: {
-          tapeResolved: (_tape: Tape) => tape(_tape),
+          tapeResolved: (_tape: Tape) => tape.s(_tape),
         },
       }],
     });
-    _game?.subscribe(LifeCycle.AFTER_END, () => stage(0));
+    _game?.subscribe(LifeCycle.AFTER_END, () => stage.s(0));
     _game?.prepare(payload.initData);
-    game(_game);
+    game.s(_game);
     // FIXME
     setTimeout(() => {
       _game?.start();
@@ -55,10 +56,10 @@ const LiveMode = () => {
   });
 
   createEvent(socket, 'lives', (payload: { rooms: Room[] }) => {
-    rooms(payload.rooms);
+    rooms.s(payload.rooms);
   });
 
-  const handleSave = useSaveTape(tape, gameId);
+  const handleSave = useSaveTape(tape.v, gameId);
 
   return (
     <Layout>
@@ -73,11 +74,11 @@ const LiveMode = () => {
           </div>
           <div class={'flex-0 p-5 w-300px box-border'}>
             <Show when={isConnect()}>
-              <Show when={stage() === 0}>
-                {tape() && <Button class={'w-full mt-3'} onClick={handleSave}>保存录像</Button>}
+              <Show when={stage.v() === 0}>
+                {tape.v() && <Button class={'w-full mt-3'} onClick={handleSave}>保存录像</Button>}
                 <h2 class={'w-fit font-600 mt-3'}>进行中对局</h2>
                 <For
-                  each={rooms().filter(room => room.gameId === gameId)}
+                  each={rooms.v()?.filter(room => room.gameId === gameId)}
                   fallback={<h3>无对局······</h3>}
                 >
                   {(room) => 
@@ -90,7 +91,7 @@ const LiveMode = () => {
                   }
                 </For>
               </Show>
-              <Show when={stage() === 1}>
+              <Show when={stage.v() === 1}>
                 GO!
               </Show>
             </Show>

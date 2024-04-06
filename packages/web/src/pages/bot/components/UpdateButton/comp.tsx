@@ -3,7 +3,7 @@ import { Drawer, IconButton, Input, Message, NewForm, Select, TextArea } from '@
 import { Show } from 'solid-js';
 import { useSignal } from '@soku-solid/utils';
 import { UpdateBotDto, UpdateBotReq } from './requests';
-import { useRequest, signal } from '@/utils';
+import { useRequest } from '@/utils';
 import { Bot } from '@/types';
 import { GAME_OPTIONS, LANG_OPTIONS } from '@/pages/bot/components/CreateButton/constants';
 
@@ -14,11 +14,13 @@ interface Props {
 
 export const UpdateButton = (props: Props) => {
   const error = useSignal('');
+  const visible = useSignal(false);
+
   const updateBotReq = useRequest(
     UpdateBotReq,
     {
       onSuccess: () => {
-        visible(false);
+        visible.s(false);
         props.onOk?.();
       },
       onError: (errorMsg) => {
@@ -26,7 +28,6 @@ export const UpdateButton = (props: Props) => {
       },
     },
   );
-  const visible = signal(false);
   const [form] = NewForm.useForm();
 
   const handleSubmit = () => {
@@ -36,13 +37,13 @@ export const UpdateButton = (props: Props) => {
 
   return (
     <>
-      <IconButton icon={<div class="i-mdi:settings w-1em h-1em" />} onClick={() => visible(true)} />
+      <IconButton icon={<div class="i-mdi:settings w-1em h-1em" />} onClick={() => visible.s(true)} />
       <Drawer
         title={`修改 ${props.bot.id}`}
-        visible={visible()}
+        visible={visible.v()}
         loading={updateBotReq.loading()}
         onOk={handleSubmit}
-        onCancel={() => visible(false)}
+        onCancel={() => visible.s(false)}
       >
         <div class={'p5'}>
           <NewForm form={form}>
@@ -50,6 +51,7 @@ export const UpdateButton = (props: Props) => {
               label={'ID'}
               field={'id'}
               component={Input}
+              width={'100%'}
               disabled
               default={props.bot.id}
             />
@@ -57,6 +59,7 @@ export const UpdateButton = (props: Props) => {
               label={'名称'}
               field={'name'}
               component={Input}
+              width={'100%'}
               default={props.bot.name}
             />
             <NewForm.Item
@@ -65,7 +68,7 @@ export const UpdateButton = (props: Props) => {
               component={Select}
               options={LANG_OPTIONS}
               default={props.bot.langId}
-              width={'200px'}
+              width={'100%'}
             />
             <NewForm.Item
               label={'游戏'}
@@ -73,7 +76,7 @@ export const UpdateButton = (props: Props) => {
               component={Select}
               options={GAME_OPTIONS}
               default={props.bot.gameId}
-              width={'200px'}
+              width={'100%'}
             />
             <NewForm.Item
               label={'描述'}
@@ -85,6 +88,7 @@ export const UpdateButton = (props: Props) => {
             <NewForm.Item
               label={'创建时间'}
               field={'createTime'}
+              width={'100%'}
               component={Input}
               disabled
               default={dayjs(props.bot.createTime).format('YYYY-MM-DD HH:mm')}

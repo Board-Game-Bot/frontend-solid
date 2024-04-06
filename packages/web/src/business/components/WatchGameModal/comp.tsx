@@ -1,14 +1,14 @@
 import { buildGame } from '@soku-games/core';
 import { IconButton, Modal, ModalProps } from '@soku-solid/ui';
+import { useSignal } from '@soku-solid/utils';
 import { Tape } from '@/types';
-import { signal } from '@/utils';
 
 interface Props extends ModalProps {
   tape?: Tape;
 }
 
 export const WatchGameModal = (props: Props) => {
-  const controller = signal<any>({});
+  const controller = useSignal<any>({});
   const handleStart = () => {
     const { tape } = props;
     if (!tape) return;
@@ -29,21 +29,21 @@ export const WatchGameModal = (props: Props) => {
       }],
     });
 
-    controller(game?.bundler);
-    controller()?.start?.();
+    controller.s(game?.bundler);
+    controller.v()?.start?.();
   };
 
   let divRef: HTMLElement;
   return (
     <Modal
       {...props}
-      height={500}
+      height={'500px'}
     >
       <div ref={el => divRef = el} class={'w-full h-85% aspect-ratio-video center'} />
       <div class={'flex justify-center gap-4 mt4'}>
-        <IconButton icon={<div class="i-mdi:step-backward w-2em h-2em" />} onClick={() => controller()?.back?.()} />
+        <IconButton icon={<div class="i-mdi:step-backward w-2em h-2em" />} onClick={() => controller.v()?.back?.()} />
         <IconButton icon={<div class="i-mdi:movie-open-play w-2em h-2em" />} onClick={handleStart} />
-        <IconButton icon={<div class="i-mdi:step-forward w-2em h-2em" />} onClick={() => controller()?.next?.()} />
+        <IconButton icon={<div class="i-mdi:step-forward w-2em h-2em" />} onClick={() => controller.v()?.next?.()} />
       </div>
     </Modal>
   );

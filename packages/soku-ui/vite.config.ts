@@ -11,6 +11,11 @@ export default defineConfig({
     dts({ rollupTypes: true }),
     cssInjectedByJsPlugin(),
   ],
+  css: {
+    modules: {
+      localsConvention: 'camelCase',
+    },
+  },
   build: {
     lib: {
       entry: './src/index.ts',
