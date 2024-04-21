@@ -10,7 +10,6 @@ export * from './createEvent';
 export * from './createGame';
 export * from './createSocket';
 export * from './sleep';
-export * from './monoRender';
 export * from './downloadGame';
 export * from './csl';
 

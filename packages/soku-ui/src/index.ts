@@ -1,6 +1,7 @@
 import 'uno.css';
 import 'virtual:uno.css';
 
+export * from './AutoComplete';
 export * from './Empty';
 export * from './Img';
 export * from './Input';
