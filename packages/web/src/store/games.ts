@@ -1,7 +1,8 @@
 import { createEffect, createSignal } from 'solid-js';
-import { GetGamesReq } from './api';
+
 import { Game } from '@/types';
 import { downloadGame, useRequest } from '@/utils';
+import { GetGamesReq } from '@/api';
 
 const games = createSignal<Game[]>([]);
 
