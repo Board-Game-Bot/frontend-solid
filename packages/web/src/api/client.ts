@@ -1,34 +1,62 @@
-import axios, { AxiosInstance } from 'axios';
-import { SuccessResponse } from './types';
-import { TestFooRequest } from './dto';
+import axios, { AxiosResponse } from 'axios';
+import { keysIn } from 'lodash-es';
+import { Alert } from '@soku-solid/ui';
+import { Client } from '@/api/dtos';
+import { jwt } from '@/store';
+import { FrontEndErrorResponse, Response, ResponseResult } from '@/api/types';
 
-export class RequestClient {
-  axiosInstance: AxiosInstance;
-  jwt?: string;
+export const Api = axios.create({
+  baseURL: import.meta.env.VITE_REQ_URL,
+});
 
-  constructor(baseURL: string) {
-    const axiosInstance = axios.create({
-      baseURL,
-    });
-
-    this.axiosInstance = axiosInstance;
-  }
-
-  private req<T, R>(action: string, data: T) {
-    return this.axiosInstance.post(`/${action}`, data, {
+export const client = new Proxy({}, {
+  get(_: unknown, api: string) {
+    return (params: any) => Api.post(`/${api}`, params, {
       headers: {
-        Authorization: `Bearer ${this.jwt}`,
+        Authorization: `Bearer ${jwt[0]()}`,
       },
-    }) as SuccessResponse<R>['Data'];
-  }
+    });
+  },
+}) as Client;
 
-  setJwt(jwt: string) {
-    this.jwt = jwt;
+Api.interceptors.response.use((data: AxiosResponse<Response>) => {
+  console.log('data', data);
+  const response = data.data;
+  switch (response.ResultType) {
+  case ResponseResult.Success: return response.Data;
+  case ResponseResult.AuthorizationError:
+    Alert({
+      children: 'Authorization failed, please re-login again.',
+    });
+    throw response;
+  case ResponseResult.FormatError:
+    Alert({
+      children: `Some parameters have been validated that invalid, please check if params are valid.\n[${keysIn(response.FormatMessage).join(', ')}]`,
+    });
+    throw response;
+  case ResponseResult.BusinessError:
+    Alert({
+      children: response.Message,
+    });
+    throw response;
+  case ResponseResult.InternalError:
+    Alert({
+      children: `There is an internal error, please send the request id: ${response.RequestId} to administrator`,
+    });
+    throw response;
+  default:
+    throw response;
   }
-
-  TestFoo(body: TestFooRequest): SuccessResponse<void> {
-    return this.req('TestFoo', body);
+}, (error?: Response) => {
+  if (!error || error?.ResultType) {
+    return ;
   }
-}
-
-export const client = new RequestClient(import.meta.env.VITE_REQ_URL);
+  Alert({
+    children: 'The network is bad, please refresh and try again after a few seconds.',
+  });
+  const response: FrontEndErrorResponse = {
+    ResultType: ResponseResult.FrontEndError,
+    Error: error,
+  };
+  throw response;
+});

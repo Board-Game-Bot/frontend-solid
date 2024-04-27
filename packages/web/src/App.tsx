@@ -5,9 +5,7 @@ import { Auth } from '@business';
 import { NAV_ITEMS, ROUTES } from './constants';
 import { NavBar } from '@/pages/components';
 
-Object.assign(window, {
-  core,
-});
+Object.assign(window, { core });
 
 export const App = () => {
   const Routes = useRoutes(ROUTES);
