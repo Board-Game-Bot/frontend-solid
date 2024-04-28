@@ -1,8 +1,8 @@
 import { createEffect, createSignal, Show, untrack } from 'solid-js';
 import { HighlightCode, IconButton, Modal } from '@soku-solid/ui';
-import { CodeBotReq } from './requests';
 import { useRequest } from '@/utils';
-import { Bot } from '@/types';
+import { client } from '@/api';
+import { Bot } from '@/api/entity';
 
 interface Props {
   bot: Bot;
@@ -12,13 +12,13 @@ export const CodeButton = (props: Props) => {
   const bot = untrack(() => props.bot);
   const visible = createSignal(false);
 
-  const codeBotReq = useRequest(CodeBotReq);
+  const codeBotReq = useRequest(client.GetBot);
 
   createEffect(
     () => {
       const v = visible[0]();
       if (v && !codeBotReq.data())
-        codeBotReq.run(bot.id);
+        codeBotReq.run({ Id: bot.Id });
     },
   );
 
@@ -26,7 +26,7 @@ export const CodeButton = (props: Props) => {
     <>
       <IconButton icon={<div class="i-mdi:code w-1em h-1em" />} onClick={() => visible[1](true)} />
       <Modal
-        title={`${bot.name} 的代码`}
+        title={`${bot.Name} 的代码`}
         height={'70vh'}
         width={'800px'}
         visible={visible[0]()}
@@ -37,8 +37,8 @@ export const CodeButton = (props: Props) => {
           when={!codeBotReq.loading() && codeBotReq.data()}
           fallback={<h1>加载中...</h1>}
         >
-          <HighlightCode lang={bot.langId}>
-            {codeBotReq.data()?.code}
+          <HighlightCode lang={bot.Lang}>
+            {codeBotReq.data()?.Code}
           </HighlightCode>
         </Show>
       </Modal>

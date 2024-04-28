@@ -1,6 +1,6 @@
 import { capitalize } from 'lodash-es';
 import { ComponentProps } from 'solid-js';
-import { Game } from '@/types';
+import { Game } from '@/api/entity';
 
 interface Props extends ComponentProps<'div'> {
   game: Game;
@@ -18,14 +18,14 @@ export const GameCard = (props: Props) => {
       {...props}>
       <div class={'flex items-center gap-4'}>
         <div class={'text-10 w-fit h-fit'}>
-          {props.game.icon}
+          {props.game.Icon}
         </div>
         <div>
           <div class={'text-2xl'}>
-            {capitalize(props.game.id)}
+            {capitalize(props.game.Id)}
           </div>
           <div class={'text-16px text-#999'}>
-            {props.game.npmPackage}@{props.game.version}
+            {props.game.NpmPackage}@{props.game.Version}
           </div>
         </div>
       </div>

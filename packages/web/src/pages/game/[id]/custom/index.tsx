@@ -12,8 +12,6 @@ import { makeRoomWrapper } from '@/pages/game/[id]/custom/utils';
 import { useHandleEvents } from '@/pages/game/[id]/custom/hooks';
 
 
-// FIXME: 如果游戏结束后还保持继续游戏，则会出现上一个游戏还没销毁的 bug ，需要修复
-
 const CustomMode = () => {
   const [socket, connect, isConnect] = createSocket(import.meta.env.VITE_WS_URL, jwt[0]() ?? '');
   const stage = createSignal(0);
@@ -33,7 +31,7 @@ const CustomMode = () => {
 
   const preRoom = createSignal<PreRoom>(INITIAL_PRE_ROOM);
 
-  const selectedBot = createSignal<string[]>(Array.from({ length: getGame(gameId)?.playerCount ?? 0 }, () => ''));
+  const selectedBot = createSignal<string[]>(Array.from({ length: getGame(gameId)?.PlayerCount ?? 0 }, () => ''));
   const handleChange = (value: string, index: number) => {
     const arr = selectedBot[0]()!;
     arr[index] = value;
@@ -118,7 +116,7 @@ const CustomMode = () => {
                 <div>房间号：{preRoom[0]()!.roomId}</div>
                 <div class={'mt-5 flex items-center gap-3'}>
                   <div>房主：{preRoom[0]()!.ownerId}</div>
-                  <Show when={preRoom[0]()!.ownerId === user[0]()?.id}>
+                  <Show when={preRoom[0]()!.ownerId === user[0]()?.Id}>
                     <Button size={'sm'} variant={'success'} onClick={handleToStart}>开始游戏</Button>
                   </Show>
                 </div>
@@ -136,10 +134,10 @@ const CustomMode = () => {
                     >
                       <div class={cx(
                         'flex gap-3 my-3 items-center rounded-2 border-1 border-solid border-gray/8 shadow-xl px-2 py-3',
-                        preRoom[0]()!.players[index()].playerId === user[0]()?.id && 'justify-between',
+                        preRoom[0]()!.players[index()].playerId === user[0]()?.Id && 'justify-between',
                       )}>
                         <div>{botId ? '[BOT]' : ''}{playerId}</div>
-                        <Show when={preRoom[0]()!.players[index()].playerId === user[0]()?.id}>
+                        <Show when={preRoom[0]()!.players[index()].playerId === user[0]()?.Id}>
                           <Button onClick={() => handleToUnseat(index())} variant={'danger'}>离座</Button>
                         </Show>
                       </div>

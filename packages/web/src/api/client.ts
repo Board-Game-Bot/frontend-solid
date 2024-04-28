@@ -20,7 +20,6 @@ export const client = new Proxy({}, {
 }) as Client;
 
 Api.interceptors.response.use((data: AxiosResponse<Response>) => {
-  console.log('data', data);
   const response = data.data;
   switch (response.ResultType) {
   case ResponseResult.Success: return response.Data;

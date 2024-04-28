@@ -1,19 +1,20 @@
 import { ButtonProps, IconButton, Modal } from '@soku-solid/ui';
 import { createSignal } from 'solid-js';
-import { UploadTapeReq } from './requests';
+import { pick } from 'lodash-es';
 import { useRequest } from '@/utils';
-import { Tape } from '@/types';
+import { Tape } from '@/api/entity';
+import { client } from '@/api';
 
 interface Props extends ButtonProps {
-  record: Omit<Tape, 'id' | 'userId'>;
+  record: Tape;
   onOk?: () => void;
 }
 
 export const UploadButton = (props: Props) => {
   const visible = createSignal(false);
 
-  const uploadTapeReq = useRequest(
-    UploadTapeReq,
+  const createTapeReq = useRequest(
+    client.CreateTape,
     {
       onSuccess: () => {
         visible[1](false);
@@ -27,15 +28,20 @@ export const UploadButton = (props: Props) => {
     <>
       <IconButton
         onClick={() => visible[1](true)}
-        loading={uploadTapeReq.loading()}
+        loading={createTapeReq.loading()}
         icon={<div class="i-mdi:cloud-upload w1em h1em" />}
       />
       <Modal
         title={'确认上传？'}
         visible={visible[0]()}
-        loading={uploadTapeReq.loading()}
+        loading={createTapeReq.loading()}
         onCancel={() => visible[1](false)}
-        onOk={() => uploadTapeReq.run(props.record)}
+        onOk={() => {
+          console.log('re', props.record);
+          const filteredRecord = pick(props.record, ['GameId', 'Json']);
+          filteredRecord.Json = JSON.stringify(filteredRecord.Json);
+          createTapeReq.run(filteredRecord);
+        }}
       >
         上传后，你的录像带将会在网络上共享。
       </Modal>

@@ -21,7 +21,7 @@ export const RoomComp = (props: Props) => {
     });
   };
   const isMe = (id: string) => {
-    return user[0]()?.id === id;
+    return user[0]()?.Id === id;
   };
 
   createEffect(() => {
@@ -30,7 +30,7 @@ export const RoomComp = (props: Props) => {
     const s = props.socket;
 
     s.on('make-room', () => {
-      setPrepare(Array.from({ length: getGame(gameId)?.playerCount ?? 0 }, () => false));
+      setPrepare(Array.from({ length: getGame(gameId)?.PlayerCount ?? 0 }, () => false));
     });
     s.on('prepare', (data: PrepareRes) => {
       setPrepare(data.prepareStatus);

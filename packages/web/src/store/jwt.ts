@@ -1,18 +1,18 @@
-import { createLocalStorageSignal, useRequest } from '@/utils';
-import { LoadProfileReq } from '@/requests';
+import { createEffect } from 'solid-js';
+import { createLocalStorageSignal } from '@/utils';
 import { user } from '@/store';
+import { client } from '@/api';
 
 const jwt = createLocalStorageSignal<string>('jwt', '');
 
-useRequest(
-  LoadProfileReq,
-  {
-    auto: true,
-    onSuccess: (data) => {
-      user[1](data);
-    },
-  },
-);
+createEffect(async () => {
+  const Jwt = jwt[0]();
+  if (!Jwt) {
+    return ;
+  }
+  const data = await client.GetUser();
+  user[1](data);
+});
 
 export {
   jwt,

@@ -1,40 +1,40 @@
 import { createEffect, createSignal, on } from 'solid-js';
 import { Column, Layout, RadioGroup, Table } from '@soku-solid/ui';
-import { ColumnType } from './types';
-import { GetRatesReq } from './requests';
 import { useRequest } from '@/utils';
 import { GAMES } from '@/constants';
+import { client } from '@/api';
+import { Rate } from '@/api/entity';
 
 const RatePage = () => {
-  const columns: Column<ColumnType>[] = [
-    { width: '75px', title: '排名', render: (_, i) => {
+  const columns: Column<Rate>[] = [
+    { index: 'Rank', width: '75px', title: '排名', render: (_, i) => {
       return i + 1;
     } },
-    { width: '120px', title: '用户', index: 'userId' },
-    { width: '240px', title: '使用代码', index: 'botId', render: (bot) => bot.botId || '亲自出马' },
-    { width: '75px', title: '分数', index: 'score' },
+    { width: '120px', title: '用户', index: 'UserId' },
+    { width: '240px', title: '使用代码', index: 'BotId', render: (bot) => bot.BotId || '亲自出马' },
+    { width: '75px', title: '分数', index: 'Score' },
   ];
 
   const game = createSignal('snake');
 
-  const getRatesReq = useRequest(
-    GetRatesReq,
+  const listRatesReq = useRequest(
+    client.ListRates,
     {
       auto: true,
       params: [{
-        gameId: game[0]()!,
-        pageIndex: 0,
-        pageSize: 10,
+        Filter: {
+          GameIds: [game[0]()!],
+        },
       }],
     },
   );
 
   createEffect(on(
     game[0],
-    (v) => getRatesReq.run({
-      gameId: v!,
-      pageIndex: 0,
-      pageSize: 10,
+    (v) => listRatesReq.run({
+      Filter: {
+        GameIds: [v],
+      },
     }),
   ));
 
@@ -49,7 +49,7 @@ const RatePage = () => {
       </div>
       <Table
         columns={columns}
-        data={getRatesReq.data()?.rates ?? []}
+        data={listRatesReq.data()?.Items ?? []}
       />
     </Layout>
   );

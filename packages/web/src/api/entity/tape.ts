@@ -5,5 +5,5 @@ export interface Tape {
   GameId: string;
   Json: string;
   UserId: string;
-  CreateTime: Date;
+  CreateTime: string;
 }

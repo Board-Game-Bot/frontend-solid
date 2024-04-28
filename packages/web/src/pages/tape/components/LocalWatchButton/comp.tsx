@@ -1,7 +1,7 @@
 import { WatchGameModal } from '@business';
 import { ButtonProps, IconButton } from '@soku-solid/ui';
 import { createSignal } from 'solid-js';
-import { Tape } from '@/types';
+import { Tape } from '@/api/entity';
 
 interface Props extends ButtonProps {
   tape: Tape;

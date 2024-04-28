@@ -1,8 +1,8 @@
 import { createEffect, createSignal } from 'solid-js';
 
-import { Game } from '@/types';
 import { downloadGame, useRequest } from '@/utils';
-import { GetGamesReq } from '@/api';
+import { client } from '@/api';
+import { Game } from '@/api/entity';
 
 const games = createSignal<Game[]>([]);
 
@@ -11,21 +11,21 @@ export {
 };
 
 useRequest(
-  GetGamesReq,
+  client.ListGames,
   {
     auto: true,
-    onSuccess: ({ games: g }) => {
-      games[1](g);
+    onSuccess: ({ Items }) => {
+      games[1](Items);
     },
   },
 );
 
-export const getGame = (id: string) => games[0]()?.find(game => game.id === id);
+export const getGame = (id: string) => games[0]()?.find(game => game.Id === id);
 
 createEffect(() => {
   const _games = games[0]()!;
   _games.forEach(game => {
-    downloadGame(game.npmPackage, game.version, 'core');
-    downloadGame(game.npmPackage, game.version, 'screen');
+    downloadGame(game.NpmPackage, game.Version, 'core');
+    downloadGame(game.NpmPackage, game.Version, 'screen');
   });
 });

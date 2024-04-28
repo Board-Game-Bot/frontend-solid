@@ -1,7 +1,7 @@
 import { IconButton } from '@soku-solid/ui';
 import { Show } from 'solid-js';
-import { CompileBotReq, StopBotReq } from './requests';
-import { Bot, BotStatus } from '@/types';
+import { Bot, BotStatus } from '@/api/entity';
+import { client } from '@/api';
 
 interface Props {
     bot: Bot;
@@ -9,15 +9,15 @@ interface Props {
 }
 
 export const OperateButton = (props: Props) => {
-  const botStatus = () => props.bot.status;
+  const botStatus = () => props.bot.Status;
 
   const handleStart = async () => {
-    await CompileBotReq(props.bot.id);
+    await client.StartBot({ Id: props.bot.Id });
     props.onOperate?.();
   };
 
   const handleStop = async () => {
-    await StopBotReq(props.bot.id);
+    await client.StopBot({ Id: props.bot.Id });
     props.onOperate?.();
   };
 

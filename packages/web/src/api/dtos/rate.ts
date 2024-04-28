@@ -1,5 +1,5 @@
 import { CommonListRequest, CommonListResponse, RequestFn } from '../types';
-import { Rate } from '@/types';
+import { Rate } from '@/api/entity';
 
 export interface ListRatesFilter {
   UserIds?: string[];

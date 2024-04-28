@@ -26,7 +26,7 @@ export const createGame = (
           name: `${gameId}-screen`,
           extra: {
             el: ref.v,
-            couldControl: room()?.players.map(p => p.playerId === user[0]()?.id && !p.botId),
+            couldControl: room()?.players.map(p => p.playerId === user[0]()?.Id && !p.botId),
             emit: (stepStr: string) => {
               socket()?.emit('game-step', stepStr);
             },
