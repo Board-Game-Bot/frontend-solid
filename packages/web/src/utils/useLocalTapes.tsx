@@ -1,5 +1,5 @@
 import { createLocalStorageSignal } from './createLocalStorageSignal';
-import { Tape } from '@/types';
+import { Tape } from '@/api/entity';
 
 const tapes = createLocalStorageSignal<Tape[]>('records', []);
 

@@ -1,7 +1,7 @@
 import { buildGame } from '@soku-games/core';
 import { IconButton, Modal, ModalProps } from '@soku-solid/ui';
 import { createSignal } from 'solid-js';
-import { Tape } from '@/types';
+import { Tape } from '@/api/entity';
 
 interface Props extends ModalProps {
   tape?: Tape;
@@ -14,9 +14,9 @@ export const WatchGameModal = (props: Props) => {
     if (!tape) return;
 
     const game = buildGame({
-      name: tape.gameId,
+      name: tape.GameId,
       plugins: [{
-        name: `${tape.gameId}-screen`,
+        name: `${tape.GameId}-screen`,
         extra: {
           el: divRef,
           couldControl: [false, false],
@@ -24,7 +24,7 @@ export const WatchGameModal = (props: Props) => {
       }, {
         name: 'the-replayer',
         extra: {
-          tape: tape.json,
+          tape: tape.Json,
         },
       }],
     });

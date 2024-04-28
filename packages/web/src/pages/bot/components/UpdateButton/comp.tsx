@@ -1,10 +1,10 @@
 import dayjs from 'dayjs';
-import { Drawer, IconButton, Input, Message, NewForm, Select, TextArea } from '@soku-solid/ui';
-import { createSignal, Show } from 'solid-js';
-import { UpdateBotDto, UpdateBotReq } from './requests';
+import { Drawer, IconButton, Input, NewForm, TextArea } from '@soku-solid/ui';
+import { createSignal } from 'solid-js';
 import { useRequest } from '@/utils';
-import { Bot } from '@/types';
-import { GAME_OPTIONS, LANG_OPTIONS } from '@/pages/bot/components/CreateButton/constants';
+import { client } from '@/api';
+import { UpdateBotRequest } from '@/api/dtos';
+import { Bot } from '@/api/entity';
 
 interface Props {
   bot: Bot;
@@ -12,18 +12,15 @@ interface Props {
 }
 
 export const UpdateButton = (props: Props) => {
-  const error = createSignal('');
   const visible = createSignal(false);
+  const [bot, setBot] = createSignal(props.bot);
 
   const updateBotReq = useRequest(
-    UpdateBotReq,
+    client.UpdateBot,
     {
       onSuccess: () => {
         visible[1](false);
         props.onOk?.();
-      },
-      onError: (errorMsg) => {
-        error[1](errorMsg);
       },
     },
   );
@@ -31,14 +28,20 @@ export const UpdateButton = (props: Props) => {
 
   const handleSubmit = () => {
     const values = form.gets();
-    updateBotReq.run(values as UpdateBotDto);
+    updateBotReq.run({ Id: bot().Id, ...values } as UpdateBotRequest);
+  };
+
+  const handleToUpdate = async () => {
+    const bot = await client.GetBot({ Id: props.bot.Id });
+    setBot(bot);
+    visible[1](true);
   };
 
   return (
     <>
-      <IconButton icon={<div class="i-mdi:settings w-1em h-1em" />} onClick={() => visible[1](true)} />
+      <IconButton icon={<div class="i-mdi:settings w-1em h-1em" />} onClick={handleToUpdate} />
       <Drawer
-        title={`修改 ${props.bot.id}`}
+        title={`修改 ${bot().Id}`}
         visible={visible[0]()}
         loading={updateBotReq.loading()}
         onOk={handleSubmit}
@@ -48,67 +51,63 @@ export const UpdateButton = (props: Props) => {
           <NewForm form={form}>
             <NewForm.Item
               label={'ID'}
-              field={'id'}
+              field={'Id'}
               component={Input}
               width={'100%'}
+              value={bot().Id}
+              default={bot().Id}
               disabled
-              default={props.bot.id}
             />
             <NewForm.Item
               label={'名称'}
-              field={'name'}
+              field={'Name'}
               component={Input}
               width={'100%'}
-              default={props.bot.name}
+              value={bot().Name}
+              default={bot().Name}
             />
             <NewForm.Item
               label={'语言'}
-              field={'langId'}
-              component={Select}
-              options={LANG_OPTIONS}
-              default={props.bot.langId}
+              field={'Lang'}
+              component={Input}
+              disabled
+              value={bot().Lang}
+              default={bot().Lang}
               width={'100%'}
             />
             <NewForm.Item
               label={'游戏'}
-              field={'gameId'}
-              component={Select}
-              options={GAME_OPTIONS}
-              default={props.bot.gameId}
+              field={'GameId'}
+              component={Input}
+              disabled
+              value={bot().GameId}
+              default={bot().GameId}
               width={'100%'}
             />
             <NewForm.Item
               label={'描述'}
-              field={'description'}
+              field={'Description'}
               component={TextArea}
-              default={props.bot.description}
+              default={bot().Description}
               width={'100%'}
             />
             <NewForm.Item
               label={'创建时间'}
-              field={'createTime'}
+              field={'CreateTime'}
               width={'100%'}
               component={Input}
               disabled
-              default={dayjs(props.bot.createTime).format('YYYY-MM-DD HH:mm')}
+              value={dayjs(bot().CreateTime).format('YYYY-MM-DD HH:mm')}
             />
             <NewForm.Item
               label={'代码'}
-              field={'code'}
+              field={'Code'}
               component={TextArea}
-              default={props.bot.code}
+              value={bot().Code}
+              default={bot().Code}
               width={'100%'}
             />
           </NewForm>
-          <Show when={error[0]()}>
-            <div class={'mt-8 w-full box-border'}>
-              <Message title={'编译错误'}>
-                <pre class={'w-full break-all text-12px font-400'} style={{ 'white-space': 'pre-wrap' }}>
-                  {error[0]()}
-                </pre>
-              </Message>
-            </div>
-          </Show>
         </div>
       </Drawer>
     </>

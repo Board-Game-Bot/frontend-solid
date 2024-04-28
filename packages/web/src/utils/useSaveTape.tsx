@@ -1,7 +1,7 @@
 import { Accessor } from 'solid-js';
 import dayjs from 'dayjs';
 import { useLocalTapes } from '@/utils';
-import { Tape } from '@/types';
+import { Tape } from '@/api/entity';
 
 export const useSaveTape = (tape: Accessor<any>, gameId: string) => {
   return () => {
@@ -12,6 +12,14 @@ export const useSaveTape = (tape: Accessor<any>, gameId: string) => {
     }
 
     const newTapes = tapes[0]();
-    tapes[1]([...newTapes, { gameId, json: tape(), uploadTime: dayjs().format('YYYY-MM-DD HH:mm') } as Tape]);
+    tapes[1]([...newTapes, {
+      Id: '',
+      Name: '',
+      Description: '',
+      GameId: gameId,
+      Json: tape(),
+      UserId: '',
+      CreateTime: dayjs().format('YYYY-MM-DD HH:mm'),
+    } as Tape]);
   };
 };

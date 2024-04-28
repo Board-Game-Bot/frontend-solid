@@ -1,7 +1,7 @@
 import { IconButton, Modal } from '@soku-solid/ui';
 import { createSignal } from 'solid-js';
 import { useLocalTapes } from '@/utils';
-import { Tape } from '@/types';
+import { Tape } from '@/api/entity';
 
 interface Props {
   tape: Tape;

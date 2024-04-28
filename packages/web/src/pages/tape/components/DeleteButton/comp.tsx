@@ -1,7 +1,7 @@
 import { ButtonProps, IconButton, Modal } from '@soku-solid/ui';
 import { createSignal } from 'solid-js';
-import { DeleteTapeReq } from './requests';
 import { useRequest } from '@/utils';
+import { client } from '@/api';
 
 interface Props extends ButtonProps {
   id: string;
@@ -11,7 +11,7 @@ interface Props extends ButtonProps {
 export const DeleteButton = (props: Props) => {
   const visible = createSignal(false);
 
-  const deleteTapeReq = useRequest(DeleteTapeReq, {
+  const deleteTapeReq = useRequest(client.DeleteTape, {
     onSuccess: () => {
       visible[1](false);
       props.onOk?.();
@@ -19,7 +19,7 @@ export const DeleteButton = (props: Props) => {
   });
 
   const handleOk = () => {
-    deleteTapeReq.run({ tapeId: props.id });
+    deleteTapeReq.run({ Id: props.id });
   };
 
   return (

@@ -1,9 +1,9 @@
 import { useNavigate } from '@solidjs/router';
 import { Alert, Button, Input, NewForm } from '@soku-solid/ui';
-import { LoginReq } from './requests';
-import { LoginDto } from './types';
 import { useRequest } from '@/utils';
-import { user, jwt } from '@/store';
+import { jwt } from '@/store';
+import { client } from '@/api';
+import { LoginAccountRequest } from '@/api/dtos';
 
 interface Props {
   onRegister: () => void
@@ -12,33 +12,32 @@ interface Props {
 export const LoginForm = (props: Props) => {
   const navigate = useNavigate();
   const [form] = NewForm.useForm();
-  const loginReq = useRequest(LoginReq, {
-    onSuccess: ({ user: u, jwt: j }) => {
+  const loginReq = useRequest(client.LoginAccount, {
+    onSuccess: ({ Jwt }) => {
       Alert({
         children: '登陆成功',
       });
-      user[1](u);
-      jwt[1](j);
+      jwt[1](Jwt);
       navigate('/');
     },
   });
   const handleSubmit = () => {
     const data = form.gets();
-    loginReq.run(data as LoginDto);
+    loginReq.run(data as LoginAccountRequest);
   };
 
   return (
     <>
       <NewForm form={form}>
         <NewForm.Item
-          field={'id'}
+          field={'Id'}
           label={'用户 ID'}
           component={Input}
           placeholder={'请输入 ID'}
           width={'100%'}
         />
         <NewForm.Item
-          field={'passwd'}
+          field={'Password'}
           label={'密码'}
           component={Input}
           type={'password'}

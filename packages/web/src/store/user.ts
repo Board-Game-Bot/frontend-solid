@@ -1,10 +1,5 @@
 import { createSignal } from 'solid-js';
-
-interface User {
-  id: string;
-  name: string;
-  avatar: string;
-}
+import { User } from '@/api/entity';
 
 const user = createSignal<User>();
 

@@ -1,8 +1,8 @@
-import { Drawer, DrawerProps, Input, Message, NewForm, Select, TextArea } from '@soku-solid/ui';
-import { createSignal, Show } from 'solid-js';
+import { Drawer, DrawerProps, Input, NewForm, Select, TextArea } from '@soku-solid/ui';
+import { createSignal } from 'solid-js';
 import { GAME_OPTIONS, LANG_OPTIONS } from '../../constants';
-import { CreateBotReq } from '../../requests';
 import { useRequest } from '@/utils';
+import { client } from '@/api';
 
 interface Props extends DrawerProps {
 }
@@ -11,17 +11,12 @@ export const CreateBotDrawer = (props: Props) => {
   const [form] = NewForm.useForm();
   const visible = createSignal(false);
 
-  const error = createSignal('');
-
   const createBotReq = useRequest(
-    CreateBotReq,
+    client.CreateBot,
     {
       onSuccess: () => {
         visible[1](false);
         props.onOk?.();
-      },
-      onError: (err) => {
-        error[1](err);
       },
     },
   );
@@ -42,47 +37,38 @@ export const CreateBotDrawer = (props: Props) => {
         <NewForm form={form}>
           <NewForm.Item
             label={'名称'}
-            field={'name'}
+            field={'Name'}
             component={Input}
             width={'100%'}
             placeholder={'请输入此代码的名称'}
           />
           <NewForm.Item
             label={'语言'}
-            field={'langId'}
+            field={'Lang'}
             component={Select}
             options={LANG_OPTIONS}
             width={'200px'}
           />
           <NewForm.Item
             label={'游戏'}
-            field={'gameId'}
+            field={'GameId'}
             component={Select}
             options={GAME_OPTIONS}
             width={'200px'}
           />
           <NewForm.Item
             label={'描述'}
-            field={'description'}
+            field={'Description'}
             component={TextArea}
             width={'100%'}
           />
           <NewForm.Item
             label={'代码'}
-            field={'code'}
+            field={'Code'}
             component={TextArea}
             width={'100%'}
           />
         </NewForm>
-        <Show when={error[0]()}>
-          <div class={'mt-8 w-full box-border'}>
-            <Message title={'编译错误'}>
-              <pre class={'w-full break-all text-12px font-400'} style={{ 'white-space': 'pre-wrap' }}>
-                {error[0]()}
-              </pre>
-            </Message>
-          </div>
-        </Show>
       </div>
     </Drawer>
   );

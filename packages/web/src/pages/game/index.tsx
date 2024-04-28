@@ -3,10 +3,11 @@ import { useNavigate } from '@solidjs/router';
 import { Layout, List } from '@soku-solid/ui';
 import { SolidMarkdown } from 'solid-markdown';
 import { GameCard, ModeCard } from './components';
-import { Game } from '@/types';
 import { games } from '@/store';
 import { MODE } from '@/pages/game/constants';
 import { ModeType } from '@/pages/game/types';
+import { Game } from '@/api/entity';
+import { client } from '@/api';
 
 const GamePage = () => {
   const navigate = useNavigate();
@@ -15,12 +16,8 @@ const GamePage = () => {
 
   const currentDescription = createSignal('');
 
-  const handleHoverGame = (game: Game) => {
-    currentDescription[1](game.description);
-  };
-
   const selectedGame = createSignal<Game>();
-  const handleSelectGame = (game: Game) => {
+  const handleSelectGame = async (game: Game) => {
     if (game === selectedGame[0]()) {
       stage[1](0);
       selectedGame[1]();
@@ -28,11 +25,13 @@ const GamePage = () => {
     else {
       stage[1](1);
       selectedGame[1](game);
+      const { Description = '' } = await client.GetGame({ Id: game.Id });
+      currentDescription[1](Description);
     }
   };
 
   const handleSelect = (mode: ModeType) => {
-    navigate(`/game/${selectedGame[0]()!.id}/${mode.key}`);
+    navigate(`/game/${selectedGame[0]()!.Id}/${mode.key}`);
   };
 
   return (
@@ -48,7 +47,6 @@ const GamePage = () => {
               <GameCard
                 selected={selectedGame[0]() === game}
                 game={game}
-                onMouseEnter={() => handleHoverGame(game)}
                 onClick={() => handleSelectGame(game)}
               />
             );
@@ -61,7 +59,6 @@ const GamePage = () => {
             renderer={(mode) => 
               <ModeCard
                 onClick={() => handleSelect(mode)}
-                onMouseEnter={() => currentDescription[1](mode.label)}
                 mode={mode}
               />
             }

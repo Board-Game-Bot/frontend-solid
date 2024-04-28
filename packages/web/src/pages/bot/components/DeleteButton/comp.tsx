@@ -1,7 +1,7 @@
 import { IconButton, Modal } from '@soku-solid/ui';
 import { createSignal } from 'solid-js';
-import { DeleteBotReq } from './requests';
 import { useRequest } from '@/utils';
+import { client } from '@/api';
 
 interface Props {
   id: string;
@@ -11,7 +11,7 @@ interface Props {
 export const DeleteButton = (props: Props) => {
   const visible = createSignal(false);
   const deleteBotReq = useRequest(
-    DeleteBotReq,
+    client.DeleteBot,
     {
       onSuccess: () => {
         visible[1](false);
@@ -27,7 +27,7 @@ export const DeleteButton = (props: Props) => {
         title={`确认删除${props.id}?`}
         visible={visible[0]()}
         loading={deleteBotReq.loading()}
-        onOk={() => deleteBotReq.run(props.id)}
+        onOk={() => deleteBotReq.run({ Id: props.id })}
         onCancel={() => visible[1](false)}
       >
        删除后，记录无法找回，请谨慎操作。

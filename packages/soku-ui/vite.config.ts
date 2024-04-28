@@ -18,14 +18,14 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: './src/index.ts',
+      entry: './index.ts',
       name: 'index',
       formats: ['es'],
     },
     outDir: './dist',
     minify: false,
     rollupOptions: {
-      input: './src/index.ts',
+      input: './index.ts',
       output: {
         format: 'esm',
         entryFileNames: 'index.esm.js',
