@@ -1,20 +1,20 @@
-import { ModeType } from './types';
+import { GameMode, ModeType } from './types';
 
 export const MODE: ModeType[] = [
   {
-    label: '单人模式',
-    key: 'single',
+    label: 'Single Mode',
+    key: GameMode.Single,
   },
   {
-    label: '多人模式',
-    key: 'multi',
+    label: 'Match Mode',
+    key: GameMode.Match,
   },
   {
-    label: '自由模式',
-    key: 'custom',
+    label: 'Custom Mode',
+    key: GameMode.Custom,
   },
   {
-    label: '直播模式',
-    key: 'live',
+    label: 'Live Mode',
+    key: GameMode.Live,
   },
 ];
