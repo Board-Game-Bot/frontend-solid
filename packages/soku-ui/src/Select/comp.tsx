@@ -49,9 +49,8 @@ export const Select = (props: Props) => {
       <input class={'hidden'} value={currentValue()} />
       <div class={'relative'} style={{ width: props.width }}>
         <Button
-          class={cx('overflow-visible font-normal w-full')}
+          class={cx('overflow-visible font-normal w-full', props.class)}
           variant={'blank'}
-          size={props.size ?? 'md'}
           onClick={() => visible[1](true)}
         >
           {options()[currentValue()!]}
@@ -69,7 +68,7 @@ export const Select = (props: Props) => {
               {([value, label]) =>
                 <div
                   class={cx(
-                    'w-full h-full text-black box-border p-2 px-5 text-16px cursor-pointer rounded-2 hover:bg-#eee',
+                    'w-full h-full text-black box-border p-2 px-5 cursor-pointer rounded-2 hover:bg-#eee',
                     'font-normal',
                   )}
                   onClick={() => handleClick(value)}
