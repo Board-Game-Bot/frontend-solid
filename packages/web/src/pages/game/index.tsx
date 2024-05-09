@@ -16,28 +16,28 @@ const GamePage = () => {
 
   const currentDescription = createSignal('');
 
-  const selectedGame = createSignal<Game>();
+  const [selectedGame, setSelectedGame] = createSignal<Game>();
   const handleSelectGame = async (game: Game) => {
-    if (game === selectedGame[0]()) {
+    if (game === selectedGame()) {
       stage[1](0);
-      selectedGame[1]();
+      setSelectedGame();
     }
     else {
       stage[1](1);
-      selectedGame[1](game);
+      setSelectedGame(game);
       const { Description = '' } = await client.GetGame({ Id: game.Id });
       currentDescription[1](Description);
     }
   };
 
   const handleSelect = (mode: ModeType) => {
-    navigate(`/game/${selectedGame[0]()!.Id}/${mode.key}`);
+    navigate(`/game/${selectedGame()!.Id}/${mode.key}`);
   };
 
   return (
     <Layout>
-      <h1 class={'center text-12'}>选择游戏以及模式</h1>
-      <div class={'flex gap-4'}>
+      <h1 class={'center text-12'}>Please Select a Game You Want to Play.</h1>
+      <div class={'flex gap-4 justify-center'}>
         <List
           class={'bg-#eee p5 flex flex-col gap-3'}
           height={'70vh'}
@@ -45,7 +45,7 @@ const GamePage = () => {
           renderer={(game) => {
             return (
               <GameCard
-                selected={selectedGame[0]() === game}
+                selected={selectedGame() === game}
                 game={game}
                 onClick={() => handleSelectGame(game)}
               />
@@ -64,7 +64,6 @@ const GamePage = () => {
             }
           />
         </Show>
-
         <Show when={currentDescription[0]()}>
           <div class={'h-70vh bg-#eee p5 w-500px overflow-auto'}>
             <SolidMarkdown>
